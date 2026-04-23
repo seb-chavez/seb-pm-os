@@ -1,0 +1,4 @@
+# Ignore all contents — user research/industry reports are sensitive
+*
+!.gitignore
+!README.md
