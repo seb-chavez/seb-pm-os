@@ -1,0 +1,4 @@
+# Ignore all contents — archived project data is sensitive
+*
+!.gitignore
+!README.md

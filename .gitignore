@@ -1,2 +1,9 @@
 .DS_Store
 *.backup.*
+
+# Sensitive data files (CSVs, notebooks may contain proprietary data)
+data/*.csv
+data/*.xlsx
+data/*.ipynb
+data/*.json
+!data/README.md

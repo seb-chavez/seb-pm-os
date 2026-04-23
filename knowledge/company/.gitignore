@@ -1,0 +1,4 @@
+# Ignore all contents — company strategy/positioning is sensitive
+*
+!.gitignore
+!README.md

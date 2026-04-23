@@ -1,0 +1,5 @@
+# Ignore all project contents — project data is sensitive
+*
+!.gitignore
+!README.md
+!_archive/
