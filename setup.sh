@@ -47,6 +47,7 @@ mkdir -p "$CLAUDE_DIR/memory"
 # Symlink each config file
 backup_and_link "$SCRIPT_DIR/claude-config/settings.json" "$CLAUDE_DIR/settings.json"
 backup_and_link "$SCRIPT_DIR/claude-config/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
+backup_and_link "$SCRIPT_DIR/claude-config/statusline-command.sh" "$CLAUDE_DIR/statusline-command.sh"
 backup_and_link "$SCRIPT_DIR/claude-config/memory/doc-formatting.md" "$CLAUDE_DIR/memory/doc-formatting.md"
 
 # Print summary
