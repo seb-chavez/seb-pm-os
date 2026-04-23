@@ -33,6 +33,24 @@ The setup script will:
 
 Running the script again is safe. It skips files that are already linked correctly.
 
+### Granola MCP (Meeting Notes)
+
+The repo includes a `.mcp.json` that configures the [Granola](https://granola.ai) MCP server out of the box. When you open this project in Claude Code, the Granola integration is available automatically.
+
+**Prerequisites:** You need a Granola account with meeting notes. Claude Code will prompt you to authenticate with Granola on first use.
+
+**What it does:** Pulls your meeting notes from Granola and synthesizes them into the knowledge base:
+- Stakeholder context routes to `knowledge/people/`
+- Research findings route to `knowledge/research/`
+- Project decisions route to `projects/[project-name]/notes/`
+
+**How to use:**
+```
+Import my recent Granola meeting notes
+```
+
+See `workflows/import-meeting-notes.md` for the full workflow details.
+
 ## Using Templates
 
 With Claude Code running, ask it to create any supported document type by name:

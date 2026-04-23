@@ -235,7 +235,13 @@
       "mcp__claude_ai_Gmail__gmail_read_message",
       "mcp__claude_ai_Gmail__gmail_read_thread",
       "mcp__claude_ai_Gmail__gmail_list_drafts",
-      "mcp__claude_ai_Gmail__gmail_list_labels"
+      "mcp__claude_ai_Gmail__gmail_list_labels",
+
+      "mcp__granola__query_granola_meetings",
+      "mcp__granola__list_meetings",
+      "mcp__granola__list_meeting_folders",
+      "mcp__granola__get_meetings",
+      "mcp__granola__get_meeting_transcript"
     ],
     "deny": [
       "Bash(sudo:*)",
