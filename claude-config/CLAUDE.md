@@ -90,3 +90,7 @@ If the user asks to "create a document" without specifying a type, ask which for
 | "project brief" | `templates/strategy/project-brief.md` |
 | "status update" or "status report" | `templates/strategy/status-update.md` |
 | "roadmap" | `templates/strategy/roadmap.md` |
+
+## Context Conservation
+
+Prefer delegating research and exploration tasks to sub-agents to preserve main session context. Use the `Task` tool with the appropriate `subagent_type` (`Explore`, `general-purpose`, or `Plan`) instead of doing 5+ read-only tool calls in the main session. See `.claude/skills/delegate-research.md` for the full protocol.
