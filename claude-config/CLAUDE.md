@@ -32,6 +32,47 @@ These tools bypass the Bash parser entirely, so they never trigger syntax heuris
 - **Never use destructive git operations** (`reset --hard`, `push --force`, `branch -D`) without explicit user approval for the specific action.
 - **Don't commit unless the user explicitly asks.**
 
+## Granola Meeting Notes
+
+This project has a Granola MCP integration. When the user asks to import or check meeting notes:
+
+### Step 1: Pull and present
+- Use the Granola MCP tools (`list_meetings`, `get_meetings`) to pull recent meetings
+- Show the user what's available (date, attendees, brief summary)
+- Ask which meeting(s) to import
+
+### Step 2: Synthesize, don't copy
+- **Never store raw transcripts or full meeting dumps.** Extract only the important details:
+  - Key decisions made
+  - Action items (who owes what, by when)
+  - Stakeholder positions, concerns, or sentiment
+  - Context that would be useful in future conversations
+- Keep it concise — this is a knowledge base, not a transcript archive
+
+### Step 3: Route to multiple destinations
+A single meeting often updates several files. For example, a user research sync with Becky Weinstein should:
+- Update `knowledge/research/` with the research findings, insights, or methodology discussed
+- Update `knowledge/people/becky-weinstein.md` with Becky-specific context (her concerns, priorities, what you owe her)
+
+Routing rules:
+| Content type | Destination |
+|-------------|-------------|
+| Person-specific context (opinions, style, action items) | `knowledge/people/firstname-lastname.md` |
+| Research findings, insights, methodology | `knowledge/research/` |
+| Strategy, positioning, org changes | `knowledge/company/` |
+| Project-specific decisions or progress | `projects/[project-name]/notes/YYYY-MM-DD-topic.md` |
+
+### Step 4: Confirm before writing
+- Present the proposed routing: which files will be created/updated and with what content
+- **Always ask the user to confirm**, especially with ambiguous names or multi-destination writes
+
+### Step 5: Write
+- For people files: **append** a new dated `### YYYY-MM-DD - [topic]` entry under `## Meeting notes`. Never overwrite existing entries.
+- For research/company/project files: create or append as appropriate
+- Follow the template structure from `knowledge/people/README.md` for people files
+
+Basic plan limits: 30-day history, no transcript access. Import regularly to persist notes before they age out.
+
 ## Document Templates
 
 When asked to create a document, use the matching template from this repo as the structural blueprint. Read the template file, then fill in every section with real content based on the user's input.
