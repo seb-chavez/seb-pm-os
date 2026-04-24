@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__claude_ai_Excalidraw__*",
+      "mcp__claude_ai_Gmail__*",
+      "mcp__claude_ai_Google_Drive__*",
+      "mcp__claude_ai_Google_Calendar__*"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "granola"
+  ]
+}

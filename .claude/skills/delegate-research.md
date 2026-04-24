@@ -21,7 +21,7 @@ triggers:
 
 ## Why
 
-Without sub-agents, a research task can push context from ~16% to ~25% — nearly 10% of the window gone for one question. With a sub-agent, the same task costs ~0.5%. The sub-agent does all the heavy lifting (web searches, file reads, code exploration) in its own context, and only the summary flows back.
+Delegation saves ~20-50% of research context cost depending on task size. In a benchmark reading 23 files across this repo, direct research consumed 32% of the context window while delegated research consumed 26% — cutting the research portion roughly in half. The savings scale with complexity: more files and tool calls means a bigger gap. The sub-agent does all the heavy lifting (web searches, file reads, code exploration) in its own context, and only the summary flows back.
 
 ## When to delegate
 
