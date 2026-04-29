@@ -1,27 +1,18 @@
 # PM Operating System (seb-pm-os)
 
-A portable toolkit for product management work powered by Claude Code. Clone this repo at any new company, run the setup script, and get a fully configured Claude Code environment with your preferred settings, formatting standards, and document templates.
+A portable toolkit for product management work powered by Claude Code. Clone this repo at any new company, run the setup script, and get a fully configured Claude Code environment with your preferred settings, skills, and document templates.
 
-## What's Inside
+## Prerequisites
 
-**Claude Code Config** (`claude-config/`)
-- `settings.json` - Permissions, sandbox config, and plugin settings
-- `CLAUDE.md` - Global instructions including template auto-reference rules
-- `memory/doc-formatting.md` - Document formatting defaults (fonts, spacing, tables, etc.)
-
-**Document Templates** (`templates/`)
-- `prds/prd.md` - Product Requirements Document
-- `meetings/agenda.md` - Meeting Agenda
-- `meetings/meeting-notes.md` - Meeting Notes
-- `meetings/decision-log.md` - Decision Record
-- `strategy/project-brief.md` - Project/Initiative Brief
-- `strategy/status-update.md` - Stakeholder Status Report
-- `strategy/roadmap.md` - Roadmap Planning Document
+- **Git** — comes with macOS (`xcode-select --install`) or install separately
+- **Node.js** — required to run Claude Code
+- **Claude Code** — install per [Anthropic's docs](https://docs.anthropic.com/en/docs/claude-code)
+- **Granola** (optional) — for meeting note imports, requires a [Granola](https://granola.ai) account
 
 ## Setup
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/seb-chavez/seb-pm-os.git
 cd seb-pm-os
 ./setup.sh
 ```
@@ -31,29 +22,63 @@ The setup script will:
 2. Symlink the config files from this repo into `~/.claude/`
 3. Print a summary of what was linked and backed up
 
-Running the script again is safe. It skips files that are already linked correctly.
+Running the script again is safe — it skips files that are already linked correctly.
 
-### Granola MCP (Meeting Notes)
+### What gets symlinked
 
-The repo includes a `.mcp.json` that configures the [Granola](https://granola.ai) MCP server out of the box. When you open this project in Claude Code, the Granola integration is available automatically.
+| Source (`claude-config/`) | Destination (`~/.claude/`) | Purpose |
+|---------------------------|---------------------------|---------|
+| `settings.json` | `settings.json` | Permissions, sandbox config, plugin settings |
+| `CLAUDE.md` | `CLAUDE.md` | Global instructions (templates, workflows, tool preferences) |
+| `statusline-command.sh` | `statusline-command.sh` | Status line config |
+| `memory/doc-formatting.md` | `memory/doc-formatting.md` | Document formatting defaults |
 
-**Prerequisites:** You need a Granola account with meeting notes. Claude Code will prompt you to authenticate with Granola on first use.
+These apply **globally** to all Claude Code sessions on the machine.
 
-**What it does:** Pulls your meeting notes from Granola and synthesizes them into the knowledge base:
-- Stakeholder context routes to `knowledge/people/`
-- Research findings route to `knowledge/research/`
-- Project decisions route to `projects/[project-name]/notes/`
+### What stays project-local
 
-**How to use:**
-```
-Import my recent Granola meeting notes
-```
+Skills (`.claude/skills/`), templates, and the knowledge base only work when Claude Code is running from inside this repo.
 
-See `workflows/import-meeting-notes.md` for the full workflow details.
+## After Setup
 
-## Using Templates
+### Populate the knowledge base
 
-With Claude Code running, ask it to create any supported document type by name:
+The sensitive directories are gitignored and start empty. Build them up as you work, or restore from a backup if you have one:
+
+| Directory | What goes here |
+|-----------|---------------|
+| `knowledge/people/` | Stakeholder dossiers — communication style, priorities, meeting context |
+| `knowledge/company/` | Company strategy, positioning, org structure |
+| `knowledge/research/` | Market research, user insights, industry analysis |
+| `projects/` | Active project folders with dated notes |
+| `data/` | Working data files (CSVs, notebooks) for analysis |
+
+Use `/import-meeting-notes` to start pulling in context from Granola meetings.
+
+### Set up your goals
+
+Create a `GOALS.md` at the repo root with your current quarterly goals. When a quarter ends, rename it to `goals/GOALS-YYYY-QN.md` and start a fresh one.
+
+## Skills
+
+Slash commands available when running Claude Code from this repo:
+
+| Command | Purpose |
+|---------|---------|
+| `/import-meeting-notes` | Pull and synthesize meeting notes from Granola |
+| `/meeting-prep <person or topic>` | Pull context on a person or topic before a meeting |
+| `/weekly-digest` | Summarize activity across projects for the past week |
+| `/status-report` | Draft a cross-project status update from recent notes and goals |
+| `/knowledge-health` | Flag gaps and staleness in the knowledge base |
+| `/review-eng <file>` | Review a document as an engineering lead |
+| `/review-exec <file>` | Review a document as an executive stakeholder |
+| `/review-customer <file>` | Review a document as a customer advocate |
+| `/review-devil <file>` | Review a document as a constructive skeptic |
+| `/job-transition` | Archive and reset the OS when leaving a role |
+
+## Document Templates
+
+Ask Claude Code to create any supported document type by name:
 
 - "Create a PRD for [feature]"
 - "Write meeting notes for [meeting]"
@@ -63,7 +88,31 @@ With Claude Code running, ask it to create any supported document type by name:
 - "Build a roadmap for [team/product]"
 - "Write an agenda for [meeting]"
 
-Claude Code will automatically use the matching template and apply your formatting preferences.
+Templates live in `templates/` and Claude Code automatically applies your formatting preferences from `memory/doc-formatting.md`.
+
+## Granola MCP (Meeting Notes)
+
+The repo includes a `.mcp.json` that configures the [Granola](https://granola.ai) MCP server out of the box. When you open this project in Claude Code, the Granola integration is available automatically.
+
+Claude Code will prompt you to authenticate with Granola on first use. Use `/import-meeting-notes` to pull recent meetings and route the synthesized notes into the knowledge base.
+
+Basic plan limits: 30-day history, no transcript access. Import regularly to persist notes before they age out.
+
+## Directory Structure
+
+| Directory | Purpose | Sensitive? |
+|-----------|---------|------------|
+| `claude-config/` | Global Claude Code config (symlinked to `~/.claude/` via `setup.sh`) | No |
+| `.claude/skills/` | Claude Code slash command skills | No |
+| `templates/` | Document blueprints (PRD, agenda, meeting notes, etc.) | No |
+| `knowledge/people/` | Stakeholder dossiers | Yes (gitignored) |
+| `knowledge/research/` | Market research, user insights, industry analysis | Yes (gitignored) |
+| `knowledge/company/` | Company strategy, positioning, org structure | Yes (gitignored) |
+| `knowledge/public-context/` | Publicly available onboarding materials | No |
+| `projects/` | Active project folders with dated notes | Yes (gitignored) |
+| `projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
+| `goals/` | Archived quarterly goals files | No |
+| `data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
 
 ## Editing Your Config
 
