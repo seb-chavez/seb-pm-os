@@ -16,7 +16,6 @@ A portable PM Operating System — a version-controlled toolkit for product mana
 | `projects/` | Active project folders with dated notes | Yes (gitignored) |
 | `projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
 | `goals/` | Archived quarterly goals files | No |
-| `workflows/` | Process templates for recurring PM activities | No |
 | `data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
 
 ## Naming Conventions
@@ -28,6 +27,6 @@ A portable PM Operating System — a version-controlled toolkit for product mana
 
 ## Key Workflows
 
-- **Import meeting notes**: See `workflows/import-meeting-notes.md`
-- **Job transition**: See `workflows/job-transition.md`
+- **Import meeting notes**: `/import-meeting-notes`
+- **Job transition**: `/job-transition`
 - **Project archival**: Move completed project folders to `projects/_archive/`

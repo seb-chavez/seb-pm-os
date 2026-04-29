@@ -105,6 +105,7 @@ Available slash commands for PM workflows and document reviews:
 | `/review-exec <file>` | Review a document as an executive stakeholder |
 | `/review-customer <file>` | Review a document as a customer advocate |
 | `/review-devil <file>` | Review a document as a constructive skeptic |
+| `/job-transition` | Archive and reset the OS when leaving a role |
 
 ## Context Conservation
 
