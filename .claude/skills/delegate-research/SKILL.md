@@ -1,20 +1,6 @@
 ---
 name: delegate-research
-description: Automatically delegates research, exploration, and information-gathering tasks to sub-agents to preserve main session context. Use when the user asks to look something up, explore a codebase area, search the web, read lengthy docs, or gather information that doesn't require direct action in the main session.
-triggers:
-  - "look up"
-  - "research"
-  - "find out"
-  - "what does X do"
-  - "how does X work"
-  - "explore"
-  - "investigate"
-  - "search for"
-  - "spin up"
-  - "use a sub-agent"
-  - "summarize this"
-  - "read through"
-  - "check the docs"
+description: Use when the user asks to look something up, research a topic, explore a codebase area, search the web, read lengthy docs, or gather information. Triggers on research-oriented requests like "look up", "find out", "how does X work", "explore", "investigate", "search for", "summarize this", "read through", or "check the docs".
 ---
 
 # Delegate Research to Sub-Agents
@@ -80,3 +66,13 @@ When you have 2+ independent research questions, spin up multiple sub-agents in 
 1. **Summarize to the user** — relay the key findings concisely
 2. **Don't re-research** — trust the sub-agent's results. Don't re-read the same files in the main session
 3. **Act on findings** — if the user wants changes based on the research, now proceed with edits in the main session using the summary as context
+
+## Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Vague sub-agent prompt ("look into auth") | Include what to find, where to look, what to return, what not to do |
+| Re-reading the same files after sub-agent returns | Trust the results — the sub-agent already read them |
+| Delegating when you already know the answer | Just answer directly; delegation adds overhead |
+| Running research tasks sequentially | Use parallel sub-agents for independent questions |
+| Forgetting "do not edit any files" in prompt | Always include for read-only research tasks |

@@ -91,6 +91,22 @@ If the user asks to "create a document" without specifying a type, ask which for
 | "status update" or "status report" | `templates/strategy/status-update.md` |
 | "roadmap" | `templates/strategy/roadmap.md` |
 
+## Skills
+
+Available slash commands for PM workflows and document reviews:
+
+| Command | Purpose |
+|---------|---------|
+| `/meeting-prep <person or topic>` | Pull context on a person or topic before a meeting |
+| `/weekly-digest` | Summarize activity across projects for the past week |
+| `/status-report` | Draft a cross-project status update from recent notes and goals |
+| `/knowledge-health` | Flag gaps and staleness in the knowledge base |
+| `/review-eng <file>` | Review a document as an engineering lead |
+| `/review-exec <file>` | Review a document as an executive stakeholder |
+| `/review-customer <file>` | Review a document as a customer advocate |
+| `/review-devil <file>` | Review a document as a constructive skeptic |
+| `/job-transition` | Archive and reset the OS when leaving a role |
+
 ## Context Conservation
 
 Prefer delegating research and exploration tasks to sub-agents to preserve main session context. Use the `Task` tool with the appropriate `subagent_type` (`Explore`, `general-purpose`, or `Plan`) instead of doing 5+ read-only tool calls in the main session. See `.claude/skills/delegate-research.md` for the full protocol.
