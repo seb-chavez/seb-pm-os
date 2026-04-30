@@ -7,3 +7,8 @@ data/*.xlsx
 data/*.ipynb
 data/*.json
 !data/README.md
+
+# Native meeting recorder data
+data/models/
+data/recordings/
+data/transcripts/
