@@ -71,10 +71,15 @@ One-time setup for the native meeting recording pipeline. Checks prerequisites (
 
 5. **Verify with a test recording**
 
-   Run a 5-second test recording via Bash:
+   First, ensure the recordings directory exists via Bash:
 
    ```
    mkdir -p data/recordings
+   ```
+
+   Then run a 5-second test recording via Bash:
+
+   ```
    ffmpeg -f avfoundation -i ":BlackHole 2ch" -ac 1 -ar 16000 -acodec pcm_s16le -t 5 data/recordings/test.wav -y
    ```
 
@@ -84,7 +89,7 @@ One-time setup for the native meeting recording pipeline. Checks prerequisites (
 
    If it fails with a device error, the multi-output device may not be configured correctly. Guide the user to check Audio MIDI Setup.
 
-   Clean up the test file afterward:
+   If the test recording succeeded, clean up the test file via Bash:
 
    ```
    rm -f data/recordings/test.wav

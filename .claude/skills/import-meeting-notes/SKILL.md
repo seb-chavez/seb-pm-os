@@ -22,7 +22,7 @@ This skill supports two meeting data sources. Check both on every invocation.
 | Source | How to check | What you get |
 |--------|-------------|--------------|
 | **Granola MCP** | Call the Granola MCP tool to list recent meetings. If the MCP server is not configured or returns an error, Granola is unavailable. | Meeting summaries with attendees, dates, and AI-generated notes |
-| **Local transcripts** | Use Glob to check for `.txt` files in `data/transcripts/`. | Raw whisper.cpp transcripts from `/start-recording` + `/stop-recording` |
+| **Local transcripts** | Use Glob to check for `.txt` files in `data/transcripts/`. | Raw whisper.cpp transcripts from `/start-recording` + `/stop-recording`. No attendee metadata — present the date/time from the filename and the first 2-3 lines as a preview to help the user identify the meeting. |
 
 **Source priority:**
 1. If both sources have content, show both and let the user pick
