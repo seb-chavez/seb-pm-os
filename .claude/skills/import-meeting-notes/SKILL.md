@@ -52,6 +52,7 @@ This skill supports two meeting data sources. Check both on every invocation.
 5. Propose where to write — a single meeting may produce multiple files (see Routing table above)
 6. Confirm the routing and content with the user before writing anything
 7. **Clean up local source files (if applicable).** If the imported meeting came from a local transcript, ask the user whether to delete the source files (the `.wav` in `data/recordings/` and `.txt` in `data/transcripts/`). Delete if confirmed.
+8. **Suggest action items for TODO.** After importing, scan the synthesized notes for action items — look for patterns like "Action:", "- [ ]", "follow up", "owe", "by [day]", "need to", "should". Display any detected action items and ask: "Want to add any of these to your TODO?" If the user selects items, append them to `TODO.md` (create the file with a `# TODO` header if it doesn't exist). Use the format `- [ ] <description> | due: YYYY-MM-DD` if a date was detected, otherwise `- [ ] <description>`.
 
 ## Output Format
 
@@ -99,3 +100,4 @@ A research sync with Becky Weinstein might produce:
 | Putting all content in one file | A single meeting often routes to 2-3 different knowledge areas |
 | Missing action items or owners | Explicitly capture who owes what by when |
 | Ignoring local transcripts when Granola is available | Always check both sources — the user may have used local recording for a meeting Granola didn't capture |
+| Skipping action item suggestion | Always run step 8 after import — even if no action items are detected, confirm "No action items found in this meeting." |
