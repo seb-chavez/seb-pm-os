@@ -12,6 +12,3 @@ data/*.json
 data/models/
 data/recordings/
 data/transcripts/
-
-# Persistent task list (contains sensitive action items)
-TODO.md
