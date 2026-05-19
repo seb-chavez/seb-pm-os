@@ -12,10 +12,11 @@ A portable PM Operating System — a version-controlled toolkit for product mana
 | `knowledge/people/` | Stakeholder dossiers — communication style, priorities, meeting context | Yes (gitignored) |
 | `knowledge/research/` | Market research, user insights, industry analysis | Yes (gitignored) |
 | `knowledge/company/` | Company strategy, positioning, org structure | Yes (gitignored) |
-| `knowledge/public-context/` | Publicly available onboarding materials for current/next role | No |
+| `knowledge/public-context/` | Publicly available onboarding materials (default-deny; only allowlisted files are tracked) | Yes (gitignored by default) |
 | `projects/` | Active project folders with dated notes | Yes (gitignored) |
 | `projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
-| `goals/` | Archived quarterly goals files | No |
+| `goals/` | Archived quarterly goals files | Yes (gitignored) |
+| `GOALS.md` (root) | Active quarter's goals (copied from `GOALS.template.md`) | Yes (gitignored) |
 | `data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
 
 ## Naming Conventions

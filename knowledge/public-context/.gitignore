@@ -1,0 +1,9 @@
+# Default deny — only explicitly allowlisted public files belong here.
+# To add a new public file: `git add -f <file>` after confirming it contains
+# no confidential information. Anything you don't explicitly allowlist below
+# stays local-only, which is the safe default for a public repo.
+*
+!.gitignore
+!README.md
+!public-mortgage-context.md
+!valon-interview-hub.md

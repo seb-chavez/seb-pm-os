@@ -1,0 +1,4 @@
+# Ignore all contents — archived quarterly goals are sensitive
+*
+!.gitignore
+!README.md

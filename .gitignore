@@ -1,6 +1,9 @@
 .DS_Store
 *.backup.*
 
+# Active quarterly goals — sensitive (see GOALS.template.md for the starter)
+/GOALS.md
+
 # Sensitive data files (CSVs, notebooks may contain proprietary data)
 data/*.csv
 data/*.xlsx

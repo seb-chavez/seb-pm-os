@@ -57,7 +57,7 @@ Use `/import-meeting-notes` to start pulling in context from Granola meetings.
 
 ### Set up your goals
 
-Create a `GOALS.md` at the repo root with your current quarterly goals. When a quarter ends, rename it to `goals/GOALS-YYYY-QN.md` and start a fresh one.
+Copy `GOALS.template.md` to `GOALS.md` at the repo root and fill in your current quarterly goals. `GOALS.md` is gitignored — its contents stay local. When a quarter ends, move it to `goals/GOALS-YYYY-QN.md` (also gitignored) and start a fresh one from the template.
 
 ## Skills
 
@@ -108,10 +108,11 @@ Basic plan limits: 30-day history, no transcript access. Import regularly to per
 | `knowledge/people/` | Stakeholder dossiers | Yes (gitignored) |
 | `knowledge/research/` | Market research, user insights, industry analysis | Yes (gitignored) |
 | `knowledge/company/` | Company strategy, positioning, org structure | Yes (gitignored) |
-| `knowledge/public-context/` | Publicly available onboarding materials | No |
+| `knowledge/public-context/` | Publicly available onboarding materials (default-deny; force-add public files) | Yes (gitignored by default) |
 | `projects/` | Active project folders with dated notes | Yes (gitignored) |
 | `projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
-| `goals/` | Archived quarterly goals files | No |
+| `goals/` | Archived quarterly goals files | Yes (gitignored) |
+| `GOALS.md` (root) | Active quarter's goals — copy from `GOALS.template.md` | Yes (gitignored) |
 | `data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
 
 ## Editing Your Config
