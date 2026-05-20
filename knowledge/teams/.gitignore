@@ -1,0 +1,4 @@
+# Ignore all contents — team strategy, scope, and dependencies are sensitive
+*
+!.gitignore
+!README.md
