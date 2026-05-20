@@ -30,6 +30,24 @@ This skill supports two meeting data sources. Check both on every invocation.
 3. If only local transcripts are available, use local transcripts
 4. If neither has content, tell the user: "No meeting data found. Use Granola or run `/start-recording` before your next meeting."
 
+## Tracking imported meetings
+
+To avoid re-presenting meetings already synced, the skill maintains an import log at `data/imported-meetings.json` (gitignored via `data/*.json`).
+
+**Format:** a JSON object with an `imported` array. Each entry has:
+- `source` — `"granola"` or `"local"`
+- `source_id` — Granola meeting UUID, or the local transcript filename
+- `title` — meeting title (for human readability)
+- `date` — ISO datetime of the meeting
+- `imported_at` — `YYYY-MM-DD` of when it was synced
+- `destinations` — array of file paths the synthesis was written to
+
+**Usage:**
+- **Before presenting meetings**, read this file (if it exists) and cross-reference IDs/filenames against the meetings returned by Granola/local sources.
+- By default, filter already-imported meetings out of the picker. Briefly mention how many were filtered (e.g., "2 already-imported meetings hidden — say so if you want to re-import"). If the user explicitly wants to re-import one, show it.
+- **After a successful import**, append a new entry with the meeting's source, source_id, title, date, `imported_at`, and `destinations`.
+- If the log file doesn't exist yet, create it with `{ "imported": [] }` before appending.
+
 ## Routing
 
 | Content type | Destination |
@@ -41,8 +59,8 @@ This skill supports two meeting data sources. Check both on every invocation.
 
 ## Steps
 
-1. **Check available sources.** Try Granola MCP first (call the Granola tool to list recent meetings). Then check for local transcripts in `data/transcripts/` using Glob. Present all available meetings from both sources to the user, noting which source each came from.
-2. Show the user what's available (date, attendees, summary)
+1. **Check available sources.** Try Granola MCP first (call the Granola tool to list recent meetings). Then check for local transcripts in `data/transcripts/` using Glob. **Load `data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
+2. Show the user what's available (date, attendees, summary), noting which source each came from
 3. User picks which meeting(s) to import
 4. **Synthesize** the meeting — extract only key details, not raw transcripts:
    - Decisions made
@@ -51,7 +69,8 @@ This skill supports two meeting data sources. Check both on every invocation.
    - Useful context for future conversations
 5. Propose where to write — a single meeting may produce multiple files (see Routing table above)
 6. Confirm the routing and content with the user before writing anything
-7. **Clean up local source files (if applicable).** If the imported meeting came from a local transcript, ask the user whether to delete the source files (the `.wav` in `data/recordings/` and `.txt` in `data/transcripts/`). Delete if confirmed.
+7. **Append to the import log.** Add an entry to `data/imported-meetings.json` with the meeting's source, source_id, title, date, today's date as `imported_at`, and the `destinations` list. Create the file with `{"imported": []}` if it doesn't exist yet.
+8. **Clean up local source files (if applicable).** If the imported meeting came from a local transcript, ask the user whether to delete the source files (the `.wav` in `data/recordings/` and `.txt` in `data/transcripts/`). Delete if confirmed.
 
 ## Output Format
 
