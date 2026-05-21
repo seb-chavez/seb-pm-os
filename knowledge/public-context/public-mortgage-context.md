@@ -53,6 +53,51 @@ Rocket Mortgage is both a lender and a servicer of the mortgages it originates (
 
 ---
 
+## Government-Sponsored Enterprises (GSEs): Fannie Mae & Freddie Mac
+
+> Source: [Rocket Mortgage — Fannie Mae vs Freddie Mac](https://www.rocketmortgage.com/learn/fannie-mae-vs-freddie-mac)
+
+Fannie Mae and Freddie Mac are **government-sponsored enterprises (GSEs)** created by Congress and overseen by the Federal Housing Finance Agency (FHFA). They buy conforming mortgages from lenders, package them into **mortgage-backed securities (MBS)**, and sell them on secondary markets. This frees up lender capital to issue new loans and creates a stable national mortgage market.
+
+### Brief history
+
+**Fannie Mae** (Federal National Mortgage Association)
+- 1938: created by Congress to provide steady housing funding; introduced the long-term, fixed-rate mortgage
+- 1954: adopted a private-public structure
+- 1968: privatized as a shareholder-owned company
+- 1970: approved to buy conventional mortgages (in addition to FHA/VA loans)
+- 2008: placed in FHFA conservatorship after the housing collapse (still in place today)
+
+**Freddie Mac** (Federal Home Loan Mortgage Corp.)
+- 1970: created under the Emergency Home Finance Act to expand the secondary mortgage market and compete with Fannie Mae
+- 1989: became a public, shareholder-owned company
+- 2008: placed in FHFA conservatorship after the housing collapse (still in place today)
+
+### Similarities
+
+- Both are GSEs overseen by HUD and the FHFA
+- Both buy conforming, conventional loans (loans meeting FHFA standards)
+- Both guarantee timely P&I payments on the underlying loans in their MBS — this makes secondary mortgage markets more liquid and reduces borrower interest rates
+- Both expand the pool of capital available for housing by attracting investors to secondary mortgage markets
+
+### Key differences
+
+| Dimension | Fannie Mae | Freddie Mac |
+|---|---|---|
+| Founded | 1938 — accessible/affordable housing | 1970 — expand secondary market, reduce bank rate risk |
+| Sources loans from | Larger commercial banks | Community banks, regional banks, credit unions |
+| Affordable loan program | HomeReady® (<80% area median income) | Home Possible® (similar income limits, different underwriting) |
+| Approval guidelines | Differ on credit history, DTI, income evaluation | Differ — rare but possible for a borrower to qualify with one and not the other |
+| Down-payment minimums | Own guidelines | Own guidelines |
+
+### Why this matters for Valon
+
+- Both fall under what Valon refers to as **"GSE loans"** — the platform's first-tier supported loan type. See `knowledge/company/loan-types.md` for Valon's loan-type sequencing.
+- A loan being a conforming Fannie or Freddie loan has implications for servicing requirements (reporting, remittance, default handling), but ValonOS treats them as the same readiness tier.
+- Rhythm Capital (NewRez's parent) gave Valon its first Fannie Mae and first Freddie Mac loans to service — historical context for the NewRez relationship.
+
+---
+
 ## Escrow Accounts
 
 ### Two Types of Escrow
@@ -281,5 +326,6 @@ System correctness requires that the **sum of all credit-normal balances equals 
 | [What is Escrow](https://www.rocketmortgage.com/learn/what-is-escrow)                                                    | Rocket Mortgage | Primer                                | Manually provided and used                           |
 | [Escrow Analysis / Review](https://www.mrcooper.com/help-center/escrow/escrow-analysis-escrow-review)                    | Mr. Cooper      | Escrow analysis details               | Fetched and used                                     |
 | [Accounting for Developers, Part I](https://www.moderntreasury.com/journal/accounting-for-developers-part-i)             | Modern Treasury | Accounting concepts relevant to Valon | Fetched and used                                     |
+| [Fannie Mae vs Freddie Mac](https://www.rocketmortgage.com/learn/fannie-mae-vs-freddie-mac)                              | Rocket Mortgage | GSE comparison                        | Quoted in Granola notes; synthesized 2026-05-21      |
 
 
