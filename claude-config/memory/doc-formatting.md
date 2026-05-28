@@ -1,45 +1,53 @@
 # Document Formatting Defaults
 
-These are the user's preferred formatting defaults for all generated documents (HTML for Google Docs import, etc.).
+These are the user's preferred formatting defaults for all generated documents. The destination is **Notion**, which imports clean Markdown well. Don't generate HTML, font/size hints, or page-margin styling — Notion controls all of that.
 
-## Font
-- **Family:** Arial
-- **Sizes:** Title: 26pt, H1: 20pt, H2: 16pt, H3: 14pt, H4: 12pt, Normal text: 11pt
-- **Colors:** Normal text: #000000, Text on black backgrounds (e.g., table header row): #ffffff
+## Output Format
 
-## Font Styles
-- Title and all headings: **always bold**
-- Normal text: no bold, no italics, no underlines
+- Write plain Markdown. Notion handles styling on import.
+- No HTML wrappers, no inline CSS, no `<style>` blocks, no `@page` rules.
+- No font, size, color, or margin directives. Notion uses its own theme.
 
-## Margins
-- Left and right margins: 1 inch
-- In HTML: use `@page { margin: 1in; }` for margins. Never use body padding or margin for page margins, as it stacks on top of Google Docs' own margins when imported.
+## Headings
 
-## Heading Spacing
-- Keep spacing tight between headings, horizontal rules, and content.
-- In HTML: heading margin-bottom should be 2pt. Heading margin-top: Title 0, H1 12pt, H2 10pt, H3 8pt, H4 6pt.
-
-## Body Text
-- Line spacing: 1.15
-- No space before paragraphs
-- Add space after paragraphs (margin-bottom: 6pt in HTML)
+- Notion supports H1, H2, H3 only. H4+ in Markdown is converted to bold text on import, which breaks navigation and the table of contents — don't use `####` or deeper.
+- The first `# Heading` in the file becomes the page title in Notion. There should be exactly one H1 per file, at the top.
+- Body sections should start at `##`. Subsections use `###`. If you need a fourth level, restructure the content instead.
+- Use bold (`**Label**`) for emphasis within a section, not as a stand-in for a heading.
 
 ## Tables
-- Style: inline
-- Alignment: left
-- Column data type: none
-- Cell vertical alignment: top
-- Cell padding: 0.069 inch (~5px)
-- Table border: #000000, 1pt
-- Cell background: none (transparent/white)
-- Header row: background #000000, font color #ffffff
-- No alternating row colors
+
+- Use standard Markdown table syntax. Notion imports these as "simple tables."
+- Keep column counts reasonable (typically ≤5). Very wide tables are hard to read in Notion's page layout.
+- Don't add blank lines inside table blocks. One blank line before and after the table is enough.
+- Don't try to color cells or rows — Notion's simple tables don't support cell styling on import.
 
 ## Dashes
+
 - Never use em dashes, en dashes, or hyphens as sentence connectors or parenthetical separators.
 - Rewrite the sentence instead: use periods, semicolons, colons, commas, or parentheses.
 - Only use hyphens where a normal person would (e.g., compound words like "top-of-funnel", phone numbers, date ranges with "to").
 
-## Horizontal Rules
-- Never use horizontal rules (`<hr>`) in documents. They cause formatting issues in Google Docs imports.
-- Use heading hierarchy alone to create visual separation between sections.
+## Dividers
+
+- `---` on its own line works in Notion as a divider block. Use sparingly — heading hierarchy usually does the job better.
+
+## Callouts and quotes
+
+- Markdown blockquotes (`> ...`) import as Notion quote blocks. Use them for emphasis or pulled quotes.
+- Notion's callout block (the colored box with an icon) doesn't have a standard Markdown equivalent. If a callout is desired, write a blockquote and the user can convert it to a callout in Notion.
+
+## Code
+
+- Use fenced code blocks with language tags (```` ```python ````). Notion preserves the language and syntax highlighting.
+
+## Lists
+
+- Standard Markdown bullets (`-`) and numbered lists work as expected.
+- Indent nested items with two spaces.
+- Don't mix `-` and `*` bullet markers in the same file.
+
+## Links
+
+- Use inline Markdown links: `[label](url)`. Notion converts these to clickable links.
+- Avoid bare URLs in body text; wrap them in a link with a meaningful label.

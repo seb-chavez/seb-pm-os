@@ -13,7 +13,7 @@
 |            |              |          |            |
 
 
-# Problem
+## Problem
 
 ### What is the problem?
 
@@ -38,7 +38,7 @@
 
 *List explicit areas of this problem we do not plan to address. Explain why they are out of scope.*
 
-# Proposal
+## Proposal
 
 ### How do we intend to solve this problem?
 
@@ -84,7 +84,7 @@
 | Platform Engineering | Payment processing API v2 must be deployed to production        | First Name Last Name |
 
 
-# Plan
+## Plan
 
 ### Timeline
 
