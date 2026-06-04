@@ -2,6 +2,8 @@
 
 *One-line description of the project.*
 
+*Keep this tight. The job of this doc is to let a reader grasp the problem and the plan in under two minutes, then find the requirements fast. State the point, then stop. A healthy PRD is one to two pages before links and appendices. Cut any section that's thin rather than padding it; if something needs depth (research, analysis), link to it instead of pasting it.*
+
 ## Approvals
 
 *List the stakeholders who need to review and sign off on this PRD before work begins.*
@@ -17,15 +19,15 @@
 
 ### What is the problem?
 
-*Describe the problem we are trying to solve for our customer (and/or internal customer) in 1-3 sentences. We should be able to read this alone and communicate the value and risks to someone else. Add additional context to the summary by adding screenshots, charts, data, or links to any relevant source material or research that was previously conducted.*
+*One to three sentences. State who hurts and how. A reader should be able to repeat the problem and its stakes back to someone else after reading just this. No background dump; link to source material, research, charts, or screenshots instead of summarizing them here.*
 
 ### How does this connect to our strategy & priorities?
 
-*Describe the qualitative and quantitative impact solving this problem will have on our strategy and priorities. Why are we working on this now and what would happen if we didn't?*
+*Two sentences max: the priority this serves, and the cost of not doing it now.*
 
 ### What does success look like?
 
-*Describe how we know we were successful. What will we measure? What will our customers and/or internal customers do differently if we do a great job solving the problem?*
+*Fill the metrics table. One sentence of prose at most; the numbers carry the meaning.*
 
 
 | Metric                                   | Current Baseline | Target    | Measurement Method            |
@@ -42,16 +44,16 @@
 
 ### How do we intend to solve this problem?
 
-*Describe how we will solve the problem in one to three sentences. Then share what we expect will happen and why. Summarize what makes this the best option versus the alternatives we considered.*
+*One to three sentences: the approach, and why it beats the alternative we considered. Save the detail for the requirements below.*
 
 ### How will our solution work?
 
-*Include a mock or reference for the design and architecture. These can be formal (Figma links, architecture diagrams) or informal (hand-drawn sketches, whiteboard photos). Document any trade-offs to this approach.*
+*Link the mock or diagram (Figma, architecture sketch, whiteboard photo). Use bullets for the key flows or trade-offs, not prose.*
 
 ### What are the key requirements?
 
 **Functional Requirements**
-*List the specific functional requirements. Each requirement should be testable and unambiguous.*
+*Each row is one testable, unambiguous statement. Keep Notes to a single sentence of acceptance criteria; no rationale paragraphs. If a requirement needs real explanation, it's probably two requirements.*
 
 
 | Priority (P0/P1/P2) | Requirement                        | Notes                                                                                          |
