@@ -2,81 +2,120 @@
 set -euo pipefail
 
 # PM Operating System - Setup Script
-# Symlinks Claude Code config files from this repo into ~/.claude/
+# Usage: ./setup.sh <harness>   where <harness> is one of: claude codex cursor
+# Wires the chosen harness's GLOBAL config dir to this repo (one-time per harness).
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-CLAUDE_DIR="$HOME/.claude"
 DATE=$(date +%Y-%m-%d)
+
+# Skills that are safe to expose on every harness (all current skills).
+PORTABLE_SKILLS=(
+  delegate-research
+  import-meeting-notes
+  job-transition
+  knowledge-health
+  meeting-prep
+  review-customer
+  review-devil
+  review-eng
+  review-exec
+  status-report
+  weekly-digest
+)
 
 backed_up=()
 linked=()
 skipped=()
 
 backup_and_link() {
-    local src="$1"
-    local dest="$2"
-
-    # Create parent directory if needed
-    mkdir -p "$(dirname "$dest")"
-
-    # If destination exists and is already a symlink to our source, skip
-    if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-        skipped+=("$dest (already linked)")
-        return
-    fi
-
-    # If destination exists (file or different symlink), back it up
-    if [ -e "$dest" ] || [ -L "$dest" ]; then
-        local backup="${dest}.backup.${DATE}"
-        mv "$dest" "$backup"
-        backed_up+=("$dest -> $backup")
-    fi
-
-    # Create symlink
-    ln -s "$src" "$dest"
-    linked+=("$dest -> $src")
+  local src="$1"
+  local dest="$2"
+  mkdir -p "$(dirname "$dest")"
+  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+    skipped+=("$dest (already linked)")
+    return
+  fi
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    local backup="${dest}.backup.${DATE}"
+    mv "$dest" "$backup"
+    backed_up+=("$dest -> $backup")
+  fi
+  ln -s "$src" "$dest"
+  linked+=("$dest -> $src")
 }
 
-echo "PM Operating System - Setup"
-echo "==========================="
-echo ""
+link_portable_skills() {
+  local target_dir="$1"
+  mkdir -p "$target_dir"
+  local name
+  for name in "${PORTABLE_SKILLS[@]}"; do
+    backup_and_link "$SCRIPT_DIR/.claude/skills/$name" "$target_dir/$name"
+  done
+}
 
-# Ensure ~/.claude/ and ~/.claude/memory/ exist
-mkdir -p "$CLAUDE_DIR/memory"
+usage() {
+  echo "Usage: ./setup.sh <harness>"
+  echo "Supported harnesses: claude, codex, cursor"
+}
 
-# Symlink each config file
-backup_and_link "$SCRIPT_DIR/claude-config/settings.json" "$CLAUDE_DIR/settings.json"
-backup_and_link "$SCRIPT_DIR/claude-config/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
-backup_and_link "$SCRIPT_DIR/claude-config/statusline-command.sh" "$CLAUDE_DIR/statusline-command.sh"
-backup_and_link "$SCRIPT_DIR/claude-config/memory/doc-formatting.md" "$CLAUDE_DIR/memory/doc-formatting.md"
+setup_claude() {
+  local d="$HOME/.claude"
+  mkdir -p "$d/memory"
+  backup_and_link "$SCRIPT_DIR/AGENTS.md" "$d/AGENTS.md"
+  backup_and_link "$SCRIPT_DIR/harness/claude/CLAUDE.md" "$d/CLAUDE.md"
+  backup_and_link "$SCRIPT_DIR/harness/claude/settings.json" "$d/settings.json"
+  backup_and_link "$SCRIPT_DIR/harness/claude/statusline-command.sh" "$d/statusline-command.sh"
+  backup_and_link "$SCRIPT_DIR/harness/claude/memory/doc-formatting.md" "$d/memory/doc-formatting.md"
+  link_portable_skills "$d/skills"
+}
 
-# Print summary
-echo "Setup complete!"
-echo ""
+setup_codex() {
+  local d="$HOME/.codex"
+  mkdir -p "$d"
+  backup_and_link "$SCRIPT_DIR/AGENTS.md" "$d/AGENTS.md"
+  backup_and_link "$SCRIPT_DIR/harness/codex/config.toml" "$d/config.toml"
+  link_portable_skills "$d/agents/skills"
+}
 
-if [ ${#linked[@]} -gt 0 ]; then
-    echo "Linked:"
-    for item in "${linked[@]}"; do
-        echo "  $item"
-    done
-    echo ""
-fi
+setup_cursor() {
+  local d="$HOME/.cursor"
+  mkdir -p "$d"
+  # Cursor reads MCP from ~/.cursor/mcp.json (same schema as repo .mcp.json).
+  backup_and_link "$SCRIPT_DIR/.mcp.json" "$d/mcp.json"
+  # Project rule lives in-repo; remind the user it is workspace-scoped.
+  echo "Cursor: project rule is at harness/cursor/rules/pm-os.mdc."
+  echo "        Open this repo (or copy harness/cursor/rules/ into your workspace) for it to apply."
+  echo "        For PM context in arbitrary folders, paste the AGENTS.md pointer into Cursor Settings > User Rules once."
+}
 
-if [ ${#backed_up[@]} -gt 0 ]; then
-    echo "Backed up (originals preserved):"
-    for item in "${backed_up[@]}"; do
-        echo "  $item"
-    done
-    echo ""
-fi
+main() {
+  local harness="${1:-}"
+  if [ -z "$harness" ]; then
+    usage
+    exit 1
+  fi
+  echo "PM Operating System - Setup ($harness)"
+  echo "======================================"
+  echo ""
+  case "$harness" in
+    claude) setup_claude ;;
+    codex)  setup_codex ;;
+    cursor) setup_cursor ;;
+    *) echo "Unknown harness: $harness"; echo ""; usage; exit 1 ;;
+  esac
 
-if [ ${#skipped[@]} -gt 0 ]; then
-    echo "Skipped (already correct):"
-    for item in "${skipped[@]}"; do
-        echo "  $item"
-    done
-    echo ""
-fi
+  echo "Setup complete!"
+  echo ""
+  if [ ${#linked[@]} -gt 0 ]; then
+    echo "Linked:"; for i in "${linked[@]}"; do echo "  $i"; done; echo ""
+  fi
+  if [ ${#backed_up[@]} -gt 0 ]; then
+    echo "Backed up (originals preserved):"; for i in "${backed_up[@]}"; do echo "  $i"; done; echo ""
+  fi
+  if [ ${#skipped[@]} -gt 0 ]; then
+    echo "Skipped (already correct):"; for i in "${skipped[@]}"; do echo "  $i"; done; echo ""
+  fi
+  echo "Config managed from: $SCRIPT_DIR"
+}
 
-echo "Your Claude Code config is now managed from: $SCRIPT_DIR"
-echo "Templates are available at: $SCRIPT_DIR/templates/"
+main "$@"
