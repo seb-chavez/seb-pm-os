@@ -74,7 +74,9 @@ setup_codex() {
   mkdir -p "$d"
   backup_and_link "$SCRIPT_DIR/AGENTS.md" "$d/AGENTS.md"
   backup_and_link "$SCRIPT_DIR/harness/codex/config.toml" "$d/config.toml"
-  link_portable_skills "$d/agents/skills"
+  # Codex discovers skills in ~/.codex/skills/<name>/SKILL.md (alongside its
+  # built-in .system skills). Not ~/.codex/agents/skills — that dir is ignored.
+  link_portable_skills "$d/skills"
 }
 
 setup_cursor() {

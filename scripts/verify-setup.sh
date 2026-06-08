@@ -11,7 +11,7 @@ HOME="$SCRATCH" "$REPO/setup.sh" cursor >/dev/null
 
 # 2. Symlinks resolve into the repo.
 [ "$(readlink "$SCRATCH/.claude/AGENTS.md")" = "$REPO/AGENTS.md" ] || fail "claude AGENTS.md link"
-[ "$(readlink "$SCRATCH/.codex/agents/skills/meeting-prep")" = "$REPO/.claude/skills/meeting-prep" ] || fail "codex skill link"
+[ "$(readlink "$SCRATCH/.codex/skills/meeting-prep")" = "$REPO/.claude/skills/meeting-prep" ] || fail "codex skill link"
 [ "$(readlink "$SCRATCH/.cursor/mcp.json")" = "$REPO/.mcp.json" ] || fail "cursor mcp link"
 
 # 3. Idempotency: re-running reports skips, creates no .backup files.
@@ -22,7 +22,7 @@ if find "$SCRATCH" -name "*.backup.*" | grep -q .; then
 fi
 
 # 4. Drift proof: editing through the codex skill path changes the repo file.
-probe="$SCRATCH/.codex/agents/skills/meeting-prep/SKILL.md"
+probe="$SCRATCH/.codex/skills/meeting-prep/SKILL.md"
 marker="verify-marker-$$"
 printf '\n<!-- %s -->\n' "$marker" >> "$probe"
 grep -q "$marker" "$REPO/.claude/skills/meeting-prep/SKILL.md" || fail "drift: edit did not write through"
