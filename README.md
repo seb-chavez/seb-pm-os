@@ -32,7 +32,7 @@ Because each harness reads its own global dir, all wired harnesses coexist — s
 |---|---|---|---|
 | `AGENTS.md` | `AGENTS.md` | `AGENTS.md` | (via project rule) |
 | `harness/<name>/` overlay | `CLAUDE.md`, `settings.json`, `statusline-command.sh`, `memory/` | `config.toml` | `mcp.json` |
-| `.claude/skills/*` | `skills/` | `agents/skills/` | (playbooks, no symlink) |
+| `.claude/skills/*` | `skills/` | `skills/` | (playbooks, no symlink) |
 | `.mcp.json` | (project auto-discovered) | merged into `config.toml` | `mcp.json` |
 
 Cursor is the lightest-use target: its project rule (`harness/cursor/rules/pm-os.mdc`) applies when you open this repo in Cursor, and global PM context in arbitrary folders needs a one-time manual paste into Cursor Settings → User Rules.
