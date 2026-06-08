@@ -1,12 +1,12 @@
 # PM Operating System (seb-pm-os)
 
-A portable toolkit for product management work powered by Claude Code. Clone this repo at any new company, run the setup script, and get a fully configured Claude Code environment with your preferred settings, skills, and document templates.
+A portable, harness-agnostic toolkit for product management work. Clone this repo at any new company and wire it to whichever AI coding harness you use — Claude Code, Codex, or Cursor — from a single source of truth.
 
 ## Prerequisites
 
 - **Git** — comes with macOS (`xcode-select --install`) or install separately
-- **Node.js** — required to run Claude Code
-- **Claude Code** — install per [Anthropic's docs](https://docs.anthropic.com/en/docs/claude-code)
+- **A supported harness** — Claude Code, Codex CLI, or Cursor (install per that tool's docs)
+- **Node.js** — required by most harness CLIs
 - **Granola** (optional) — for meeting note imports, requires a [Granola](https://granola.ai) account
 
 ## Setup
@@ -14,30 +14,28 @@ A portable toolkit for product management work powered by Claude Code. Clone thi
 ```bash
 git clone https://github.com/seb-chavez/seb-pm-os.git
 cd seb-pm-os
-./setup.sh
+./setup.sh claude    # or: ./setup.sh codex   |   ./setup.sh cursor
 ```
 
-The setup script will:
-1. Back up any existing Claude Code config files (with a `.backup.YYYY-MM-DD` suffix)
-2. Symlink the config files from this repo into `~/.claude/`
-3. Print a summary of what was linked and backed up
+Run it once per harness you use. Each call:
+1. Backs up any existing config for that harness (`.backup.YYYY-MM-DD` suffix)
+2. Symlinks this repo's canonical `AGENTS.md`, skills, and that harness's overlay into the harness's global config dir
+3. Prints a summary of what was linked and backed up
 
-Running the script again is safe — it skips files that are already linked correctly.
+Because each harness reads its own global dir, all wired harnesses coexist — switching is just launching the other tool (`claude` / `codex`), no re-run needed. Re-run `setup.sh` only on a new machine, when adding a new skill, or after changing the portable-skills list.
 
 ### What gets symlinked
 
-| Source (`claude-config/`) | Destination (`~/.claude/`) | Purpose |
-|---------------------------|---------------------------|---------|
-| `settings.json` | `settings.json` | Permissions, sandbox config, plugin settings |
-| `CLAUDE.md` | `CLAUDE.md` | Global instructions (templates, workflows, tool preferences) |
-| `statusline-command.sh` | `statusline-command.sh` | Status line config |
-| `memory/doc-formatting.md` | `memory/doc-formatting.md` | Document formatting defaults |
+`setup.sh <harness>` symlinks into that harness's global dir:
 
-These apply **globally** to all Claude Code sessions on the machine.
+| Source (repo) | Claude Code (`~/.claude/`) | Codex (`~/.codex/`) | Cursor (`~/.cursor/`) |
+|---|---|---|---|
+| `AGENTS.md` | `AGENTS.md` | `AGENTS.md` | (via project rule) |
+| `harness/<name>/` overlay | `CLAUDE.md`, `settings.json`, `statusline-command.sh`, `memory/` | `config.toml` | `mcp.json` |
+| `.claude/skills/*` | `skills/` | `agents/skills/` | (playbooks, no symlink) |
+| `.mcp.json` | (project auto-discovered) | merged into `config.toml` | `mcp.json` |
 
-### What stays project-local
-
-Skills (`.claude/skills/`), templates, and the knowledge base only work when Claude Code is running from inside this repo.
+Cursor is the lightest-use target: its project rule (`harness/cursor/rules/pm-os.mdc`) applies when you open this repo in Cursor, and global PM context in arbitrary folders needs a one-time manual paste into Cursor Settings → User Rules.
 
 ## After Setup
 
@@ -102,8 +100,9 @@ Basic plan limits: 30-day history, no transcript access. Import regularly to per
 
 | Directory | Purpose | Sensitive? |
 |-----------|---------|------------|
-| `claude-config/` | Global Claude Code config (symlinked to `~/.claude/` via `setup.sh`) | No |
-| `.claude/skills/` | Claude Code slash command skills | No |
+| `AGENTS.md` (root) | Canonical, harness-neutral instructions | No |
+| `harness/<name>/` | Per-harness overlays + global payload installed by `setup.sh` | No |
+| `.claude/skills/` | Single source for all skills (symlinked into each harness) | No |
 | `templates/` | Document blueprints (PRD, agenda, meeting notes, etc.) | No |
 | `knowledge/people/` | Stakeholder dossiers | Yes (gitignored) |
 | `knowledge/research/` | Market research, user insights, industry analysis | Yes (gitignored) |
@@ -117,4 +116,4 @@ Basic plan limits: 30-day history, no transcript access. Import regularly to per
 
 ## Editing Your Config
 
-Since the setup script uses symlinks, any changes you make to files in `claude-config/` are immediately reflected in `~/.claude/`, and vice versa. Commit changes back to this repo to keep your config portable.
+Since `setup.sh` uses symlinks, any change you make to `AGENTS.md`, a skill, or a `harness/<name>/` overlay is immediately live in every wired harness — edit once, no re-sync. Commit changes back to this repo to keep your config portable.

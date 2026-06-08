@@ -1,0 +1,6 @@
+# Codex runtime config for seb-pm-os.
+# Installed to ~/.codex/config.toml by `./setup.sh codex`.
+# MCP servers mirror the repo's .mcp.json.
+
+[mcp_servers.granola]
+url = "https://mcp.granola.ai/mcp"

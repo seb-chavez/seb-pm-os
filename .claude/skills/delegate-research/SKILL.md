@@ -31,13 +31,11 @@ Stay in the main session when:
 
 ## How to delegate
 
-Use the `Task` tool with the appropriate `subagent_type`:
+If your harness supports sub-agent delegation, dispatch a sub-agent to do the read-heavy work so only its summary returns to the main context. The mechanism differs by harness:
 
-| Research type | subagent_type | When to use |
-|--------------|---------------|-------------|
-| Codebase exploration | `Explore` | Finding files, understanding architecture, tracing code paths |
-| General research | `general-purpose` | Web searches, doc lookups, multi-step information gathering |
-| Planning/architecture | `Plan` | Designing approaches, evaluating trade-offs |
+- **Claude Code:** dispatch a read-only research sub-agent (an "Explore" agent for codebase exploration, a general-purpose agent for web/doc research, or a planning agent for evaluating approaches).
+- **Other CLI harnesses:** use the harness's equivalent "spawn a sub-task / sub-agent" capability, if present.
+- **No sub-agent support:** do the research inline in the current session — but summarize aggressively as you go instead of letting raw file or page contents pile up in the conversation.
 
 ### Prompt template
 

@@ -1,0 +1,8 @@
+---
+description: PM Operating System canonical instructions
+alwaysApply: true
+---
+
+The canonical, harness-neutral PM instructions for this workspace live in `AGENTS.md` at the repo root. Read and follow `AGENTS.md` for all PM work in this repo: document templates, meeting-note routing, workflow rules, and the skills index.
+
+Skills under `.claude/skills/<name>/SKILL.md` are playbooks. When the user asks to run one (e.g. "run the meeting-prep playbook"), read that skill's `SKILL.md` and follow its steps. Cursor does not expose these as slash-commands.

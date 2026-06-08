@@ -1,34 +1,16 @@
-# Global User Instructions
+# PM Operating System — Canonical Instructions
 
-These rules apply to all projects and sessions.
-
-## Minimize permission prompts
-
-Claude Code has two independent permission gates: (1) the allowlist in `~/.claude/settings.json` and (2) parser-level syntax heuristics that cannot be disabled. The heuristics fire on certain patterns regardless of what's in the allowlist. To keep prompts to a minimum, follow these rules:
-
-### Always prefer dedicated tools over Bash for file/content work
-- Reading files → `Read` tool (never `cat`, `head`, `tail`, `sed`)
-- Listing files/directories → `Glob` tool (never `ls`, `find`)
-- Searching file contents → `Grep` tool (never `grep`, `rg`, `awk`)
-- Editing files → `Edit` / `Write` tools (never `sed -i`, heredocs, `>`)
-
-These tools bypass the Bash parser entirely, so they never trigger syntax heuristics or permission prompts for allowed operations.
-
-### Avoid patterns that trigger syntax heuristics
-- **Chained commands**: `&&`, `||`, `;` — split into separate tool calls when possible
-- **Pipes**: `|` — use the dedicated tool, then process result in next call
-- **Quoted strings in commands**: `echo "---"` — avoid decorative separators
-- **Escaped special chars in paths**: `\(site\)`, `\&`, `\$` — always prompts; use Read/Glob instead
-- **Redirects to subshells**: `$(...)`, `` `...` `` — inherently ambiguous to parser
-
-### When Bash is truly necessary
-- Quote paths with double quotes: `"path/with (parens)/"` instead of `path/with\ \(parens\)/`
-- Prefer single-command invocations over chains
-- For git/gh/package managers, use the fully allowlisted subcommands directly
+Harness-neutral instructions for PM work. Every harness (Claude Code, Codex, Cursor) loads this file. Harness-specific rules live in `harness/<name>/` overlays, not here.
 
 ## Workflow
 
-- **Never push to `main` or `master`** directly. Always use a feature branch + PR.
+How changes to this repo are made:
+
+- **Never push to `main`/`master` directly.** Every change lands via a feature branch + PR.
+- **Use a git worktree for agent-run or multi-commit work; a plain branch for small edits.** `setup.sh` symlinks your live `~/.claude`/`~/.codex`/`~/.cursor` config to absolute paths in the main checkout, so editing those paths on a branch can dangle your live symlinks. A worktree keeps the main checkout (and its symlinks) stable while the work happens in a separate folder.
+- **Commit in small logical steps** locally, then push the branch and open a PR.
+- **CI must be green before merge.** `.github/workflows/ci.yml` runs `scripts/verify-setup.sh` (symlink/idempotency/drift), `shellcheck`, and content invariants on every PR.
+- **After a PR merges, re-run `./setup.sh <harness>` locally** to re-point your symlinks at the updated files. This is the only "deploy" step.
 - **Never use destructive git operations** (`reset --hard`, `push --force`, `branch -D`) without explicit user approval for the specific action.
 - **Don't commit unless the user explicitly asks.**
 
@@ -142,4 +124,21 @@ Available slash commands for PM workflows and document reviews:
 
 ## Context Conservation
 
-Prefer delegating research and exploration tasks to sub-agents to preserve main session context. Use the `Task` tool with the appropriate `subagent_type` (`Explore`, `general-purpose`, or `Plan`) instead of doing 5+ read-only tool calls in the main session. See `.claude/skills/delegate-research.md` for the full protocol.
+When your harness supports sub-agents, prefer delegating research and exploration to a sub-agent to preserve main-session context. Rule of thumb: if a task needs 5+ read-only tool calls just to gather information, delegate it and keep only the summary. If your harness has no sub-agent capability, research inline but summarize aggressively rather than letting raw file dumps accumulate. See the `delegate-research` skill for the full protocol.
+
+## Repo layout & conventions
+
+This OS is a version-controlled toolkit cloned at each company. Key directories:
+
+| Directory | Purpose |
+|-----------|---------|
+| `AGENTS.md` (root) | Canonical, harness-neutral instructions (this file) |
+| `harness/<name>/` | Per-harness overlays + global payload installed by `setup.sh` |
+| `.claude/skills/` | Single source for all skills (symlinked into each harness) |
+| `templates/` | Document blueprints (PRD, agenda, etc.) |
+| `knowledge/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
+| `projects/` | Active project folders with dated notes (gitignored) |
+| `goals/`, `GOALS.md` | Quarterly goals (gitignored) |
+| `data/` | Working data files (gitignored) |
+
+Naming: meeting notes `YYYY-MM-DD-topic.md`; people files `firstname-lastname.md`; archived goals `goals/GOALS-YYYY-QN.md` (active goals stay at root as `GOALS.md`).
