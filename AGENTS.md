@@ -126,6 +126,21 @@ Available slash commands for PM workflows and document reviews:
 
 When your harness supports sub-agents, prefer delegating research and exploration to a sub-agent to preserve main-session context. Rule of thumb: if a task needs 5+ read-only tool calls just to gather information, delegate it and keep only the summary. If your harness has no sub-agent capability, research inline but summarize aggressively rather than letting raw file dumps accumulate. See the `delegate-research` skill for the full protocol.
 
+## Parallel Dispatch & File Isolation
+
+When your harness supports concurrent sub-agents, you can run independent work in parallel to finish faster. The risk is two agents writing the same file and clobbering each other — lost work and merge conflicts. Before dispatching more than one agent, plan file isolation:
+
+1. **Map each task to its write-set** — the exact files and directories it will create, edit, move, or delete. State each write-set explicitly before dispatching. Read-only access does not count toward a write-set.
+2. **Check for overlap.** Two tasks may run in parallel only if their write-sets are disjoint. Overlapping reads are fine; overlapping writes are not.
+3. **Treat structural tasks as global.** Any task that moves, renames, or restructures a directory conflicts with every task that touches files under that path. Run these alone, after the others — never in the same parallel batch.
+4. **Choose the dispatch shape:**
+   - Disjoint write-sets → dispatch together in parallel.
+   - Overlapping write-sets → either sequence them, or give each agent its own isolated workspace (a dedicated git worktree) and reconcile on merge.
+   - Unsure whether they overlap → default to worktree isolation. Do not guess.
+5. **State the plan first.** Before the first dispatch, write out which tasks run in parallel, which are sequenced, and why. This is the artifact to check if something clobbers.
+
+Worktree isolation — one checkout per agent — makes clobbering structurally impossible, at the cost of a merge step afterward. When in doubt, prefer it over reasoning hard about overlap: a cheap merge beats lost work.
+
 ## Repo layout & conventions
 
 This OS is a version-controlled toolkit cloned at each company. Key directories:
