@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ShellCheck shell scripts
+        # warning+ severity: catch real bugs (quoting, portability), skip style nits.
+        run: shellcheck -S warning setup.sh scripts/verify-setup.sh
+
+      - name: Setup verification (symlinks, idempotency, drift)
+        run: ./scripts/verify-setup.sh
+
+      - name: Invariant — no stale claude-config references
+        run: |
+          # Excludes .github (this workflow names the term) and docs/superpowers
+          # (the design spec/plan legitimately discuss the old layout).
+          if grep -rn "claude-config" --exclude-dir=.git --exclude-dir=.github . \
+               | grep -v 'docs/superpowers'; then
+            echo "::error::Found stale claude-config references (canonical layout is harness/<name>/)."
+            exit 1
+          fi
+
+      - name: Invariant — AGENTS.md stays harness-neutral
+        run: |
+          if grep -nE "subagent_type|Minimize permission prompts|parser-level syntax heuristics" AGENTS.md; then
+            echo "::error::AGENTS.md contains harness-specific content; it belongs in a harness/<name>/ overlay."
+            exit 1
+          fi
+
+      - name: Invariant — recording feature stays removed
+        run: |
+          if ls .claude/skills | grep -E '^(setup|start|stop)-recording$'; then
+            echo "::error::Recording skills were removed and must not return."
+            exit 1
+          fi

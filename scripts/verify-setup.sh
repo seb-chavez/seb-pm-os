@@ -17,7 +17,9 @@ HOME="$SCRATCH" "$REPO/setup.sh" cursor >/dev/null
 # 3. Idempotency: re-running reports skips, creates no .backup files.
 out="$(HOME="$SCRATCH" "$REPO/setup.sh" claude)"
 echo "$out" | grep -q "already linked" || fail "claude not idempotent"
-find "$SCRATCH" -name "*.backup.*" | grep -q . && fail "unexpected backup on re-run" || true
+if find "$SCRATCH" -name "*.backup.*" | grep -q .; then
+  fail "unexpected backup on re-run"
+fi
 
 # 4. Drift proof: editing through the codex skill path changes the repo file.
 probe="$SCRATCH/.codex/agents/skills/meeting-prep/SKILL.md"

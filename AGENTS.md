@@ -4,7 +4,13 @@ Harness-neutral instructions for PM work. Every harness (Claude Code, Codex, Cur
 
 ## Workflow
 
-- **Never push to `main` or `master`** directly. Always use a feature branch + PR.
+How changes to this repo are made:
+
+- **Never push to `main`/`master` directly.** Every change lands via a feature branch + PR.
+- **Use a git worktree for agent-run or multi-commit work; a plain branch for small edits.** `setup.sh` symlinks your live `~/.claude`/`~/.codex`/`~/.cursor` config to absolute paths in the main checkout, so editing those paths on a branch can dangle your live symlinks. A worktree keeps the main checkout (and its symlinks) stable while the work happens in a separate folder.
+- **Commit in small logical steps** locally, then push the branch and open a PR.
+- **CI must be green before merge.** `.github/workflows/ci.yml` runs `scripts/verify-setup.sh` (symlink/idempotency/drift), `shellcheck`, and content invariants on every PR.
+- **After a PR merges, re-run `./setup.sh <harness>` locally** to re-point your symlinks at the updated files. This is the only "deploy" step.
 - **Never use destructive git operations** (`reset --hard`, `push --force`, `branch -D`) without explicit user approval for the specific action.
 - **Don't commit unless the user explicitly asks.**
 
