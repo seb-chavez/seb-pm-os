@@ -14,6 +14,29 @@ How changes to this repo are made:
 - **Never use destructive git operations** (`reset --hard`, `push --force`, `branch -D`) without explicit user approval for the specific action.
 - **Don't commit unless the user explicitly asks.**
 
+## Writing & Communication
+
+Default to the brevity a real person would use. The failure mode to avoid is the
+"slop grenade": dropping a long AI-generated block where a human would write a
+line or two. It wastes the reader's time, buries the one sentence that matters,
+and kills dialogue by leaving no room to reply.
+
+- **Match the medium.** Slack, chat, and email replies are short by nature —
+  one to three sentences, then stop. Reserve length for things meant to be long
+  (PRDs, briefs, specs).
+- **Sharpen, don't inflate.** The job is to make the point clearer, not longer.
+  Cut anything that doesn't carry meaning.
+- **Lead with the answer.** Put the conclusion or the ask first; add context
+  only if the reader needs it to act.
+- **Leave room to respond.** A reply should invite pushback, not foreclose it
+  with an exhaustive monologue.
+- **Skip the scaffolding.** No throat-clearing intros, no restating the
+  question, no "let me know if you have questions" filler, no summary of what
+  you just said.
+
+When in doubt, write less. A 90%-there sentence the reader can act on beats a
+complete essay they have to mine. (Spirit: noslopgrenade.com and nohello.net.)
+
 ## Granola Meeting Notes
 
 This project has a Granola MCP integration. When the user asks to import or check meeting notes:
