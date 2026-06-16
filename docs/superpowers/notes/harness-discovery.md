@@ -12,7 +12,7 @@
 |---------|-------------------|-------------|----------|-----------|
 | **Claude Code** | `~/.claude/CLAUDE.md` (symlink active) + `~/.claude/AGENTS.md` (will be added by new `setup.sh`) | `~/.claude/skills/<name>/` | `.mcp.json` at repo root (auto-discovered by Claude Code when inside the repo) | **Empirically verified** |
 | **Codex CLI** | `~/.codex/AGENTS.md` | `~/.codex/agents/skills/<name>/` | `~/.codex/config.toml` (`[mcp_servers.<name>]` tables) | Default — confirm on first use (Codex not installed) |
-| **Cursor** | Project rules: `.cursor/rules/<name>.mdc`; User/global rules: Cursor Settings UI (not file-symlinkable) | No slash-command system; skills are playbooks read on request | `~/.cursor/mcp.json` (same JSON schema as repo `.mcp.json`) | **Partially verified** — `~/.cursor/` exists (Cursor.app is installed), `~/.cursor/mcp.json` does not exist yet (confirms `setup.sh` will create it) |
+| **Cursor** | Project rules: `.cursor/rules/<name>.mdc`; User/global rules: Cursor Settings UI (not file-symlinkable) | `~/.cursor/skills/<name>/` (`cursor-agent` CLI; auto-invoked by `description`, no slash/`$` command) | `~/.cursor/mcp.json` (same JSON schema as repo `.mcp.json`) | **Empirically verified** — `cursor-agent` CLI installed; MCP + skills symlinked by `setup.sh cursor` |
 
 ---
 
@@ -69,13 +69,14 @@ drwxr-xr-x  11 sebastian  staff   352  (exists — Cursor.app is installed)
 Cursor editor (`/Applications/Cursor.app`) is installed. The `~/.cursor/` directory exists with the standard Cursor config layout. Key observations:
 
 - **`~/.cursor/mcp.json` does not exist** — confirms `setup.sh cursor` will create it (not overwrite an existing file).
-- **`~/.cursor/skills/` exists but is empty** — Cursor does not use a skills-dir mechanism like Claude Code or Codex.
-- **`~/.cursor/skills-cursor/` exists** — contains Claude Code superpowers-style skills for use within Cursor (separate from PM OS skills; not relevant here).
+- **`~/.cursor/skills/` is where the `cursor-agent` CLI discovers personal skills** — `<name>/SKILL.md` layout, same as Claude Code. `setup.sh cursor` symlinks the portable PM OS skills here. (Superseded earlier note: the original design assumed Cursor had no skills-dir mechanism; the `cursor-agent` CLI, installed later, does.) Cursor auto-invokes skills from their `description` — there is no slash/`$` command syntax.
+- **`~/.cursor/skills-cursor/` is reserved for Cursor's built-in skills** — managed by Cursor; never write PM OS skills here.
 - **Cursor project MCP is stored at** `~/.cursor/projects/<workspace-id>/mcps/` — this is for built-in Cursor agent MCPs, not the global `~/.cursor/mcp.json` that the user configures.
 - **User/global rules** are stored in Cursor's SQLite app state (`~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`), not a plain file — confirms they are not file-symlinkable. One-time manual paste into Cursor Settings UI is required.
 
 Confirmed paths for `setup.sh cursor`:
 - **Global MCP:** `~/.cursor/mcp.json` (standard Cursor MCP config location, same JSON schema as `.mcp.json`)
+- **Personal skills:** `~/.cursor/skills/<name>/SKILL.md` (`cursor-agent` CLI; same layout as Claude Code, symlinked by `setup.sh`)
 - **Project rules:** `.cursor/rules/<name>.mdc` (in-repo, workspace-scoped)
 - **User/global rules:** Settings UI only — not automatable
 
