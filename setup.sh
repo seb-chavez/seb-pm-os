@@ -84,6 +84,11 @@ setup_cursor() {
   mkdir -p "$d"
   # Cursor reads MCP from ~/.cursor/mcp.json (same schema as repo .mcp.json).
   backup_and_link "$SCRIPT_DIR/.mcp.json" "$d/mcp.json"
+  # Cursor discovers personal skills in ~/.cursor/skills/<name>/SKILL.md (same
+  # <name>/SKILL.md layout the skills already use). It auto-invokes them from
+  # their `description`; there is no slash/$ command syntax. Never use
+  # ~/.cursor/skills-cursor — that dir is reserved for Cursor's built-in skills.
+  link_portable_skills "$d/skills"
   # Project rule lives in-repo; remind the user it is workspace-scoped.
   echo "Cursor: project rule is at harness/cursor/rules/pm-os.mdc."
   echo "        Open this repo (or copy harness/cursor/rules/ into your workspace) for it to apply."
