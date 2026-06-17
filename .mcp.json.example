@@ -3,6 +3,10 @@
     "granola": {
       "type": "http",
       "url": "https://mcp.granola.ai/mcp"
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
     }
   }
 }

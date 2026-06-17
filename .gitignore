@@ -1,13 +1,20 @@
 .DS_Store
 *.backup.*
 
+# Local MCP config (may contain API keys) — copy from .mcp.json.example
+.mcp.json
+
 # Active quarterly goals — sensitive (see GOALS.template.md for the starter)
 /GOALS.md
+
+# Personal weekly priorities tracker
+/PRIORITIES.md
 
 # Sensitive data files (CSVs, notebooks may contain proprietary data)
 data/*.csv
 data/*.xlsx
 data/*.ipynb
 data/*.json
+data/action-items.md
 !data/README.md
 

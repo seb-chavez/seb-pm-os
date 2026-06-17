@@ -24,7 +24,6 @@ Create one file per person: `firstname-lastname.md`
 ### [Date] - [Meeting topic]
 - Key points discussed
 - Their reactions or concerns
-- Action items (especially what you owe them)
 ```
 
 ## Example
@@ -45,11 +44,10 @@ Create one file per person: `firstname-lastname.md`
 ### March 21 - Auth redesign sync
 - Wants mobile prototypes before eng sprint
 - Asked for usability report from last iteration
-- Action: I owe her the report by Friday
 ```
 
 ## Tips
 - Update after every meaningful interaction — even a quick Slack thread
 - Capture tone and sentiment, not just facts
-- Note what you owe people and what they owe you
+- Capture tasks with `/action-items add` — stored in `data/action-items.md`, not in people files
 - The "Recent context" section is the most valuable — keep it current

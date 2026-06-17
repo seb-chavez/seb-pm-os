@@ -53,9 +53,9 @@ To avoid re-presenting meetings already synced, the skill maintains an import lo
 3. User picks which meeting(s) to import
 4. **Synthesize** the meeting — extract only key details, not raw transcripts:
    - Decisions made
-   - Action items (who owes what, by when)
    - Stakeholder positions and sentiment
    - Useful context for future conversations
+   - **Do not extract action items** — capture tasks with `/action-items add`
 5. Propose where to write — a single meeting may produce multiple files (see Routing table above)
 6. Confirm the routing and content with the user before writing anything
 7. **Append to the import log.** Add an entry to `data/imported-meetings.json` with the meeting's source, source_id, title, date, today's date as `imported_at`, and the `destinations` list. Create the file with `{"imported": []}` if it doesn't exist yet.
@@ -68,7 +68,6 @@ Each destination file gets an appended section like:
 ### YYYY-MM-DD - Topic
 - Key point 1
 - Key point 2
-- Action: [owner] owes [what] by [when]
 ```
 
 ## Example
@@ -80,7 +79,6 @@ A research sync with Becky Weinstein might produce:
 ### 2026-04-23 - User research sync
 - Wants to run 5 more interviews before we finalize personas
 - Concerned about sample bias in the enterprise segment
-- Action: I owe her the screener updates by Monday
 ```
 
 **→ `knowledge/research/insights.md`** (appended)
@@ -104,4 +102,4 @@ A research sync with Becky Weinstein might produce:
 | Dumping raw transcript into notes | Synthesize — extract decisions, actions, and context only |
 | Writing files without confirming routing | Always show proposed destinations and content first |
 | Putting all content in one file | A single meeting often routes to 2-3 different knowledge areas |
-| Missing action items or owners | Explicitly capture who owes what by when |
+| Extracting action items into local knowledge files | Use `/action-items add` → `data/action-items.md` instead |

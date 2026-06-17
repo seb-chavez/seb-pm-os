@@ -7,7 +7,7 @@ description: Use when reviewing what happened across projects and the knowledge 
 
 ## Overview
 
-Scans files modified in the past 7 days across projects, knowledge, and goals. Synthesizes a summary of activity, decisions, and outstanding action items.
+Scans files modified in the past 7 days across projects, knowledge, and goals. Synthesizes a summary of activity and decisions. Includes open action items from `data/action-items.md`.
 
 ## When NOT to use
 
@@ -35,8 +35,8 @@ Scans files modified in the past 7 days across projects, knowledge, and goals. S
 (Pulled from meeting notes and project notes)
 
 ### Open Action Items
-- [ ] [action] — owner: [name], due: [date]
-(Pulled from meeting notes across all projects)
+- [ ] [action] — id: ai-NNN, due: [date]
+(From `data/action-items.md` — open section only)
 
 ### Knowledge Base Updates
 - [what was added/changed] in [which knowledge area]
@@ -54,5 +54,5 @@ Scans files modified in the past 7 days across projects, knowledge, and goals. S
 | Mistake | Fix |
 |---------|-----|
 | Including unchanged files in the digest | Only report on files modified in the git log |
-| Missing action items buried in meeting notes | Grep for patterns like "Action:", "owe", "by [day]", "- [ ]" |
+| Missing action items | Read `data/action-items.md` if it exists |
 | Forgetting to offer the save option | Always ask after presenting the digest |

@@ -30,12 +30,12 @@ Because each harness reads its own global dir, all wired harnesses coexist — s
 
 | Source (repo) | Claude Code (`~/.claude/`) | Codex (`~/.codex/`) | Cursor (`~/.cursor/`) |
 |---|---|---|---|
-| `AGENTS.md` | `AGENTS.md` | `AGENTS.md` | (via project rule) |
-| `harness/<name>/` overlay | `CLAUDE.md`, `settings.json`, `statusline-command.sh`, `memory/` | `config.toml` | `mcp.json` |
-| `.claude/skills/*` | `skills/` | `skills/` | (playbooks, no symlink) |
-| `.mcp.json` | (project auto-discovered) | merged into `config.toml` | `mcp.json` |
+| `AGENTS.md` | `AGENTS.md` | `AGENTS.md` | (project `AGENTS.md` when repo is open) |
+| `harness/<name>/` overlay | `CLAUDE.md`, `settings.json`, `statusline-command.sh`, `memory/` | `config.toml` | — |
+| `.claude/skills/*` | `skills/` | `skills/` | `skills/` |
+| `.mcp.json` (from `.mcp.json.example`) | (project auto-discovered) | merged into `config.toml` | `mcp.json` |
 
-Cursor is the lightest-use target: its project rule (`harness/cursor/rules/pm-os.mdc`) applies when you open this repo in Cursor, and global PM context in arbitrary folders needs a one-time manual paste into Cursor Settings → User Rules.
+Cursor and Codex read root `AGENTS.md` in-repo — no separate Cursor project rules file. For PM work outside this repo, add a one-time pointer in that harness's user/global rules (Cursor Settings → User Rules, or `~/.codex/AGENTS.md` via `setup.sh codex`).
 
 ## After Setup
 
@@ -59,20 +59,24 @@ Copy `GOALS.template.md` to `GOALS.md` at the repo root and fill in your current
 
 ## Skills
 
-Slash commands available when running Claude Code from this repo:
+All harnesses share the same playbooks in `.claude/skills/`. Run `./setup.sh <harness>` to symlink them.
 
-| Command | Purpose |
-|---------|---------|
-| `/import-meeting-notes` | Pull and synthesize meeting notes from Granola |
-| `/meeting-prep <person or topic>` | Pull context on a person or topic before a meeting |
-| `/weekly-digest` | Summarize activity across projects for the past week |
-| `/status-report` | Draft a cross-project status update from recent notes and goals |
-| `/knowledge-health` | Flag gaps and staleness in the knowledge base |
-| `/review-eng <file>` | Review a document as an engineering lead |
-| `/review-exec <file>` | Review a document as an executive stakeholder |
-| `/review-customer <file>` | Review a document as a customer advocate |
-| `/review-devil <file>` | Review a document as a constructive skeptic |
-| `/job-transition` | Archive and reset the OS when leaving a role |
+| Skill | Purpose |
+|-------|---------|
+| `action-items` | Capture, list, or complete personal action items |
+| `import-meeting-notes` | Pull and synthesize meeting notes from Granola |
+| `meeting-prep` | Pull context on a person or topic before a meeting |
+| `weekly-digest` | Summarize activity across projects for the past week |
+| `status-report` | Draft a cross-project status update from recent notes and goals |
+| `knowledge-health` | Flag gaps and staleness in the knowledge base |
+| `review-eng` / `review-exec` / `review-customer` / `review-devil` | Review a document from a stakeholder lens |
+| `job-transition` | Archive and reset the OS when leaving a role |
+
+| Harness | How to invoke |
+|---------|---------------|
+| **Claude Code** | `/action-items`, `/meeting-prep dean`, etc. (slash menu after `./setup.sh claude`) |
+| **Cursor** | "add action item", "list my action items", "run meeting-prep for Dean" (after `./setup.sh cursor`) |
+| **Codex** | `$action-items`, `$meeting-prep`, or `/skills` to browse (after `./setup.sh codex`) |
 
 ## Document Templates
 
@@ -88,11 +92,18 @@ Ask Claude Code to create any supported document type by name:
 
 Templates live in `templates/` and Claude Code automatically applies your formatting preferences from `memory/doc-formatting.md`.
 
-## Granola MCP (Meeting Notes)
+## MCP servers
 
-The repo includes a `.mcp.json` that configures the [Granola](https://granola.ai) MCP server out of the box. When you open this project in Claude Code, the Granola integration is available automatically.
+MCP config lives in `.mcp.json` at the repo root (gitignored — may contain API keys). Copy the template and fill in secrets:
 
-Claude Code will prompt you to authenticate with Granola on first use. Use `/import-meeting-notes` to pull recent meetings and route the synthesized notes into the knowledge base.
+```bash
+cp .mcp.json.example .mcp.json
+./setup.sh cursor   # symlinks .mcp.json → ~/.cursor/mcp.json
+```
+
+The example configures [Granola](https://granola.ai) (meeting notes) and Notion. Use the Gestalt CLI or toolshed `gestalt` skills for Slack, Linear, etc. — not MCP (too many tools for agent harnesses). Claude Code auto-discovers `.mcp.json` when this repo is open; Cursor uses the symlink from `setup.sh cursor`.
+
+Authenticate each integration on first use. Use `import-meeting-notes` to pull recent meetings into the knowledge base. Use `action-items` during meetings to capture tasks to `data/action-items.md`.
 
 Basic plan limits: 30-day history, no transcript access. Import regularly to persist notes before they age out.
 

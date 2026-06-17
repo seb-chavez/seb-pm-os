@@ -10,6 +10,7 @@ DATE=$(date +%Y-%m-%d)
 
 # Skills that are safe to expose on every harness (all current skills).
 PORTABLE_SKILLS=(
+  action-items
   delegate-research
   import-meeting-notes
   job-transition
@@ -26,6 +27,20 @@ PORTABLE_SKILLS=(
 backed_up=()
 linked=()
 skipped=()
+
+ensure_mcp_json() {
+  local mcp="$SCRIPT_DIR/.mcp.json"
+  local example="$SCRIPT_DIR/.mcp.json.example"
+  if [ -f "$mcp" ]; then
+    return
+  fi
+  if [ ! -f "$example" ]; then
+    echo "Missing $mcp and $example — cannot configure MCP." >&2
+    exit 1
+  fi
+  cp "$example" "$mcp"
+  echo "Created $mcp from .mcp.json.example — authenticate MCP servers on first use."
+}
 
 backup_and_link() {
   local src="$1"
@@ -82,6 +97,7 @@ setup_codex() {
 setup_cursor() {
   local d="$HOME/.cursor"
   mkdir -p "$d"
+  ensure_mcp_json
   # Cursor reads MCP from ~/.cursor/mcp.json (same schema as repo .mcp.json).
   backup_and_link "$SCRIPT_DIR/.mcp.json" "$d/mcp.json"
   # Cursor discovers personal skills in ~/.cursor/skills/<name>/SKILL.md (same
@@ -89,10 +105,8 @@ setup_cursor() {
   # their `description`; there is no slash/$ command syntax. Never use
   # ~/.cursor/skills-cursor — that dir is reserved for Cursor's built-in skills.
   link_portable_skills "$d/skills"
-  # Project rule lives in-repo; remind the user it is workspace-scoped.
-  echo "Cursor: project rule is at harness/cursor/rules/pm-os.mdc."
-  echo "        Open this repo (or copy harness/cursor/rules/ into your workspace) for it to apply."
-  echo "        For PM context in arbitrary folders, paste the AGENTS.md pointer into Cursor Settings > User Rules once."
+  echo "Cursor: open this repo so AGENTS.md loads as project instructions."
+  echo "        For PM context outside this repo, add a short AGENTS.md pointer in Cursor Settings > User Rules once."
 }
 
 main() {

@@ -1,51 +1,5 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh"
-  },
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "superpowers@superpowers-marketplace": true
-  },
-  "sandbox": {
-    "enabled": true,
-    "autoAllowBashIfSandboxed": true,
-    "allowUnsandboxedCommands": true,
-    "enableWeakerNestedSandbox": true,
-    "excludedCommands": [
-      "git commit *",
-      "git push *",
-      "git pull *",
-      "git fetch *",
-      "git rebase *",
-      "git merge *",
-      "npm *",
-      "npx *",
-      "pnpm *",
-      "pnpx *",
-      "yarn *",
-      "bun *",
-      "bunx *",
-      "gh *",
-      "vercel *",
-      "docker *",
-      "docker compose *",
-      "docker-compose *",
-      "brew *",
-      "curl *",
-      "wget *",
-      "open *",
-      "claude *",
-      "ssh *",
-      "scp *",
-      "rsync *",
-      "pip *",
-      "pip3 *"
-    ]
-  },
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Read",
       "Edit",
@@ -54,7 +8,6 @@
       "NotebookEdit",
       "WebFetch",
       "WebSearch",
-
       "Bash(git add:*)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
@@ -81,7 +34,6 @@
       "Bash(git ls-files:*)",
       "Bash(git describe:*)",
       "Bash(git push:*)",
-
       "Bash(npm:*)",
       "Bash(npx:*)",
       "Bash(node:*)",
@@ -93,7 +45,6 @@
       "Bash(brew:*)",
       "Bash(pip:*)",
       "Bash(pip3:*)",
-
       "Bash(docker:*)",
       "Bash(docker compose:*)",
       "Bash(docker-compose:*)",
@@ -105,7 +56,6 @@
       "Bash(unzip:*)",
       "Bash(gzip:*)",
       "Bash(gunzip:*)",
-
       "Bash(ls:*)",
       "Bash(curl:*)",
       "Bash(python3:*)",
@@ -203,7 +153,6 @@
       "Bash(deno:*)",
       "Bash(vercel:*)",
       "Bash(ffprobe:*)",
-
       "Bash(gh pr view:*)",
       "Bash(gh pr list:*)",
       "Bash(gh pr diff:*)",
@@ -220,7 +169,6 @@
       "Bash(gh workflow list:*)",
       "Bash(gh api:*)",
       "Bash(gh auth status:*)",
-
       "mcp__ide__getDiagnostics",
       "mcp__ide__executeCode",
       "mcp__granola__query_granola_meetings",
@@ -237,6 +185,53 @@
       "Bash(git push --force*)",
       "Bash(git push -f*)",
       "Bash(git reset --hard*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@superpowers-marketplace": true
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": true,
+    "enableWeakerNestedSandbox": true,
+    "excludedCommands": [
+      "git commit *",
+      "git push *",
+      "git pull *",
+      "git fetch *",
+      "git rebase *",
+      "git merge *",
+      "npm *",
+      "npx *",
+      "pnpm *",
+      "pnpx *",
+      "yarn *",
+      "bun *",
+      "bunx *",
+      "gh *",
+      "vercel *",
+      "docker *",
+      "docker compose *",
+      "docker-compose *",
+      "brew *",
+      "curl *",
+      "wget *",
+      "open *",
+      "claude *",
+      "ssh *",
+      "scp *",
+      "rsync *",
+      "pip *",
+      "pip3 *"
     ]
-  }
+  },
+  "effortLevel": "high"
 }
