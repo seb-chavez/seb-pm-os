@@ -21,7 +21,7 @@ Drafts a cross-project status report using the `templates/strategy/status-update
 3. Read `GOALS.md` for current goal progress
 4. Draft a filled-in status report using the template structure:
    - Pull accomplishments from recent project notes (decisions made, milestones hit)
-   - Pull upcoming work from action items and next steps in notes
+   - Pull upcoming work from open items in `data/action-items.md` and next steps in project notes
    - Pull risks/blockers from any flagged issues in notes
    - Pull metrics from `GOALS.md` key results table
 5. Apply formatting defaults from `memory/doc-formatting.md`

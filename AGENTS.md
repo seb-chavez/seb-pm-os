@@ -49,9 +49,9 @@ This project has a Granola MCP integration. When the user asks to import or chec
 ### Step 2: Synthesize, don't copy
 - **Never store raw transcripts or full meeting dumps.** Extract only the important details:
   - Key decisions made
-  - Action items (who owes what, by when)
   - Stakeholder positions, concerns, or sentiment
   - Context that would be useful in future conversations
+- **Do not extract or store action items during meeting imports.** Capture tasks manually with the `action-items` skill during or after meetings.
 - Keep it concise — this is a knowledge base, not a transcript archive
 
 ### Step 3: Route to multiple destinations
@@ -62,7 +62,7 @@ A single meeting often updates several files. For example, a user research sync 
 Routing rules:
 | Content type | Destination |
 |-------------|-------------|
-| Person-specific context (opinions, style, action items) | `knowledge/people/firstname-lastname.md` |
+| Person-specific context (opinions, style, priorities) | `knowledge/people/firstname-lastname.md` |
 | Research findings, insights, methodology | `knowledge/research/` |
 | Strategy, positioning, org changes | `knowledge/company/` |
 | Project-specific decisions or progress | `projects/[project-name]/notes/YYYY-MM-DD-topic.md` |
@@ -77,6 +77,22 @@ Routing rules:
 - Follow the template structure from `knowledge/people/README.md` for people files
 
 Basic plan limits: 30-day history, no transcript access. Import regularly to persist notes before they age out.
+
+## Gestalt (CLI only)
+
+Gestalt is **not** in `.mcp.json`. Valon apps (Slack, Linear, BigQuery, etc.) are accessed via the Gestalt CLI, not MCP — the Gestalt MCP server exposes too many tools for agent harnesses.
+
+**Prerequisites:** `GESTALT_URL=https://valon.tools` and `GESTALT_API_KEY` in the environment (typically `~/.zshrc`). The `gestalt` CLI must be installed (`brew install valon-technologies/gestalt/gestalt` or equivalent).
+
+**When the user needs Valon app data:**
+- Run `gestalt app invoke <app> <operation> …` via Bash, or follow the toolshed `gestalt` / per-app skills if installed.
+- Connect apps at https://valon.tools/apps before first use.
+
+Do not add Gestalt to `.mcp.json`.
+
+## Action Items
+
+Personal action items live in `data/action-items.md` (gitignored). Use the `action-items` skill to capture a task during a meeting, list open items, or mark one complete. Do not write action items to people profiles, project notes, or meeting imports.
 
 ## Document Templates
 
@@ -131,19 +147,28 @@ Full schema and option values: see memory `reference-valon-notion-documents-db`.
 
 ## Skills
 
-Available slash commands for PM workflows and document reviews:
+Playbooks live in `.claude/skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per harness to symlink them into that tool's global skills directory.
 
-| Command | Purpose |
-|---------|---------|
-| `/meeting-prep <person or topic>` | Pull context on a person or topic before a meeting |
-| `/weekly-digest` | Summarize activity across projects for the past week |
-| `/status-report` | Draft a cross-project status update from recent notes and goals |
-| `/knowledge-health` | Flag gaps and staleness in the knowledge base |
-| `/review-eng <file>` | Review a document as an engineering lead |
-| `/review-exec <file>` | Review a document as an executive stakeholder |
-| `/review-customer <file>` | Review a document as a customer advocate |
-| `/review-devil <file>` | Review a document as a constructive skeptic |
-| `/job-transition` | Archive and reset the OS when leaving a role |
+| Skill | Purpose |
+|-------|---------|
+| `action-items` | Capture, list, or complete personal action items (`data/action-items.md`) |
+| `meeting-prep` | Pull context on a person or topic before a meeting |
+| `import-meeting-notes` | Pull and synthesize meeting notes from Granola |
+| `weekly-digest` | Summarize activity across projects for the past week |
+| `status-report` | Draft a cross-project status update from recent notes and goals |
+| `knowledge-health` | Flag gaps and staleness in the knowledge base |
+| `review-eng` / `review-exec` / `review-customer` / `review-devil` | Review a document from a stakeholder lens |
+| `job-transition` | Archive and reset the OS when leaving a role |
+
+**How to invoke (same skill, different UI):**
+
+| Harness | Invocation |
+|---------|------------|
+| Claude Code | Slash commands after `./setup.sh claude` — e.g. `/action-items`, `/meeting-prep dean` |
+| Cursor | Natural language after `./setup.sh cursor` — e.g. "add action item", "run meeting-prep for Dean". No slash menu. |
+| Codex | `$action-items` or `/skills` after `./setup.sh codex` — also implicit via natural language when the task matches the skill `description` |
+
+Cursor and Codex match skills from the YAML `description` field in each `SKILL.md`. Claude Code also exposes them as `/name` commands.
 
 ## Context Conservation
 
