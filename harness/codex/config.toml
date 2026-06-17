@@ -4,3 +4,6 @@
 
 [mcp_servers.granola]
 url = "https://mcp.granola.ai/mcp"
+
+[mcp_servers.notion]
+url = "https://mcp.notion.com/mcp"

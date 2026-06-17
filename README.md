@@ -14,7 +14,7 @@ A portable, harness-agnostic toolkit for product management work. Clone this rep
 ```bash
 git clone https://github.com/seb-chavez/seb-pm-os.git
 cd seb-pm-os
-./setup.sh claude    # or: ./setup.sh codex   |   ./setup.sh cursor
+./setup.sh claude    # or: ./setup.sh codex | ./setup.sh cursor | ./setup.sh all
 ```
 
 Run it once per harness you use. Each call:
@@ -32,7 +32,7 @@ Because each harness reads its own global dir, all wired harnesses coexist — s
 |---|---|---|---|
 | `AGENTS.md` | `AGENTS.md` | `AGENTS.md` | (project `AGENTS.md` when repo is open) |
 | `harness/<name>/` overlay | `CLAUDE.md`, `settings.json`, `statusline-command.sh`, `memory/` | `config.toml` | — |
-| `.claude/skills/*` | `skills/` | `skills/` | `skills/` |
+| `skills/*` | `skills/` | `skills/` | `skills/` |
 | `.mcp.json` (from `.mcp.json.example`) | (project auto-discovered) | merged into `config.toml` | `mcp.json` |
 
 Cursor and Codex read root `AGENTS.md` in-repo — no separate Cursor project rules file. For PM work outside this repo, add a one-time pointer in that harness's user/global rules (Cursor Settings → User Rules, or `~/.codex/AGENTS.md` via `setup.sh codex`).
@@ -59,7 +59,7 @@ Copy `GOALS.template.md` to `GOALS.md` at the repo root and fill in your current
 
 ## Skills
 
-All harnesses share the same playbooks in `.claude/skills/`. Run `./setup.sh <harness>` to symlink them.
+All harnesses share the same playbooks in `skills/`. Run `./setup.sh <harness>` (or `./setup.sh all`) to symlink them.
 
 | Skill | Purpose |
 |-------|---------|
@@ -80,7 +80,7 @@ All harnesses share the same playbooks in `.claude/skills/`. Run `./setup.sh <ha
 
 ## Document Templates
 
-Ask Claude Code to create any supported document type by name:
+Ask your agent to create any supported document type by name:
 
 - "Create a PRD for [feature]"
 - "Write meeting notes for [meeting]"
@@ -90,7 +90,7 @@ Ask Claude Code to create any supported document type by name:
 - "Build a roadmap for [team/product]"
 - "Write an agenda for [meeting]"
 
-Templates live in `templates/` and Claude Code automatically applies your formatting preferences from `memory/doc-formatting.md`.
+Templates live in `templates/`. Apply formatting defaults from `memory/doc-formatting.md`.
 
 ## MCP servers
 
@@ -113,7 +113,8 @@ Basic plan limits: 30-day history, no transcript access. Import regularly to per
 |-----------|---------|------------|
 | `AGENTS.md` (root) | Canonical, harness-neutral instructions | No |
 | `harness/<name>/` | Per-harness overlays + global payload installed by `setup.sh` | No |
-| `.claude/skills/` | Single source for all skills (symlinked into each harness) | No |
+| `skills/` | Single source for all skills (symlinked into each harness) | No |
+| `memory/` | Shared formatting defaults and reference docs | No |
 | `templates/` | Document blueprints (PRD, agenda, meeting notes, etc.) | No |
 | `knowledge/people/` | Stakeholder dossiers | Yes (gitignored) |
 | `knowledge/research/` | Market research, user insights, industry analysis | Yes (gitignored) |

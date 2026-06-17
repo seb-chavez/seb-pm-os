@@ -37,7 +37,7 @@ jobs:
 
       - name: Invariant — recording feature stays removed
         run: |
-          if ls .claude/skills | grep -E '^(setup|start|stop)-recording$'; then
+          if ls skills | grep -E '^(setup|start|stop)-recording$'; then
             echo "::error::Recording skills were removed and must not return."
             exit 1
           fi
