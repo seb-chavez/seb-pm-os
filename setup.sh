@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # PM Operating System - Setup Script
-# Usage: ./setup.sh <harness>   where <harness> is one of: claude codex cursor
+# Usage: ./setup.sh <harness>   where <harness> is: claude, codex, cursor, or all
 # Wires the chosen harness's GLOBAL config dir to this repo (one-time per harness).
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -64,13 +64,13 @@ link_portable_skills() {
   mkdir -p "$target_dir"
   local name
   for name in "${PORTABLE_SKILLS[@]}"; do
-    backup_and_link "$SCRIPT_DIR/.claude/skills/$name" "$target_dir/$name"
+    backup_and_link "$SCRIPT_DIR/skills/$name" "$target_dir/$name"
   done
 }
 
 usage() {
   echo "Usage: ./setup.sh <harness>"
-  echo "Supported harnesses: claude, codex, cursor"
+  echo "Supported harnesses: claude, codex, cursor, all"
 }
 
 setup_claude() {
@@ -80,7 +80,7 @@ setup_claude() {
   backup_and_link "$SCRIPT_DIR/harness/claude/CLAUDE.md" "$d/CLAUDE.md"
   backup_and_link "$SCRIPT_DIR/harness/claude/settings.json" "$d/settings.json"
   backup_and_link "$SCRIPT_DIR/harness/claude/statusline-command.sh" "$d/statusline-command.sh"
-  backup_and_link "$SCRIPT_DIR/harness/claude/memory/doc-formatting.md" "$d/memory/doc-formatting.md"
+  backup_and_link "$SCRIPT_DIR/memory/doc-formatting.md" "$d/memory/doc-formatting.md"
   link_portable_skills "$d/skills"
 }
 
@@ -109,6 +109,21 @@ setup_cursor() {
   echo "        For PM context outside this repo, add a short AGENTS.md pointer in Cursor Settings > User Rules once."
 }
 
+print_summary() {
+  echo "Setup complete!"
+  echo ""
+  if [ ${#linked[@]} -gt 0 ]; then
+    echo "Linked:"; for i in "${linked[@]}"; do echo "  $i"; done; echo ""
+  fi
+  if [ ${#backed_up[@]} -gt 0 ]; then
+    echo "Backed up (originals preserved):"; for i in "${backed_up[@]}"; do echo "  $i"; done; echo ""
+  fi
+  if [ ${#skipped[@]} -gt 0 ]; then
+    echo "Skipped (already correct):"; for i in "${skipped[@]}"; do echo "  $i"; done; echo ""
+  fi
+  echo "Config managed from: $SCRIPT_DIR"
+}
+
 main() {
   local harness="${1:-}"
   if [ -z "$harness" ]; then
@@ -122,21 +137,15 @@ main() {
     claude) setup_claude ;;
     codex)  setup_codex ;;
     cursor) setup_cursor ;;
+    all)
+      setup_claude
+      setup_codex
+      setup_cursor
+      ;;
     *) echo "Unknown harness: $harness"; echo ""; usage; exit 1 ;;
   esac
 
-  echo "Setup complete!"
-  echo ""
-  if [ ${#linked[@]} -gt 0 ]; then
-    echo "Linked:"; for i in "${linked[@]}"; do echo "  $i"; done; echo ""
-  fi
-  if [ ${#backed_up[@]} -gt 0 ]; then
-    echo "Backed up (originals preserved):"; for i in "${backed_up[@]}"; do echo "  $i"; done; echo ""
-  fi
-  if [ ${#skipped[@]} -gt 0 ]; then
-    echo "Skipped (already correct):"; for i in "${skipped[@]}"; do echo "  $i"; done; echo ""
-  fi
-  echo "Config managed from: $SCRIPT_DIR"
+  print_summary
 }
 
 main "$@"

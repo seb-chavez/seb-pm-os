@@ -116,7 +116,7 @@ If the user asks to "create a document" without specifying a type, ask which for
 
 Generated docs (PRD, project brief, status update, roadmap, meeting notes, decision log) **push to Notion by default**, not just to a local file. Valon's canonical doc home is the workspace-level **Documents** database (data source `collection://28e2df0f-f7ba-80ea-8f77-000b22c3b280`).
 
-Use `mcp__claude_ai_Notion__notion-create-pages` with `parent.type = "data_source_id"` and the Documents data source ID.
+Use the Notion MCP `notion-create-pages` tool with `parent.type = "data_source_id"` and the Documents data source ID.
 
 **Defaults for new pages created by the Escrow PM:**
 
@@ -127,7 +127,7 @@ Use `mcp__claude_ai_Notion__notion-create-pages` with `parent.type = "data_sourc
 | `Document Status` | `"In progress"` (use `"Not started"` if it's a placeholder) |
 | `Status` | `"Draft"` for fresh docs; `"In Review"` once shared |
 | `Group Tag` | Escrow page: `https://www.notion.so/2992df0ff7ba8044b56ee79426ac8988` |
-| `Document Owner` | sebastian.chavez@valon.com (look up user ID via `notion-search` query_type=user if needed) |
+| `Document Owner` | sebastian.chavez@valon.com (look up user ID via Notion MCP `notion-search` with `query_type=user` if needed) |
 
 **Document Type → template mapping:**
 - PRD template → `Document Type: ["PRD"]`
@@ -140,14 +140,14 @@ Use `mcp__claude_ai_Notion__notion-create-pages` with `parent.type = "data_sourc
 **Workflow:**
 1. Generate the doc content per the local template, applying `memory/doc-formatting.md`.
 2. Before pushing, show the user a one-line summary: title, Document Type, Group Tag, Status, parent.
-3. After user confirms, call `notion-create-pages` and return the resulting Notion URL.
+3. After user confirms, call Notion MCP `notion-create-pages` and return the resulting Notion URL.
 4. If the user wants a different parent page (e.g., nested under a Project), ask before pushing.
 
 Full schema and option values: see memory `reference-valon-notion-documents-db`.
 
 ## Skills
 
-Playbooks live in `.claude/skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per harness to symlink them into that tool's global skills directory.
+Playbooks live in `skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per harness to symlink them into that tool's global skills directory.
 
 | Skill | Purpose |
 |-------|---------|
@@ -197,7 +197,8 @@ This OS is a version-controlled toolkit cloned at each company. Key directories:
 |-----------|---------|
 | `AGENTS.md` (root) | Canonical, harness-neutral instructions (this file) |
 | `harness/<name>/` | Per-harness overlays + global payload installed by `setup.sh` |
-| `.claude/skills/` | Single source for all skills (symlinked into each harness) |
+| `skills/` | Single source for all skills (symlinked into each harness) |
+| `memory/` | Shared formatting and reference docs (e.g. `doc-formatting.md`) |
 | `templates/` | Document blueprints (PRD, agenda, etc.) |
 | `knowledge/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
 | `projects/` | Active project folders with dated notes (gitignored) |
