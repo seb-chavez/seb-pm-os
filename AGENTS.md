@@ -164,11 +164,12 @@ Playbooks live in `skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per 
 
 | Harness | Invocation |
 |---------|------------|
-| Claude Code | Slash commands after `./setup.sh claude` — e.g. `/action-items`, `/meeting-prep dean` |
-| Cursor | Natural language after `./setup.sh cursor` — e.g. "add action item", "run meeting-prep for Dean". No slash menu. |
-| Codex | `$action-items` or `/skills` after `./setup.sh codex` — also implicit via natural language when the task matches the skill `description` |
+| Claude Code | `/action-items`, `/meeting-prep dean`, etc. after `./setup.sh claude` |
+| Cursor IDE | `/action-items`, `/meeting-prep dean`, etc. after `./setup.sh cursor` |
+| Cursor terminal | `agent` then `/action-items` — or `agent "/action-items"` from the shell |
+| Codex | `$action-items` or `/skills` after `./setup.sh codex` |
 
-Cursor and Codex match skills from the YAML `description` field in each `SKILL.md`. Claude Code also exposes them as `/name` commands.
+Cursor and Codex also match skills from natural language when the task fits the skill `description`.
 
 ## Context Conservation
 

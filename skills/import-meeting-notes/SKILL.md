@@ -1,6 +1,7 @@
 ---
 name: import-meeting-notes
 description: Use when the user wants to import, pull, or review meeting notes from Granola. Triggers on phrases like "import meeting notes", "check my recent meetings", "pull notes from my sync", or any request involving Granola meeting notes.
+disable-model-invocation: true
 ---
 
 # Import Meeting Notes
@@ -8,6 +9,10 @@ description: Use when the user wants to import, pull, or review meeting notes fr
 ## Overview
 
 Pulls meeting content from the Granola MCP, synthesizes key details, and routes them to the appropriate knowledge folders. The goal is structured context, not raw transcripts.
+
+## Invocation
+
+`/import-meeting-notes` — or natural language (e.g. "import my recent Granola meetings").
 
 ## When NOT to use
 

@@ -1,6 +1,7 @@
 ---
 name: status-report
 description: Use when drafting a status update or status report to share with stakeholders. Triggers on "status report", "status update", "draft a status update", "weekly update for stakeholders".
+disable-model-invocation: true
 ---
 
 # Status Report
@@ -8,6 +9,10 @@ description: Use when drafting a status update or status report to share with st
 ## Overview
 
 Drafts a cross-project status report using the `templates/strategy/status-update.md` template, populated with real content from recent project notes and goal progress.
+
+## Invocation
+
+`/status-report` — or natural language (e.g. "draft a status update for stakeholders").
 
 ## When NOT to use
 

@@ -12,7 +12,7 @@
 |---------|-------------------|-------------|----------|-----------|
 | **Claude Code** | `~/.claude/CLAUDE.md` (symlink active) + `~/.claude/AGENTS.md` (will be added by new `setup.sh`) | `~/.claude/skills/<name>/` | `.mcp.json` at repo root (auto-discovered by Claude Code when inside the repo) | **Empirically verified** |
 | **Codex CLI** | `~/.codex/AGENTS.md` | `~/.codex/agents/skills/<name>/` | `~/.codex/config.toml` (`[mcp_servers.<name>]` tables) | Default — confirm on first use (Codex not installed) |
-| **Cursor** | Project rules: `.cursor/rules/<name>.mdc`; User/global rules: Cursor Settings UI (not file-symlinkable) | `~/.cursor/skills/<name>/` (`cursor-agent` CLI; auto-invoked by `description`, no slash/`$` command) | `~/.cursor/mcp.json` (same JSON schema as repo `.mcp.json`) | **Empirically verified** — `cursor-agent` CLI installed; MCP + skills symlinked by `setup.sh cursor` |
+| **Cursor** | Project rules: `.cursor/rules/<name>.mdc`; User/global rules: Cursor Settings UI (not file-symlinkable) | `~/.cursor/skills/<name>/` (user) + `.cursor/skills/<name>/` (project); IDE Agent chat: `/name`; auto-invoke from `description` | `~/.cursor/mcp.json` (same JSON schema as repo `.mcp.json`) | **Empirically verified** — `cursor-agent` CLI installed; MCP + skills symlinked by `setup.sh cursor` |
 
 ---
 
@@ -69,7 +69,7 @@ drwxr-xr-x  11 sebastian  staff   352  (exists — Cursor.app is installed)
 Cursor editor (`/Applications/Cursor.app`) is installed. The `~/.cursor/` directory exists with the standard Cursor config layout. Key observations:
 
 - **`~/.cursor/mcp.json` does not exist** — confirms `setup.sh cursor` will create it (not overwrite an existing file).
-- **`~/.cursor/skills/` is where the `cursor-agent` CLI discovers personal skills** — `<name>/SKILL.md` layout, same as Claude Code. `setup.sh cursor` symlinks the portable PM OS skills here. (Superseded earlier note: the original design assumed Cursor had no skills-dir mechanism; the `cursor-agent` CLI, installed later, does.) Cursor auto-invokes skills from their `description` — there is no slash/`$` command syntax.
+- **`~/.cursor/skills/` (user) and `.cursor/skills/` (project)** — `<name>/SKILL.md` layout. `setup.sh cursor` symlinks portable PM OS skills to both. IDE Agent chat: type `/` and pick the skill name; skills also auto-invoke from their `description` unless `disable-model-invocation: true`.
 - **`~/.cursor/skills-cursor/` is reserved for Cursor's built-in skills** — managed by Cursor; never write PM OS skills here.
 - **Cursor project MCP is stored at** `~/.cursor/projects/<workspace-id>/mcps/` — this is for built-in Cursor agent MCPs, not the global `~/.cursor/mcp.json` that the user configures.
 - **User/global rules** are stored in Cursor's SQLite app state (`~/Library/Application Support/Cursor/User/globalStorage/state.vscdb`), not a plain file — confirms they are not file-symlinkable. One-time manual paste into Cursor Settings UI is required.

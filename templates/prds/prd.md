@@ -2,7 +2,7 @@
 
 *One-line description of the project.*
 
-*Keep this tight. The job of this doc is to let a reader grasp the problem and the plan in under two minutes, then find the requirements fast. State the point, then stop. A healthy PRD is one to two pages before links and appendices. Cut any section that's thin rather than padding it; if something needs depth (research, analysis), link to it instead of pasting it.*
+*Fill this in last it is the executive summary of the whole PRD. Keep this tight. The job of this doc is to let a reader grasp the problem and the plan in under two minutes, then find the requirements fast. State the point, then stop. A healthy PRD is one to two pages before links and appendices. Cut any section that's thin rather than padding it; if something needs depth (research, analysis), link to it instead of pasting it.*
 
 ## Approvals
 
@@ -19,7 +19,7 @@
 
 ### What is the problem?
 
-*One to three sentences. State who hurts and how. A reader should be able to repeat the problem and its stakes back to someone else after reading just this. No background dump; link to source material, research, charts, or screenshots instead of summarizing them here.*
+*Three to five sentences. State who hurts and how. A reader should be able to repeat the problem and its stakes back to someone else after reading just this. No background dump; link to source material, research, charts, or screenshots instead of summarizing them here.*
 
 ### How does this connect to our strategy & priorities?
 

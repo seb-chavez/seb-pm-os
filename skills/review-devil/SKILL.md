@@ -1,6 +1,7 @@
 ---
 name: review-devil
 description: Use when stress-testing a document for unstated assumptions, risks, or weak evidence. Triggers on "devil's advocate", "poke holes", "stress test this", "review-devil", "what could go wrong", "challenge this".
+disable-model-invocation: true
 ---
 
 # Devil's Advocate Review
@@ -8,6 +9,10 @@ description: Use when stress-testing a document for unstated assumptions, risks,
 ## Overview
 
 Reviews a document as a constructive skeptic, surfacing unstated assumptions, hidden risks, evidence gaps, and failure scenarios.
+
+## Invocation
+
+`/review-devil [path/to/document]` — e.g. `/review-devil projects/foo/notes/prd.md`. Also works via natural language (e.g. "devil's advocate on this proposal").
 
 ## Steps
 

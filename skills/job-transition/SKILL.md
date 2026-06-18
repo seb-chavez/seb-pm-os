@@ -1,6 +1,7 @@
 ---
 name: job-transition
 description: Use when leaving a role and starting a new one, or when resetting the PM OS for a new company. Triggers on "transitioning jobs", "leaving my job", "starting a new role", "reset the OS", "job transition".
+disable-model-invocation: true
 ---
 
 # Job Transition
@@ -8,6 +9,10 @@ description: Use when leaving a role and starting a new one, or when resetting t
 ## Overview
 
 Walks through archiving company-specific context, preserving what's portable, and resetting the OS for a clean start at a new role.
+
+## Invocation
+
+`/job-transition` — or natural language (e.g. "I'm leaving my job", "reset the OS").
 
 ## When NOT to use
 

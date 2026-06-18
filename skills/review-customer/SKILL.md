@@ -1,6 +1,7 @@
 ---
 name: review-customer
 description: Use when reviewing a document from an end-user or customer impact perspective. Triggers on "customer review", "review as a customer", "user impact review", "review-customer", "how does this affect users".
+disable-model-invocation: true
 ---
 
 # Customer Review
@@ -8,6 +9,10 @@ description: Use when reviewing a document from an end-user or customer impact p
 ## Overview
 
 Reviews a document as an end-user advocate, evaluating user impact, migration burden, and whether the proposed work solves the right problem.
+
+## Invocation
+
+`/review-customer [path/to/document]` — e.g. `/review-customer projects/foo/notes/prd.md`. Also works via natural language (e.g. "customer review of this PRD").
 
 ## Steps
 
