@@ -4,6 +4,8 @@ Strategy, positioning, and competitive landscape. This is the context that makes
 
 ## Suggested files
 
+- `tenant-client-brand-model.md` — Tenant (subservicer) vs. client (MSR owner) vs. brand (borrower-facing); prod brand table
+- `saas-clients.md` — SaaS client roster, deployment status, and per-client context
 - `strategy.md` — Mission, vision, current strategic bets, and where leadership is focused
 - `positioning.md` — How the product is positioned in market, target personas, value props
 - `competitors.md` — Competitive landscape, differentiators, where you win and lose
