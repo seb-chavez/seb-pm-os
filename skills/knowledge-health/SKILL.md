@@ -21,14 +21,14 @@ Scans the knowledge base and active projects for gaps, missing fields, and stale
 
 ## Steps
 
-1. **Scan people files** — read every `.md` file in `knowledge/people/` (except README.md). For each file, check for:
+1. **Scan people files** — read every `.md` file in `canonical/people/` (except README.md). For each file, check for:
    - Missing "Cares about" or "cares about" field
    - Missing "Communication style" or "communication style" field
    - No "## Meeting notes" or "## Recent context" section
    - No dated entries (### YYYY-MM-DD) in the last 30 days
-2. **Check company knowledge** — list files in `knowledge/company/`. Flag if the directory contains only README.md
-3. **Check active projects** — for each directory in `projects/` (excluding `_archive`), find the most recent note by filename date. Flag projects with no notes in the last 14 days
-4. **Check goals** — read `GOALS.md`. Flag if the key results table still has empty cells or placeholder text like "_Define your"
+2. **Check company knowledge** — list files in `canonical/company/`. Flag if the directory contains only README.md
+3. **Check active projects** — for each directory in `canonical/projects/` (excluding `_archive`), find the most recent note by filename date. Flag projects with no notes in the last 14 days
+4. **Check goals** — read `canonical/GOALS.md`. Flag if the key results table still has empty cells or placeholder text like "_Define your"
 5. Present the health report:
 
 ### Report Format

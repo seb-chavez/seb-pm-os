@@ -56,16 +56,16 @@ This project has a Granola MCP integration. When the user asks to import or chec
 
 ### Step 3: Route to multiple destinations
 A single meeting often updates several files. For example, a user research sync with Becky Weinstein should:
-- Update `knowledge/research/` with the research findings, insights, or methodology discussed
-- Update `knowledge/people/becky-weinstein.md` with Becky-specific context (her concerns, priorities, what you owe her)
+- Update `canonical/research/` with the research findings, insights, or methodology discussed
+- Update `canonical/people/becky-weinstein.md` with Becky-specific context (her concerns, priorities, what you owe her)
 
 Routing rules:
 | Content type | Destination |
 |-------------|-------------|
-| Person-specific context (opinions, style, priorities) | `knowledge/people/firstname-lastname.md` |
-| Research findings, insights, methodology | `knowledge/research/` |
-| Strategy, positioning, org changes | `knowledge/company/` |
-| Project-specific decisions or progress | `projects/[project-name]/notes/YYYY-MM-DD-topic.md` |
+| Person-specific context (opinions, style, priorities) | `canonical/people/firstname-lastname.md` |
+| Research findings, insights, methodology | `canonical/research/` |
+| Strategy, positioning, org changes | `canonical/company/` |
+| Project-specific decisions or progress | `canonical/projects/[project-name]/notes/YYYY-MM-DD-topic.md` |
 
 ### Step 4: Confirm before writing
 - Present the proposed routing: which files will be created/updated and with what content
@@ -74,7 +74,7 @@ Routing rules:
 ### Step 5: Write
 - For people files: **append** a new dated `### YYYY-MM-DD - [topic]` entry under `## Meeting notes`. Never overwrite existing entries.
 - For research/company/project files: create or append as appropriate
-- Follow the template structure from `knowledge/people/README.md` for people files
+- Follow the template structure from `canonical/people/README.md` for people files
 
 Basic plan limits: 30-day history, no transcript access. Import regularly to persist notes before they age out.
 
@@ -92,7 +92,7 @@ Do not add Gestalt to `.mcp.json`.
 
 ## Action Items
 
-Personal action items live in `data/action-items.md` (gitignored). Use the `action-items` skill to capture a task during a meeting, list open items, or mark one complete. Do not write action items to people profiles, project notes, or meeting imports.
+Personal action items live in `canonical/action-items.md` (gitignored). Use the `action-items` skill to capture a task during a meeting, list open items, or mark one complete. Do not write action items to people profiles, project notes, or meeting imports.
 
 ## Document Templates
 
@@ -151,13 +151,14 @@ Playbooks live in `skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per 
 
 | Skill | Purpose |
 |-------|---------|
-| `action-items` | Capture, list, or complete personal action items (`data/action-items.md`) |
+| `action-items` | Capture, list, or complete personal action items (`canonical/action-items.md`) |
 | `meeting-prep` | Pull context on a person or topic before a meeting |
 | `import-meeting-notes` | Pull and synthesize meeting notes from Granola |
 | `weekly-digest` | Summarize activity across projects for the past week |
 | `status-report` | Draft a cross-project status update from recent notes and goals |
 | `knowledge-health` | Flag gaps and staleness in the knowledge base |
-| `review-eng` / `review-exec` / `review-customer` / `review-devil` | Review a document from a stakeholder lens |
+| `review-panel` | Multi-persona panel review with synthesized feedback |
+| `review-pessimist` / `review-optimist` / `review-sme` / `review-new-hire` / `review-operator` / `review-budget` / `review-engineer` / `review-executive` / `review-champion-user` | Single-persona document review |
 | `job-transition` | Archive and reset the OS when leaving a role |
 
 **How to invoke (same skill, different UI):**
@@ -201,9 +202,10 @@ This OS is a version-controlled toolkit cloned at each company. Key directories:
 | `skills/` | Single source for all skills (symlinked into each harness) |
 | `memory/` | Shared formatting and reference docs (e.g. `doc-formatting.md`) |
 | `templates/` | Document blueprints (PRD, agenda, etc.) |
-| `knowledge/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
-| `projects/` | Active project folders with dated notes (gitignored) |
-| `goals/`, `GOALS.md` | Quarterly goals (gitignored) |
-| `data/` | Working data files (gitignored) |
+| `canonical/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
+| `canonical/projects/` | Active project folders with dated notes (gitignored) |
+| `canonical/goals/`, `canonical/GOALS.md` | Quarterly goals (gitignored) |
+| `canonical/action-items.md` | Personal action items (gitignored) |
+| `canonical/data/` | Working data files (gitignored) |
 
-Naming: meeting notes `YYYY-MM-DD-topic.md`; people files `firstname-lastname.md`; archived goals `goals/GOALS-YYYY-QN.md` (active goals stay at root as `GOALS.md`).
+Naming: meeting notes `YYYY-MM-DD-topic.md`; people files `firstname-lastname.md`; archived goals `canonical/goals/GOALS-YYYY-QN.md` (active goals live at `canonical/GOALS.md`).

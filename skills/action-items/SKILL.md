@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Overview
 
-Manual task tracker for commitments captured during live meetings. Stores items in `data/action-items.md` with stable IDs. Works in Claude Code, Cursor, and Codex after `./setup.sh <harness>`.
+Manual task tracker for commitments captured during live meetings. Stores items in `canonical/action-items.md` with stable IDs. Works in Claude Code, Cursor, and Codex after `./setup.sh <harness>`.
 
 ## Invocation
 
@@ -34,9 +34,9 @@ Does not write tasks to people files, project notes, or meeting imports.
 
 ## Storage
 
-**File:** `data/action-items.md` (gitignored — personal data)
+**File:** `canonical/action-items.md` (gitignored — personal data)
 
-On first use, create the file from `data/action-items.template.md` if it does not exist.
+On first use, create the file from `canonical/action-items.template.md` if it does not exist.
 
 **ID format:** `ai-001`, `ai-002`, … — assign the next sequential ID by scanning existing `### ai-NNN` headings in the file.
 
@@ -79,7 +79,7 @@ If the user gives partial info with `add`, capture what they provided and ask on
 1. Parse any fields already in the user's message
 2. Ask for missing required fields and any useful optional fields — keep it to one short round of questions, not an interrogation
 3. Assign the next `ai-NNN` ID
-4. Append the item under `## Open` in `data/action-items.md`
+4. Append the item under `## Open` in `canonical/action-items.md`
 5. Confirm with the assigned ID and a one-line summary
 
 ## List — output format
@@ -109,7 +109,7 @@ Omit empty sections. Sort within each bucket by due date ascending.
 
 ## Rules
 
-- **Only write to `data/action-items.md`** — never store action items in people files, project notes, or Granola imports
+- **Only write to `canonical/action-items.md`** — never store action items in people files, project notes, or Granola imports
 - Preserve completed items in `## Done` for history
 - Use today's date for `Created` and `Completed` unless the user specifies otherwise
 
@@ -117,7 +117,7 @@ Omit empty sections. Sort within each bucket by due date ascending.
 
 | Mistake | Fix |
 |---------|-----|
-| Writing tasks to people or project notes | All tasks go to `data/action-items.md` only |
+| Writing tasks to people or project notes | All tasks go to `canonical/action-items.md` only |
 | Deleting completed items | Move to `## Done` and update status |
 | Reusing or skipping IDs | Always scan the file and assign the next `ai-NNN` |
 | Asking for every optional field when user is mid-meeting | Capture action first; ask for due date and links in one short follow-up |

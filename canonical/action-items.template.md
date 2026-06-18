@@ -1,6 +1,6 @@
 # Action Items
 
-Personal task tracker. Copy to `data/action-items.md` (gitignored) or let `/action-items add` create it on first use.
+Personal task tracker. Copy to `canonical/action-items.md` (gitignored) or let `/action-items add` create it on first use.
 
 ## Open
 

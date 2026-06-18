@@ -41,10 +41,10 @@ All skills live in `.claude/skills/` alongside the existing `delegate-research.m
 **Description trigger:** Use when preparing for a meeting and need context on a person, team, or topic.
 
 **Behavior:**
-1. Fuzzy-match input against filenames in `knowledge/people/`
+1. Fuzzy-match input against filenames in `canonical/people/`
 2. Read matched person file(s) — communication style, what they care about, recent interactions
-3. Scan recent project notes (`projects/*/notes/`) for mentions of that person or topic
-4. Check `GOALS.md` for relevant items to surface
+3. Scan recent project notes (`canonical/projects/*/notes/`) for mentions of that person or topic
+4. Check `canonical/GOALS.md` for relevant items to surface
 5. Present compiled brief: who they are, recent context, open action items owed, likely topics
 
 **Output:** Terminal only (ephemeral prep, not a document).
@@ -63,14 +63,14 @@ All skills live in `.claude/skills/` alongside the existing `delegate-research.m
 
 **Behavior:**
 1. Use `git log --since="7 days ago"` to find files modified in the past week
-2. Read modified files across `projects/`, `knowledge/`, and `GOALS.md`
+2. Read modified files across `canonical/projects/`, `canonical/`, and `canonical/GOALS.md`
 3. Synthesize into sections:
    - Activity by project
    - Decisions made
    - Action items (with owners/due dates if noted)
    - Knowledge base updates
 4. Print digest to terminal
-5. Ask if user wants to save — if yes, write to `data/digests/YYYY-MM-DD-digest.md`
+5. Ask if user wants to save — if yes, write to `canonical/data/digests/YYYY-MM-DD-digest.md`
 
 **Output:** Terminal, then optional save.
 
@@ -86,8 +86,8 @@ All skills live in `.claude/skills/` alongside the existing `delegate-research.m
 
 **Behavior:**
 1. Read the status update template from `templates/strategy/status-update.md`
-2. Read recent notes from all active project directories (`projects/*/notes/`)
-3. Read `GOALS.md` for goal progress
+2. Read recent notes from all active project directories (`canonical/projects/*/notes/`)
+3. Read `canonical/GOALS.md` for goal progress
 4. Draft a filled-in status report using the template structure with real content from notes and goals
 5. Present draft for review
 6. On approval, save to a location the user specifies
@@ -105,14 +105,14 @@ All skills live in `.claude/skills/` alongside the existing `delegate-research.m
 **Description trigger:** Use when checking for gaps, staleness, or missing information in the knowledge base.
 
 **Behavior:**
-1. Scan every file in `knowledge/people/` — flag files missing key fields:
+1. Scan every file in `canonical/people/` — flag files missing key fields:
    - No "Cares about"
    - No "Communication style"
    - No meeting notes section
    - No entries in the last 30 days
-2. Check `knowledge/company/` — flag if empty (just README)
-3. Check active projects in `projects/` — flag any with no notes in the last 2 weeks
-4. Check `GOALS.md` — flag if key results table still has empty placeholders
+2. Check `canonical/company/` — flag if empty (just README)
+3. Check active projects in `canonical/projects/` — flag any with no notes in the last 2 weeks
+4. Check `canonical/GOALS.md` — flag if key results table still has empty placeholders
 5. Present health report: what's complete, what has gaps, what's stale
 
 **Output:** Terminal only.
@@ -233,7 +233,7 @@ claude-config/skills/ → ~/.claude/skills/
 
 This requires moving the existing `delegate-research.md` from `.claude/skills/` into `claude-config/skills/` (the repo-managed source) and symlinking the directory.
 
-### data/digests/ Directory
+### canonical/data/digests/ Directory
 
 Created on first use by `/weekly-digest` when user opts to save. No need to pre-create.
 

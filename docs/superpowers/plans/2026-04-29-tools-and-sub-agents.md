@@ -34,14 +34,14 @@ Compiles a briefing from your knowledge base before a meeting. Pulls person cont
 ## When NOT to use
 
 - You already have the context you need
-- The meeting is with someone not in `knowledge/people/`and you have no project notes mentioning them
+- The meeting is with someone not in `canonical/people/`and you have no project notes mentioning them
 
 ## Steps
 
 1. Take the person name or topic from the user's input (e.g., `/meeting-prep dean` or `/meeting-prep board meeting`)
-2. Fuzzy-match the input against filenames in `knowledge/people/` — read all matching files
-3. Scan recent project notes (`projects/*/notes/`) for mentions of that person or topic using the Grep tool
-4. Read `GOALS.md` for any relevant items to surface
+2. Fuzzy-match the input against filenames in `canonical/people/` — read all matching files
+3. Scan recent project notes (`canonical/projects/*/notes/`) for mentions of that person or topic using the Grep tool
+4. Read `canonical/GOALS.md` for any relevant items to surface
 5. Present a compiled brief with these sections:
 
 ### Brief Format
@@ -51,12 +51,12 @@ Compiles a briefing from your knowledge base before a meeting. Pulls person cont
 
 ### Who They Are
 - Role, reports to, communication style, what they care about, pet peeves
-(From knowledge/people/ file)
+(From canonical/people/ file)
 
 ### Recent Context
 - Last meeting topics and outcomes
 - Their current priorities or concerns
-(From knowledge/people/ meeting notes section)
+(From canonical/people/ meeting notes section)
 
 ### Open Action Items
 - What you owe them
@@ -65,11 +65,11 @@ Compiles a briefing from your knowledge base before a meeting. Pulls person cont
 
 ### Relevant Project Activity
 - Recent decisions or progress related to this person/topic
-(From projects/*/notes/)
+(From canonical/projects/*/notes/)
 
 ### Goals to Surface
 - Any active goals relevant to the meeting
-(From GOALS.md)
+(From canonical/GOALS.md)
 ```
 
 6. Output the brief in the terminal only — this is ephemeral prep, not a saved document
@@ -78,7 +78,7 @@ Compiles a briefing from your knowledge base before a meeting. Pulls person cont
 
 | Mistake | Fix |
 |---------|-----|
-| Reading only the people file and skipping project notes | Always scan `projects/*/notes/` for mentions too |
+| Reading only the people file and skipping project notes | Always scan `canonical/projects/*/notes/` for mentions too |
 | Producing a wall of text | Keep each section to 3-5 bullets max — this is a briefing, not a report |
 | Saving the brief to a file | Output to terminal only unless the user explicitly asks to save |
 ```
@@ -114,7 +114,7 @@ description: Use when reviewing what happened across projects and the knowledge 
 
 ## Overview
 
-Scans files modified in the past 7 days across projects, knowledge, and goals. Synthesizes a summary of activity, decisions, and outstanding action items.
+Scans files modified in the past 7 days across projects, canonical, and goals. Synthesizes a summary of activity, decisions, and outstanding action items.
 
 ## When NOT to use
 
@@ -124,7 +124,7 @@ Scans files modified in the past 7 days across projects, knowledge, and goals. S
 ## Steps
 
 1. Run `git log --since="7 days ago" --name-only --pretty=format:""` to find files modified in the past week
-2. Filter to files under `projects/`, `knowledge/`, and `GOALS.md`
+2. Filter to files under `canonical/`
 3. Read each modified file
 4. Synthesize into the following sections:
 
@@ -146,15 +146,15 @@ Scans files modified in the past 7 days across projects, knowledge, and goals. S
 (Pulled from meeting notes across all projects)
 
 ### Knowledge Base Updates
-- [what was added/changed] in [which knowledge area]
-(Pulled from knowledge/ changes)
+- [what was added/changed] in [which canonical area]
+(Pulled from canonical/ changes)
 
 ### Goal Progress
-- [any updates to GOALS.md]
+- [any updates to canonical/GOALS.md]
 ```
 
 5. Print the digest to the terminal
-6. Ask: "Want me to save this digest?" — if yes, write to `data/digests/YYYY-MM-DD-digest.md` (create `data/digests/` if it doesn't exist)
+6. Ask: "Want me to save this digest?" — if yes, write to `canonical/data/digests/YYYY-MM-DD-digest.md` (create `canonical/data/digests/` if it doesn't exist)
 
 ## Common Mistakes
 
@@ -206,13 +206,13 @@ Drafts a cross-project status report using the `templates/strategy/status-update
 ## Steps
 
 1. Read the template from `templates/strategy/status-update.md`
-2. Read recent notes from all active project directories — use `Glob` to find `projects/*/notes/*.md`, then read the most recent 3-5 notes per project
-3. Read `GOALS.md` for current goal progress
+2. Read recent notes from all active project directories — use `Glob` to find `canonical/projects/*/notes/*.md`, then read the most recent 3-5 notes per project
+3. Read `canonical/GOALS.md` for current goal progress
 4. Draft a filled-in status report using the template structure:
    - Pull accomplishments from recent project notes (decisions made, milestones hit)
    - Pull upcoming work from action items and next steps in notes
    - Pull risks/blockers from any flagged issues in notes
-   - Pull metrics from `GOALS.md` key results table
+   - Pull metrics from `canonical/GOALS.md` key results table
 5. Apply formatting defaults from `memory/doc-formatting.md`
 6. Present the draft to the user for review
 7. On approval, ask where to save the file and write it
@@ -266,14 +266,14 @@ Scans the knowledge base and active projects for gaps, missing fields, and stale
 
 ## Steps
 
-1. **Scan people files** — read every `.md` file in `knowledge/people/` (except README.md). For each file, check for:
+1. **Scan people files** — read every `.md` file in `canonical/people/` (except README.md). For each file, check for:
    - Missing "Cares about" or "cares about" field
    - Missing "Communication style" or "communication style" field
    - No "## Meeting notes" or "## Recent context" section
    - No dated entries (### YYYY-MM-DD) in the last 30 days
-2. **Check company knowledge** — list files in `knowledge/company/`. Flag if the directory contains only README.md
-3. **Check active projects** — for each directory in `projects/` (excluding `_archive`), find the most recent note by filename date. Flag projects with no notes in the last 14 days
-4. **Check goals** — read `GOALS.md`. Flag if the key results table still has empty cells or placeholder text like "_Define your"
+2. **Check company knowledge** — list files in `canonical/company/`. Flag if the directory contains only README.md
+3. **Check active projects** — for each directory in `canonical/projects/` (excluding `_archive`), find the most recent note by filename date. Flag projects with no notes in the last 14 days
+4. **Check goals** — read `canonical/GOALS.md`. Flag if the key results table still has empty cells or placeholder text like "_Define your"
 5. Present the health report:
 
 ### Report Format

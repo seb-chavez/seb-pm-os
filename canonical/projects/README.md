@@ -7,7 +7,7 @@ Every task gets its own folder. One folder per active project. Move completed pr
 When you come back the next day, point Claude at the project folder:
 
 ```
-@projects/board-deck-q2/ Get up to speed on this project,
+@canonical/projects/board-deck-q2/ Get up to speed on this project,
 then help me finish the revenue slide.
 ```
 

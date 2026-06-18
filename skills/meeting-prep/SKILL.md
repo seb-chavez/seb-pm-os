@@ -12,12 +12,12 @@ Compiles a briefing from your knowledge base before a meeting. Pulls person cont
 ## When NOT to use
 
 - You already have the context you need
-- The meeting is with someone not in `knowledge/people/` and you have no project notes mentioning them
+- The meeting is with someone not in `canonical/people/` and you have no project notes mentioning them
 
 ## Steps
 
 1. Take the person name or topic from the user's input (e.g., `/meeting-prep dean` or `/meeting-prep board meeting`)
-2. Fuzzy-match the input against filenames in `knowledge/people/` — read all matching files
+2. Fuzzy-match the input against filenames in `canonical/people/` — read all matching files
 3. Scan recent project notes (`projects/*/notes/`) for mentions of that person or topic using the Grep tool
 4. Read `GOALS.md` for any relevant items to surface
 5. Present a compiled brief with these sections:
@@ -29,12 +29,12 @@ Compiles a briefing from your knowledge base before a meeting. Pulls person cont
 
 ### Who They Are
 - Role, reports to, communication style, what they care about, pet peeves
-(From knowledge/people/ file)
+(From canonical/people/ file)
 
 ### Recent Context
 - Last meeting topics and outcomes
 - Their current priorities or concerns
-(From knowledge/people/ meeting notes section)
+(From canonical/people/ meeting notes section)
 
 ### Open Action Items
 - What you owe them

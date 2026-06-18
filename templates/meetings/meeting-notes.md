@@ -34,7 +34,7 @@ Summary of the discussion, key arguments, and context shared.
 
 Items that need further discussion or investigation but do not have a clear action yet.
 
-> Action items live in `data/action-items.md`. Use `/action-items add` to capture — do not duplicate here.
+> Action items live in `canonical/action-items.md`. Use `/action-items add` to capture — do not duplicate here.
 
 -
 

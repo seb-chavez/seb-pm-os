@@ -49,5 +49,5 @@ Create one file per person: `firstname-lastname.md`
 ## Tips
 - Update after every meaningful interaction — even a quick Slack thread
 - Capture tone and sentiment, not just facts
-- Capture tasks with `/action-items add` — stored in `data/action-items.md`, not in people files
+- Capture tasks with `/action-items add` — stored in `canonical/action-items.md`, not in people files
 - The "Recent context" section is the most valuable — keep it current

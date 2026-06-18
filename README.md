@@ -39,23 +39,23 @@ Cursor and Codex read root `AGENTS.md` in-repo — no separate Cursor project ru
 
 ## After Setup
 
-### Populate the knowledge base
+### Populate canonical
 
 The sensitive directories are gitignored and start empty. Build them up as you work, or restore from a backup if you have one:
 
 | Directory | What goes here |
 |-----------|---------------|
-| `knowledge/people/` | Stakeholder dossiers — communication style, priorities, meeting context |
-| `knowledge/company/` | Company strategy, positioning, org structure |
-| `knowledge/research/` | Market research, user insights, industry analysis |
-| `projects/` | Active project folders with dated notes |
-| `data/` | Working data files (CSVs, notebooks) for analysis |
+| `canonical/people/` | Stakeholder dossiers — communication style, priorities, meeting context |
+| `canonical/company/` | Company strategy, positioning, org structure |
+| `canonical/research/` | Market research, user insights, industry analysis |
+| `canonical/projects/` | Active project folders with dated notes |
+| `canonical/data/` | Working data files (CSVs, notebooks) for analysis |
 
 Use `/import-meeting-notes` to start pulling in context from Granola meetings.
 
 ### Set up your goals
 
-Copy `GOALS.template.md` to `GOALS.md` at the repo root and fill in your current quarterly goals. `GOALS.md` is gitignored — its contents stay local. When a quarter ends, move it to `goals/GOALS-YYYY-QN.md` (also gitignored) and start a fresh one from the template.
+Copy `canonical/GOALS.template.md` to `canonical/GOALS.md` and fill in your current quarterly goals. `canonical/GOALS.md` is gitignored — its contents stay local. When a quarter ends, move it to `canonical/goals/GOALS-YYYY-QN.md` (also gitignored) and start a fresh one from the template.
 
 ## Skills
 
@@ -69,7 +69,8 @@ All harnesses share the same playbooks in `skills/`. Run `./setup.sh <harness>` 
 | `weekly-digest` | Summarize activity across projects for the past week |
 | `status-report` | Draft a cross-project status update from recent notes and goals |
 | `knowledge-health` | Flag gaps and staleness in the knowledge base |
-| `review-eng` / `review-exec` / `review-customer` / `review-devil` | Review a document from a stakeholder lens |
+| `review-panel` | Multi-persona panel review with synthesized feedback |
+| `review-pessimist` / `review-optimist` / `review-sme` / `review-new-hire` / `review-operator` / `review-budget` / `review-engineer` / `review-executive` / `review-champion-user` | Single-persona document review |
 | `job-transition` | Archive and reset the OS when leaving a role |
 
 | Harness | How to invoke |
@@ -104,7 +105,7 @@ cp .mcp.json.example .mcp.json
 
 The example configures [Granola](https://granola.ai) (meeting notes) and Notion. Use the Gestalt CLI or toolshed `gestalt` skills for Slack, Linear, etc. — not MCP (too many tools for agent harnesses). Claude Code auto-discovers `.mcp.json` when this repo is open; Cursor uses the symlink from `setup.sh cursor`.
 
-Authenticate each integration on first use. Use `import-meeting-notes` to pull recent meetings into the knowledge base. Use `action-items` during meetings to capture tasks to `data/action-items.md`.
+Authenticate each integration on first use. Use `import-meeting-notes` to pull recent meetings into `canonical/`. Use `action-items` during meetings to capture tasks to `canonical/action-items.md`.
 
 Basic plan limits: 30-day history, no transcript access. Import regularly to persist notes before they age out.
 
@@ -117,15 +118,17 @@ Basic plan limits: 30-day history, no transcript access. Import regularly to per
 | `skills/` | Single source for all skills (symlinked into each harness) | No |
 | `memory/` | Shared formatting defaults and reference docs | No |
 | `templates/` | Document blueprints (PRD, agenda, meeting notes, etc.) | No |
-| `knowledge/people/` | Stakeholder dossiers | Yes (gitignored) |
-| `knowledge/research/` | Market research, user insights, industry analysis | Yes (gitignored) |
-| `knowledge/company/` | Company strategy, positioning, org structure | Yes (gitignored) |
-| `knowledge/public-context/` | Publicly available onboarding materials (default-deny; force-add public files) | Yes (gitignored by default) |
-| `projects/` | Active project folders with dated notes | Yes (gitignored) |
-| `projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
-| `goals/` | Archived quarterly goals files | Yes (gitignored) |
-| `GOALS.md` (root) | Active quarter's goals — copy from `GOALS.template.md` | Yes (gitignored) |
-| `data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
+| `canonical/people/` | Stakeholder dossiers | Yes (gitignored) |
+| `canonical/research/` | Market research, user insights, industry analysis | Yes (gitignored) |
+| `canonical/company/` | Company strategy, positioning, org structure | Yes (gitignored) |
+| `canonical/public-context/` | Publicly available onboarding materials (default-deny; force-add public files) | Yes (gitignored by default) |
+| `canonical/projects/` | Active project folders with dated notes | Yes (gitignored) |
+| `canonical/projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
+| `canonical/goals/` | Archived quarterly goals files | Yes (gitignored) |
+| `canonical/GOALS.md` | Active quarter's goals — copy from `canonical/GOALS.template.md` | Yes (gitignored) |
+| `canonical/PRIORITIES.md` | Personal weekly priorities tracker | Yes (gitignored) |
+| `canonical/action-items.md` | Personal action items — copy from `canonical/action-items.template.md` | Yes (gitignored) |
+| `canonical/data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
 
 ## Editing Your Config
 

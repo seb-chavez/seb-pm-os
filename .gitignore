@@ -4,17 +4,19 @@
 # Local MCP config (may contain API keys) — copy from .mcp.json.example
 .mcp.json
 
-# Active quarterly goals — sensitive (see GOALS.template.md for the starter)
-/GOALS.md
+# Active quarterly goals — sensitive (see canonical/GOALS.template.md for the starter)
+/canonical/GOALS.md
 
 # Personal weekly priorities tracker
-/PRIORITIES.md
+/canonical/PRIORITIES.md
+
+# Personal action items tracker
+/canonical/action-items.md
 
 # Sensitive data files (CSVs, notebooks may contain proprietary data)
-data/*.csv
-data/*.xlsx
-data/*.ipynb
-data/*.json
-data/action-items.md
-!data/README.md
+canonical/data/*.csv
+canonical/data/*.xlsx
+canonical/data/*.ipynb
+canonical/data/*.json
+!canonical/data/README.md
 
