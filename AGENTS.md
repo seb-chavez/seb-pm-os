@@ -205,6 +205,7 @@ This OS is a version-controlled toolkit cloned at each company. Key directories:
 | `canonical/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
 | `canonical/projects/` | Active project folders with dated notes (gitignored) |
 | `canonical/goals/`, `canonical/GOALS.md` | Quarterly goals (gitignored) |
+| `canonical/PRIORITIES.md` | Weekly priorities; one Slack permalink per week in `#servicing-pm` (gitignored) |
 | `canonical/action-items.md` | Personal action items (gitignored) |
 | `canonical/data/` | Working data files (gitignored) |
 

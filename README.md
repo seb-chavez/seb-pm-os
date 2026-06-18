@@ -126,7 +126,7 @@ Basic plan limits: 30-day history, no transcript access. Import regularly to per
 | `canonical/projects/_archive/` | Completed or inactive projects | Yes (gitignored) |
 | `canonical/goals/` | Archived quarterly goals files | Yes (gitignored) |
 | `canonical/GOALS.md` | Active quarter's goals — copy from `canonical/GOALS.template.md` | Yes (gitignored) |
-| `canonical/PRIORITIES.md` | Personal weekly priorities tracker | Yes (gitignored) |
+| `canonical/PRIORITIES.md` | Personal weekly priorities tracker — copy from `canonical/PRIORITIES.template.md` | Yes (gitignored) |
 | `canonical/action-items.md` | Personal action items — copy from `canonical/action-items.template.md` | Yes (gitignored) |
 | `canonical/data/` | Working data files (CSVs, notebooks) for analysis | Yes (gitignored) |
 
