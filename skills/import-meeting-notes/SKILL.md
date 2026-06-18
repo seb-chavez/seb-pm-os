@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Overview
 
-Pulls meeting content from the Granola MCP, synthesizes key details, and routes them to the appropriate knowledge folders. The goal is structured context, not raw transcripts.
+Pulls meeting content from the Granola MCP, synthesizes key details, and routes them to the appropriate canonical folders. The goal is structured context, not raw transcripts.
 
 ## Invocation
 
@@ -26,7 +26,7 @@ This skill imports from the **Granola MCP**. Call the Granola MCP tool to list r
 
 ## Tracking imported meetings
 
-To avoid re-presenting meetings already synced, the skill maintains an import log at `data/imported-meetings.json` (gitignored via `data/*.json`).
+To avoid re-presenting meetings already synced, the skill maintains an import log at `canonical/data/imported-meetings.json` (gitignored via `canonical/data/*.json`).
 
 **Format:** a JSON object with an `imported` array. Each entry has:
 - `source` — `"granola"`
@@ -46,14 +46,14 @@ To avoid re-presenting meetings already synced, the skill maintains an import lo
 
 | Content type | Destination |
 |-------------|-------------|
-| Person-specific context | `knowledge/people/firstname-lastname.md` |
-| Research findings | `knowledge/research/` |
-| Strategy/org context | `knowledge/company/` |
-| Project decisions | `projects/[project-name]/notes/` |
+| Person-specific context | `canonical/people/firstname-lastname.md` |
+| Research findings | `canonical/research/` |
+| Strategy/org context | `canonical/company/` |
+| Project decisions | `canonical/projects/[project-name]/notes/` |
 
 ## Steps
 
-1. **List recent meetings.** Call the Granola MCP tool to list recent meetings. **Load `data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
+1. **List recent meetings.** Call the Granola MCP tool to list recent meetings. **Load `canonical/data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
 2. Show the user what's available (date, attendees, summary), noting which source each came from
 3. User picks which meeting(s) to import
 4. **Synthesize** the meeting — extract only key details, not raw transcripts:
@@ -63,7 +63,7 @@ To avoid re-presenting meetings already synced, the skill maintains an import lo
    - **Do not extract action items** — capture tasks with `/action-items add`
 5. Propose where to write — a single meeting may produce multiple files (see Routing table above)
 6. Confirm the routing and content with the user before writing anything
-7. **Append to the import log.** Add an entry to `data/imported-meetings.json` with the meeting's source, source_id, title, date, today's date as `imported_at`, and the `destinations` list. Create the file with `{"imported": []}` if it doesn't exist yet.
+7. **Append to the import log.** Add an entry to `canonical/data/imported-meetings.json` with the meeting's source, source_id, title, date, today's date as `imported_at`, and the `destinations` list. Create the file with `{"imported": []}` if it doesn't exist yet.
 
 ## Output Format
 
@@ -79,14 +79,14 @@ Each destination file gets an appended section like:
 
 A research sync with Becky Weinstein might produce:
 
-**→ `knowledge/people/becky-weinstein.md`** (appended)
+**→ `canonical/people/becky-weinstein.md`** (appended)
 ```markdown
 ### 2026-04-23 - User research sync
 - Wants to run 5 more interviews before we finalize personas
 - Concerned about sample bias in the enterprise segment
 ```
 
-**→ `knowledge/research/insights.md`** (appended)
+**→ `canonical/research/insights.md`** (appended)
 ```markdown
 ### 2026-04-23 - Enterprise persona gaps
 - Current personas underrepresent mid-market ops buyers
@@ -106,5 +106,5 @@ A research sync with Becky Weinstein might produce:
 |---------|-----|
 | Dumping raw transcript into notes | Synthesize — extract decisions, actions, and context only |
 | Writing files without confirming routing | Always show proposed destinations and content first |
-| Putting all content in one file | A single meeting often routes to 2-3 different knowledge areas |
-| Extracting action items into local knowledge files | Use `/action-items add` → `data/action-items.md` instead |
+| Putting all content in one file | A single meeting often routes to 2-3 different canonical areas |
+| Extracting action items into local canonical files | Use `/action-items add` → `canonical/action-items.md` instead |

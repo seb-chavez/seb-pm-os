@@ -22,13 +22,13 @@ Drafts a cross-project status report using the `templates/strategy/status-update
 ## Steps
 
 1. Read the template from `templates/strategy/status-update.md`
-2. Read recent notes from all active project directories — use `Glob` to find `projects/*/notes/*.md`, then read the most recent 3-5 notes per project
-3. Read `GOALS.md` for current goal progress
+2. Read recent notes from all active project directories — use `Glob` to find `canonical/projects/*/notes/*.md`, then read the most recent 3-5 notes per project
+3. Read `canonical/GOALS.md` for current goal progress
 4. Draft a filled-in status report using the template structure:
    - Pull accomplishments from recent project notes (decisions made, milestones hit)
-   - Pull upcoming work from open items in `data/action-items.md` and next steps in project notes
+   - Pull upcoming work from open items in `canonical/action-items.md` and next steps in project notes
    - Pull risks/blockers from any flagged issues in notes
-   - Pull metrics from `GOALS.md` key results table
+   - Pull metrics from `canonical/GOALS.md` key results table
 5. Apply formatting defaults from `memory/doc-formatting.md`
 6. Present the draft to the user for review
 7. On approval, ask where to save the file and write it

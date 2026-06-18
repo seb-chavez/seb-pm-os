@@ -48,7 +48,7 @@ Three layers, cleanly separated:
 │                       doc templates + Notion defaults, skills    │
 │                       index, context-conservation guidance       │
 │  .claude/skills/      All skills, in markdown SKILL.md format     │
-│  templates/ knowledge/ projects/ goals/   (already neutral)      │
+│  templates/ canonical/   (already neutral)                         │
 │  .mcp.json            Canonical MCP server list (stays at root)  │
 ├─ HARNESS OVERLAYS (thin, per-harness, git-tracked) ─────────────┤
 │  harness/claude/      Claude-specific (absorbs claude-config/):  │
@@ -97,8 +97,8 @@ Light tool-name references (e.g. "use the Grep tool") inside skills are acceptab
 The recording trio (`setup-recording`, `start-recording`, `stop-recording`) is **deleted entirely** — it's no longer needed, and it was the only harness-coupled, OS-level machinery in the repo. Deletion scope:
 
 - **Delete** the three skill directories under `.claude/skills/`.
-- **Strip `import-meeting-notes` to Granola-only**: remove its "local transcripts" source branch (the `data/transcripts/` path, the `/start-recording` guidance, and the local-source cleanup step). The skill imports solely from the Granola MCP afterward.
-- **Clean up `.gitignore`**: remove the now-orphaned `data/recordings/` and `data/transcripts/` ignore rules.
+- **Strip `import-meeting-notes` to Granola-only**: remove its "local transcripts" source branch (the `canonical/data/transcripts/` path, the `/start-recording` guidance, and the local-source cleanup step). The skill imports solely from the Granola MCP afterward.
+- **Clean up `.gitignore`**: remove the now-orphaned `canonical/data/recordings/` and `canonical/data/transcripts/` ignore rules.
 - **Scrub `README.md`** of recorder references.
 - **Delete the historical recorder docs**: `docs/superpowers/plans/2026-04-30-native-meeting-recorder.md` and `docs/superpowers/specs/2026-04-30-native-meeting-recorder-design.md`.
 
@@ -159,7 +159,7 @@ Because each harness reads a **separate** global dir, all wired harnesses coexis
 - **Drift proof:** edit a skill through the Codex symlink path; assert the repo file shows the change and `git diff` reflects it.
 - **Claude Code parity:** confirm `/meeting-prep` etc. still appear with prefill preview after `./setup.sh claude`.
 - **Content neutrality:** grep `AGENTS.md` for Claude Code-specific tool names / mechanics; assert none remain (those belong in the Claude overlay).
-- **Clean deletion:** grep the repo for `start-recording` / `stop-recording` / `setup-recording` / `data/transcripts` / `data/recordings`; assert no dangling references remain outside git history (e.g. in `import-meeting-notes`, `README.md`, `.gitignore`).
+- **Clean deletion:** grep the repo for `start-recording` / `stop-recording` / `setup-recording` / `canonical/data/transcripts` / `canonical/data/recordings`; assert no dangling references remain outside git history (e.g. in `import-meeting-notes`, `README.md`, `.gitignore`).
 
 ## Migration / rollout
 

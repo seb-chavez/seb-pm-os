@@ -16,10 +16,16 @@ PORTABLE_SKILLS=(
   job-transition
   knowledge-health
   meeting-prep
-  review-customer
-  review-devil
-  review-eng
-  review-exec
+  review-budget
+  review-champion-user
+  review-engineer
+  review-executive
+  review-new-hire
+  review-operator
+  review-optimist
+  review-panel
+  review-pessimist
+  review-sme
   status-report
   weekly-digest
 )

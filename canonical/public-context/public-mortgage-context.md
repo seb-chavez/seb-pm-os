@@ -92,7 +92,7 @@ Fannie Mae and Freddie Mac are **government-sponsored enterprises (GSEs)** creat
 
 ### Why this matters for Valon
 
-- Both fall under what Valon refers to as **"GSE loans"** — the platform's first-tier supported loan type. See `knowledge/company/loan-types.md` for Valon's loan-type sequencing.
+- Both fall under what Valon refers to as **"GSE loans"** — the platform's first-tier supported loan type. See `canonical/company/loan-types.md` for Valon's loan-type sequencing.
 - A loan being a conforming Fannie or Freddie loan has implications for servicing requirements (reporting, remittance, default handling), but ValonOS treats them as the same readiness tier.
 - Rhythm Capital (NewRez's parent) gave Valon its first Fannie Mae and first Freddie Mac loans to service — historical context for the NewRez relationship.
 

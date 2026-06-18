@@ -70,9 +70,9 @@ Delete these four lines (currently lines 14–17):
 
 ```
 # Native meeting recorder data
-data/models/
-data/recordings/
-data/transcripts/
+canonical/data/models/
+canonical/data/recordings/
+canonical/data/transcripts/
 ```
 
 - [ ] **Step 4: Verify the deletions and check for dangling references**
@@ -80,7 +80,7 @@ data/transcripts/
 Run:
 ```bash
 ls .claude/skills | grep -c recording   # expect 0
-grep -rn -e "data/transcripts" -e "data/recordings" -e "BlackHole" -e "whisper" --include="*.md" --include="*.json" --exclude-dir=.git . | grep -v docs/superpowers/specs/2026-06-05
+grep -rn -e "canonical/data/transcripts" -e "canonical/data/recordings" -e "BlackHole" -e "whisper" --include="*.md" --include="*.json" --exclude-dir=.git . | grep -v docs/superpowers/specs/2026-06-05
 ```
 Expected: the only remaining hit is in `.claude/skills/import-meeting-notes/SKILL.md` (handled in Task 2). `README.md` should produce **no** hits (it never documented the recorder). If anything else appears, note it for cleanup.
 
@@ -113,11 +113,11 @@ description: Use when the user wants to import, pull, or review meeting notes fr
 
 Old:
 ```
-Pulls meeting content from available sources (Granola MCP or local transcripts from `/stop-recording`), synthesizes key details, and routes them to the appropriate knowledge folders. The goal is structured context, not raw transcripts.
+Pulls meeting content from available sources (Granola MCP or local transcripts from `/stop-recording`), synthesizes key details, and routes them to the appropriate canonical folders. The goal is structured context, not raw transcripts.
 ```
 New:
 ```
-Pulls meeting content from the Granola MCP, synthesizes key details, and routes them to the appropriate knowledge folders. The goal is structured context, not raw transcripts.
+Pulls meeting content from the Granola MCP, synthesizes key details, and routes them to the appropriate canonical folders. The goal is structured context, not raw transcripts.
 ```
 
 - [ ] **Step 3: Replace the "When NOT to use" bullets (lines 14–16)**
@@ -160,18 +160,18 @@ New:
 
 Old:
 ```
-1. **Check available sources.** Try Granola MCP first (call the Granola tool to list recent meetings). Then check for local transcripts in `data/transcripts/` using Glob. **Load `data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
+1. **Check available sources.** Try Granola MCP first (call the Granola tool to list recent meetings). Then check for local transcripts in `canonical/data/transcripts/` using Glob. **Load `canonical/data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
 ```
 New:
 ```
-1. **List recent meetings.** Call the Granola MCP tool to list recent meetings. **Load `data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
+1. **List recent meetings.** Call the Granola MCP tool to list recent meetings. **Load `canonical/data/imported-meetings.json`** if it exists and cross-reference against the returned meetings. Filter already-imported meetings from the picker by default (mention the count of hidden meetings so the user can opt to re-import).
 ```
 
 - [ ] **Step 7: Delete the local-cleanup procedure step (line 73)**
 
 Remove this entire step:
 ```
-8. **Clean up local source files (if applicable).** If the imported meeting came from a local transcript, ask the user whether to delete the source files (the `.wav` in `data/recordings/` and `.txt` in `data/transcripts/`). Delete if confirmed.
+8. **Clean up local source files (if applicable).** If the imported meeting came from a local transcript, ask the user whether to delete the source files (the `.wav` in `canonical/data/recordings/` and `.txt` in `canonical/data/transcripts/`). Delete if confirmed.
 ```
 
 - [ ] **Step 8: Delete the local-transcripts "Common Mistakes" row (line 120)**
@@ -295,12 +295,12 @@ This OS is a version-controlled toolkit cloned at each company. Key directories:
 | `harness/<name>/` | Per-harness overlays + global payload installed by `setup.sh` |
 | `.claude/skills/` | Single source for all skills (symlinked into each harness) |
 | `templates/` | Document blueprints (PRD, agenda, etc.) |
-| `knowledge/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
-| `projects/` | Active project folders with dated notes (gitignored) |
-| `goals/`, `GOALS.md` | Quarterly goals (gitignored) |
-| `data/` | Working data files (gitignored) |
+| `canonical/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
+| `canonical/projects/` | Active project folders with dated notes (gitignored) |
+| `canonical/goals/`, `canonical/GOALS.md` | Quarterly goals (gitignored) |
+| `canonical/data/` | Working data files (gitignored) |
 
-Naming: meeting notes `YYYY-MM-DD-topic.md`; people files `firstname-lastname.md`; archived goals `goals/GOALS-YYYY-QN.md` (active goals stay at root as `GOALS.md`).
+Naming: meeting notes `YYYY-MM-DD-topic.md`; people files `firstname-lastname.md`; archived goals `canonical/goals/GOALS-YYYY-QN.md` (active goals live at `canonical/GOALS.md`).
 ```
 
 - [ ] **Step 6: Verify `AGENTS.md` is harness-neutral**
