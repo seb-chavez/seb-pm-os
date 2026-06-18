@@ -1,9 +1,14 @@
 ---
 name: delegate-research
 description: Use when the user asks to look something up, research a topic, explore a codebase area, search the web, read lengthy docs, or gather information. Triggers on research-oriented requests like "look up", "find out", "how does X work", "explore", "investigate", "search for", "summarize this", "read through", or "check the docs".
+disable-model-invocation: true
 ---
 
 # Delegate Research to Sub-Agents
+
+## Invocation
+
+`/delegate-research` — or natural language when a task is read-heavy (e.g. "look up how X works", "explore the codebase for Y").
 
 ## Why
 

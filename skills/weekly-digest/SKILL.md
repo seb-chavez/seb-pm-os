@@ -1,6 +1,7 @@
 ---
 name: weekly-digest
 description: Use when reviewing what happened across projects and the knowledge base in the past week. Triggers on "weekly digest", "what happened this week", "weekly summary", "recap the week".
+disable-model-invocation: true
 ---
 
 # Weekly Digest
@@ -8,6 +9,10 @@ description: Use when reviewing what happened across projects and the knowledge 
 ## Overview
 
 Scans files modified in the past 7 days across projects, knowledge, and goals. Synthesizes a summary of activity and decisions. Includes open action items from `data/action-items.md`.
+
+## Invocation
+
+`/weekly-digest` — or natural language (e.g. "what happened this week").
 
 ## When NOT to use
 

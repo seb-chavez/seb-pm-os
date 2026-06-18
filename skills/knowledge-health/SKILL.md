@@ -1,6 +1,7 @@
 ---
 name: knowledge-health
 description: Use when checking for gaps, staleness, or missing information in the knowledge base. Triggers on "knowledge health", "check my knowledge base", "what's missing", "what's stale", "health check".
+disable-model-invocation: true
 ---
 
 # Knowledge Health Check
@@ -8,6 +9,10 @@ description: Use when checking for gaps, staleness, or missing information in th
 ## Overview
 
 Scans the knowledge base and active projects for gaps, missing fields, and staleness. Produces a health report showing what's complete, what has gaps, and what needs attention.
+
+## Invocation
+
+`/knowledge-health` — or natural language (e.g. "check my knowledge base").
 
 ## When NOT to use
 

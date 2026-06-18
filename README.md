@@ -74,8 +74,9 @@ All harnesses share the same playbooks in `skills/`. Run `./setup.sh <harness>` 
 
 | Harness | How to invoke |
 |---------|---------------|
-| **Claude Code** | `/action-items`, `/meeting-prep dean`, etc. (slash menu after `./setup.sh claude`) |
-| **Cursor** | "add action item", "list my action items", "run meeting-prep for Dean" (after `./setup.sh cursor`) |
+| **Claude Code** | `/action-items`, `/meeting-prep dean`, etc. (after `./setup.sh claude`) |
+| **Cursor IDE** | `/action-items`, `/meeting-prep dean`, etc. (after `./setup.sh cursor`) |
+| **Cursor terminal** | `agent` then `/action-items` — or `agent "/action-items"` from the shell |
 | **Codex** | `$action-items`, `$meeting-prep`, or `/skills` to browse (after `./setup.sh codex`) |
 
 ## Document Templates

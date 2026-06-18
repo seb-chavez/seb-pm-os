@@ -1,0 +1,7 @@
+{
+  "name": "seb-pm-os",
+  "displayName": "PM OS",
+  "description": "Personal PM operating system skills — action items, meeting prep, status reports, and more.",
+  "category": "productivity",
+  "skills": "./skills"
+}

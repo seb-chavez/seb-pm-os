@@ -1,6 +1,7 @@
 ---
 name: action-items
 description: Use when capturing, listing, or completing personal action items during or after meetings. Triggers on "action items", "add action item", "capture a task", "what do I owe", "what's outstanding", "mark done", "complete action item".
+disable-model-invocation: true
 ---
 
 # Action Items
@@ -11,11 +12,18 @@ Manual task tracker for commitments captured during live meetings. Stores items 
 
 ## Invocation
 
-| Harness | Examples |
-|---------|----------|
-| Claude Code | `/action-items`, `/action-items add write PRD for X`, `/action-items done ai-001` |
-| Cursor | "add action item", "list my action items", "mark ai-001 done" |
-| Codex | `$action-items`, `$action-items add write PRD for X` |
+Skill name is **`action-items`** (plural).
+
+| Harness | Invoke |
+|---------|--------|
+| **Cursor terminal** (primary) | `agent "/action-items"` one-shot, or run `agent` then type `/action-items` in the session |
+| Cursor IDE chat | `/action-items`, `/action-items add …`, `/action-items done …` |
+| Claude Code | `/action-items`, `/action-items add …`, `/action-items done …` |
+| Codex CLI | `$action-items`, `$action-items add …` (not `/`) |
+
+**Cursor terminal notes:** Run `agent` from the repo root (`seb-pm-os`). After `./setup.sh cursor` or skill changes, exit and start a new `agent` session — the CLI does not hot-reload skills. The `/` autocomplete picker is unreliable for local PM OS skills (200+ toolshed skills dominate); type the full `/action-items` or use `agent "/action-items"` one-shot.
+
+Also works via natural language (e.g. "list my action items", "mark ai-003 done").
 
 Does not write tasks to people files, project notes, or meeting imports.
 
@@ -50,7 +58,7 @@ Completed items move from `## Open` to `## Done`. Set `**Status:** done` and add
 
 | Mode | Trigger examples | Behavior |
 |------|------------------|----------|
-| `add` | "add action item", "capture: write PRD", `/action-items` (Claude only) | Prompt for fields, then append to `## Open` |
+| `add` | "add action item", "capture: write PRD", `/action-items add` | Prompt for fields, then append to `## Open` |
 | `list` (default) | "action items", "what's open", "what do I owe" | Show open items only |
 | `done` | "mark ai-003 done", "complete write PRD" | Move item to `## Done`, update status |
 

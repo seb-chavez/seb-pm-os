@@ -13,6 +13,9 @@ HOME="$SCRATCH" "$REPO/setup.sh" all >/dev/null
 [ "$(readlink "$SCRATCH/.claude/skills/meeting-prep")" = "$REPO/skills/meeting-prep" ] || fail "claude skill link"
 [ "$(readlink "$SCRATCH/.codex/skills/meeting-prep")" = "$REPO/skills/meeting-prep" ] || fail "codex skill link"
 [ "$(readlink "$SCRATCH/.cursor/skills/meeting-prep")" = "$REPO/skills/meeting-prep" ] || fail "cursor skill link"
+[ "$(readlink "$REPO/.cursor/skills")" = "$REPO/skills" ] || fail "cursor project skills dir link"
+[ "$(readlink "$SCRATCH/.cursor/plugins/local/seb-pm-os")" = "$REPO/harness/cursor/plugin" ] || fail "cursor local plugin link"
+[ -f "$REPO/harness/cursor/plugin/.cursor-plugin/plugin.json" ] || fail "cursor plugin manifest missing"
 [ "$(readlink "$SCRATCH/.cursor/mcp.json")" = "$REPO/.mcp.json" ] || fail "cursor mcp link"
 
 # 3. Idempotency: re-running reports skips, creates no .backup files.

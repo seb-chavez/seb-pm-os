@@ -1,6 +1,7 @@
 ---
 name: review-exec
 description: Use when reviewing a document from an executive or leadership perspective. Triggers on "executive review", "review as an exec", "leadership review", "review-exec", "would a VP approve this".
+disable-model-invocation: true
 ---
 
 # Executive Review
@@ -8,6 +9,10 @@ description: Use when reviewing a document from an executive or leadership persp
 ## Overview
 
 Reviews a document as a VP or C-level reading it for the first time, evaluating clarity of the ask, business alignment, and decision-readiness.
+
+## Invocation
+
+`/review-exec [path/to/document]` — e.g. `/review-exec projects/foo/notes/prd.md`. Also works via natural language (e.g. "executive review of this brief").
 
 ## Steps
 

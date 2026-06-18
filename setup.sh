@@ -51,7 +51,15 @@ backup_and_link() {
     return
   fi
   if [ -e "$dest" ] || [ -L "$dest" ]; then
-    local backup="${dest}.backup.${DATE}"
+    local backup
+    # Never leave backups inside a skills/ tree — Cursor scans that dir at startup.
+    if [[ "$dest" == */skills/* ]]; then
+      local backup_root="${dest%/skills/*}/skills-backups"
+      mkdir -p "$backup_root"
+      backup="$backup_root/$(basename "$dest").backup.${DATE}"
+    else
+      backup="${dest}.backup.${DATE}"
+    fi
     mv "$dest" "$backup"
     backed_up+=("$dest -> $backup")
   fi
@@ -59,13 +67,46 @@ backup_and_link() {
   linked+=("$dest -> $src")
 }
 
+prune_stale_skill_backups() {
+  local skills_dir="$1"
+  [ -d "$skills_dir" ] || return 0
+  local entry
+  for entry in "$skills_dir"/*.backup.*; do
+    # Broken symlinks fail -e; harnesses still scan them and break discovery.
+    [ -e "$entry" ] || [ -L "$entry" ] || continue
+    rm -rf "$entry"
+    backed_up+=("removed stale $entry")
+  done
+}
+
 link_portable_skills() {
   local target_dir="$1"
   mkdir -p "$target_dir"
+  # Old setup.sh left *.backup.* inside skills/; harnesses scan that tree and
+  # can fail discovery when those symlinks point at deleted paths.
+  prune_stale_skill_backups "$target_dir"
   local name
   for name in "${PORTABLE_SKILLS[@]}"; do
     backup_and_link "$SCRIPT_DIR/skills/$name" "$target_dir/$name"
   done
+}
+
+link_project_skills_dir() {
+  local dest="$1"
+  local src="$2"
+  mkdir -p "$(dirname "$dest")"
+  if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
+    skipped+=("$dest (already linked)")
+    return
+  fi
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    local backup
+    backup="${dest}.backup.${DATE}"
+    mv "$dest" "$backup"
+    backed_up+=("$dest -> $backup")
+  fi
+  ln -s "$src" "$dest"
+  linked+=("$dest -> $src")
 }
 
 usage() {
@@ -101,12 +142,25 @@ setup_cursor() {
   # Cursor reads MCP from ~/.cursor/mcp.json (same schema as repo .mcp.json).
   backup_and_link "$SCRIPT_DIR/.mcp.json" "$d/mcp.json"
   # Cursor discovers personal skills in ~/.cursor/skills/<name>/SKILL.md (same
-  # <name>/SKILL.md layout the skills already use). It auto-invokes them from
-  # their `description`; there is no slash/$ command syntax. Never use
-  # ~/.cursor/skills-cursor — that dir is reserved for Cursor's built-in skills.
+  # <name>/SKILL.md layout the skills already use). IDE chat: /name in the slash
+  # menu. Terminal: run `agent`, then /name inside the session (or `agent "/name"`).
+  # Never use ~/.cursor/skills-cursor — that dir is reserved for Cursor's built-in skills.
   link_portable_skills "$d/skills"
+  # Project-level skills (.cursor/skills/) — IDE Agent chat discovers these when this
+  # repo is open. User-level ~/.cursor/skills/ alone is sometimes not enough for /name.
+  # Project skills: one symlink to skills/ (picker indexes real paths better than per-skill symlinks).
+  link_project_skills_dir "$SCRIPT_DIR/.cursor/skills" "$SCRIPT_DIR/skills"
+  # Terminal CLI indexes plugin skills for the / menu (same path as toolshed).
+  # Use a minimal plugin package — not the whole repo — so discovery matches cache plugins.
+  local local_plugins="$d/plugins/local"
+  mkdir -p "$local_plugins"
+  backup_and_link "$SCRIPT_DIR/harness/cursor/plugin" "$local_plugins/seb-pm-os"
   echo "Cursor: open this repo so AGENTS.md loads as project instructions."
+  echo "        Reload the window (Cmd+Shift+P → Developer: Reload Window) if /skills do not appear yet."
   echo "        For PM context outside this repo, add a short AGENTS.md pointer in Cursor Settings > User Rules once."
+  echo "Cursor terminal: quit any running \`agent\` session, then \`cd\` to this repo and run \`agent\`."
+  echo "        Type \`/action-items\` in the slash menu (or \`agent \"/action-items\"\` one-shot)."
+  echo "        Restart \`agent\` after setup or skill changes — CLI does not hot-reload skills."
 }
 
 print_summary() {

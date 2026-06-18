@@ -1,6 +1,7 @@
 ---
 name: review-eng
 description: Use when reviewing a document from an engineering feasibility perspective. Triggers on "engineering review", "review as an engineer", "technical review", "review-eng".
+disable-model-invocation: true
 ---
 
 # Engineering Review
@@ -8,6 +9,10 @@ description: Use when reviewing a document from an engineering feasibility persp
 ## Overview
 
 Reviews a document as an engineering lead evaluating feasibility, technical constraints, and implementation clarity.
+
+## Invocation
+
+`/review-eng [path/to/document]` — e.g. `/review-eng projects/foo/notes/prd.md`. Also works via natural language (e.g. "engineering review of this PRD").
 
 ## Steps
 
