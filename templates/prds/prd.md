@@ -53,24 +53,16 @@
 ### What are the key requirements?
 
 **Functional Requirements**
-*Each row is one testable, unambiguous statement. Keep Notes to a single sentence of acceptance criteria; no rationale paragraphs. If a requirement needs real explanation, it's probably two requirements.*
+*Each item is one testable, unambiguous statement. Keep acceptance criteria to a single sentence; no rationale paragraphs. If a requirement needs real explanation, it's probably two requirements.*
 
-
-| Priority (P0/P1/P2) | Requirement                        | Notes                                                                                          |
-| ------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------- |
-| P0                  | Self-service payment portal        | Borrower can view balance, make a one-time payment, and set up autopay without calling support |
-| P1                  | Payment confirmation notifications | Borrower receives email and in-app confirmation within 60 seconds of payment submission        |
-
+- [P0] **Self-service payment portal** — Borrower can view balance, make a one-time payment, and set up autopay without calling support
+- [P1] **Payment confirmation notifications** — Borrower receives email and in-app confirmation within 60 seconds of payment submission
 
 **Non-functional Requirements**
 *List performance, security, scalability, accessibility, and other non-functional requirements.*
 
-
-| Priority (P0/P1/P2) | Requirement                          | Notes                                              |
-| ------------------- | ------------------------------------ | -------------------------------------------------- |
-| P0                  | Page load time under 2 seconds       | Measured at P95 on 4G mobile connections           |
-| P1                  | WCAG 2.1 AA accessibility compliance | All payment flows must be screen-reader accessible |
-
+- [P0] **Page load time under 2 seconds** — Measured at P95 on 4G mobile connections
+- [P1] **WCAG 2.1 AA accessibility compliance** — All payment flows must be screen-reader accessible
 
 **Out of Scope**
 *List specific features we love but aren't building with the rationale to exclude them for now (or indefinitely).*
