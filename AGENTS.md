@@ -100,11 +100,13 @@ When asked to create a document, use the matching template from this repo as the
 
 Always apply the formatting defaults from `memory/doc-formatting.md` when generating any document.
 
+For PRDs, read `templates/prds/prd.md` for structure and `memory/prd-writing.md` for Problem-section style (no solutioning in Problem, outcomes in Success, Open Questions under Plan). Complete all four Problem subsections before drafting Proposal.
+
 If the user asks to "create a document" without specifying a type, ask which format they want.
 
 | Keyword | Template |
 |---------|----------|
-| "PRD" or "product requirements document" | `templates/prds/prd.md` |
+| "PRD" or "product requirements document" | `templates/prds/prd.md` (+ `memory/prd-writing.md`) |
 | "agenda" | `templates/meetings/agenda.md` |
 | "meeting notes" | `templates/meetings/meeting-notes.md` |
 | "decision log" or "decision record" | `templates/meetings/decision-log.md` |
@@ -155,6 +157,7 @@ Playbooks live in `skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per 
 | `meeting-prep` | Pull context on a person or topic before a meeting |
 | `import-meeting-notes` | Pull and synthesize meeting notes from Granola |
 | `weekly-digest` | Summarize activity across projects for the past week |
+| `weekly-priorities` | Draft the #servicing-pm weekly priorities post and update `canonical/PRIORITIES.md` |
 | `status-report` | Draft a cross-project status update from recent notes and goals |
 | `knowledge-health` | Flag gaps and staleness in the knowledge base |
 | `review-panel` | Multi-persona panel review with synthesized feedback |

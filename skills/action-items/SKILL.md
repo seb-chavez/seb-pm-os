@@ -48,11 +48,52 @@ On first use, create the file from `canonical/action-items.template.md` if it do
 - **Created:** 2026-06-16
 - **Due:** 2026-06-20
 - **Source:** Live meeting with Dean
+- **Project:** proj-2026-escrow-refunds
+- **Vertical:** escrow management
 - **Links:** https://notion.so/...
 - **Notes:** Cover refund timing and edge cases
 ```
 
-Completed items move from `## Open` to `## Done`. Set `**Status:** done` and add `**Completed:** YYYY-MM-DD`. Keep all other fields.
+Omit **Project** when no active project applies. Omit **Vertical** when no product vertical applies. Completed items move from `## Open` to `## Done`. Set `**Status:** done` and add `**Completed:** YYYY-MM-DD`. Keep all other fields.
+
+## Project linking
+
+When context points at a project, set **Project** to the folder slug under `canonical/projects/` (e.g. `proj-2026-fha-mip-payment-recon-scale`). Resolved path: `canonical/projects/<slug>/`.
+
+**When to set it:**
+- User names a `proj-*` slug or project folder
+- Title, source, links, or notes clearly map to one active (non-archived) project
+
+**How to resolve:**
+1. List folders matching `canonical/projects/proj-*` (exclude `canonical/projects/_archive/`)
+2. Prefer an explicit slug in the user's message
+3. Otherwise fuzzy-match on keywords in the action title or source against folder names and `brief.md` / `prd.md` titles in candidate folders
+4. If ambiguous or no match, omit **Project** — do not guess
+
+**Do not link** to archived projects (`canonical/projects/_archive/`) or cross-cutting work with no single project home.
+
+## Vertical tagging
+
+Tag items with the Escrow team product vertical(s) they touch. Charter reference: [Escrow Team Charter](https://app.notion.com/p/valonlabs/Escrow-Team-Charter-32f2df0ff7ba8082b0feda9e11bfcf8a).
+
+**Allowed values** (use exactly — lowercase):
+
+| Vertical | Typical scope |
+|----------|----------------|
+| `escrow management` | Escrow analysis, cushions, refunds, escrow accounts, borrower escrow experience |
+| `mortgage insurance` | FHA MIP, PMI, mortgage insurance premiums and recon |
+| `property insurance` | Hazard insurance, PI vendor integrations, loss draft, force-placed |
+| `property taxes` | Tax installments, tax authority payments, tax data |
+| `escrow core` | Shared escrow platform, cross-vertical infrastructure, workflows, branding/cutover spanning surfaces |
+
+**Format:** `- **Vertical:** escrow management` for one; comma-separated for multiple: `- **Vertical:** escrow management, escrow core`
+
+**When to set it:**
+- User names one or more verticals
+- Context clearly maps to a vertical (e.g. Assurant/SWBC → `property insurance`; tax installments → `property taxes`; FHA MIP → `mortgage insurance`)
+- Cross-cutting platform or multi-surface work → `escrow core`, alone or combined with a vertical
+
+**When to omit:** Admin, hiring, or org-wide work with no product vertical. If unsure between two verticals, include both rather than guessing one.
 
 ## Modes
 
@@ -71,6 +112,8 @@ If the user gives partial info with `add`, capture what they provided and ask on
 | Action | Yes | Short imperative title (becomes the `### ai-NNN — [title]` heading) |
 | Due | No | `YYYY-MM-DD` or relative date interpreted in user's timezone |
 | Source | No | Meeting, person, or context where it came up |
+| Project | No | Active project folder slug — see [Project linking](#project-linking) |
+| Vertical | No | One or more team verticals — see [Vertical tagging](#vertical-tagging) |
 | Links | No | Comma-separated URLs (Notion doc, ticket, etc.) |
 | Notes | No | Extra context |
 
@@ -88,10 +131,10 @@ If the user gives partial info with `add`, capture what they provided and ask on
 ## Open Action Items
 
 ### Overdue
-- **ai-001** — Write PRD for escrow refunds — due 2026-06-14 — source: Dean sync
+- **ai-001** — Write PRD for escrow refunds — due 2026-06-14 — project: proj-2026-escrow-refunds — vertical: escrow management — source: Dean sync
 
 ### Due this week
-- **ai-003** — Review escrow metrics — due 2026-06-18
+- **ai-003** — Review escrow metrics — due 2026-06-18 — project: proj-2026-escrow-deployos — vertical: escrow management
 
 ### No due date
 - **ai-005** — Follow up with legal on wording
@@ -121,3 +164,5 @@ Omit empty sections. Sort within each bucket by due date ascending.
 | Deleting completed items | Move to `## Done` and update status |
 | Reusing or skipping IDs | Always scan the file and assign the next `ai-NNN` |
 | Asking for every optional field when user is mid-meeting | Capture action first; ask for due date and links in one short follow-up |
+| Linking to archived or wrong projects | Only set **Project** for folders under `canonical/projects/proj-*`; never `_archive/` |
+| Invalid vertical values | Use only the five allowed verticals; comma-separate multiples |

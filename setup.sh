@@ -28,6 +28,7 @@ PORTABLE_SKILLS=(
   review-sme
   status-report
   weekly-digest
+  weekly-priorities
 )
 
 backed_up=()

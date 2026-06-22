@@ -2,11 +2,11 @@
 
 *One-line description of the project.*
 
-*Fill this in last it is the executive summary of the whole PRD. Keep this tight. The job of this doc is to let a reader grasp the problem and the plan in under two minutes, then find the requirements fast. State the point, then stop. A healthy PRD is one to two pages before links and appendices. Cut any section that's thin rather than padding it; if something needs depth (research, analysis), link to it instead of pasting it.*
+*Fill this in last. It is the executive summary of the whole PRD. A reader should grasp the problem and the plan in under two minutes, then find requirements fast. Cut thin sections rather than padding them; link to research instead of pasting it.*
 
-## Approvals
+## Reviewers
 
-*List the stakeholders who need to review and sign off on this PRD before work begins.*
+*Stakeholders who must review and sign off before work begins.*
 
 
 | Name       | Role         | Status   | Date       |
@@ -17,98 +17,155 @@
 
 ## Problem
 
+*Complete all four subsections below before writing Proposal. Problem states what is broken and why it matters now; it does not describe the solution. Open Questions belong at the bottom of this doc under Plan, not here.*
+
 ### What is the problem?
 
-*Three to five sentences. State who hurts and how. A reader should be able to repeat the problem and its stakes back to someone else after reading just this. No background dump; link to source material, research, charts, or screenshots instead of summarizing them here.*
+*Describe the broken workflow today in plain language. A reader should be able to repeat the problem and its stakes after reading this subsection alone.*
+
+**Structure (use what fits; skip blocks that do not apply):**
+
+1. **Core workflow gap** (2–4 sentences): What the system does today vs. what must be true. Name the authoritative source of truth (regulator, client, carrier, ledger) when relevant. Contrast with a mature analog elsewhere in the product if it clarifies the gap.
+
+2. **Related failure modes** (0–2 short paragraphs): Separate problems that share a project but are not the same bug (e.g., dual-system double payment during a migration). State facts and risks; do not prescribe fixes.
+
+3. **Who it hurts:** Bullet or bold labels per audience (**Operators**, **Engineering**, **Client**, **Borrowers**). One concrete example each (person, ticket, incident, review finding) beats generic pain.
+
+4. **Why it matters:** The forcing deadline (client milestone, conversion, contract date). Today's scale vs. upcoming scale with sourced numbers. Financial or compliance exposure with citations (ticket, incident $, client quote). Distinguish near-term deadline from longer-term bar when both exist.
+
+5. **References:** Link out to research, spreadsheets, incident tickets, and meeting notes. Do not summarize long sources inline.
+
+**Do:**
+- Write for engineers and operators, not executives. Short sentences; one idea per sentence.
+- Attribute claims (person, date, doc, ticket).
+- Name the **client** correctly (e.g., subservicer onboarding a portfolio vs. the portfolio seller).
+
+**Do not:**
+- Propose uploads, diffs, dashboards, or integrations here.
+- Use filler framing ("gating question," "trust in the platform," "highest-volume workflow in the vertical") unless you can defend it with data.
+- Dump tables or timelines that belong in Strategy unless they are essential to stating the problem.
 
 ### How does this connect to our strategy & priorities?
 
-*Two sentences max: the priority this serves, and the cost of not doing it now.*
+*Answer: which company or client priority does this serve, and why is it timed to this milestone? Still no solution.*
+
+**Include:**
+- The milestone or conversion this unblocks (date, volume, client).
+- Why this project is elevated vs. default priority for the team (honest reason: pipeline delivery, regulatory finding, incident, not superlatives).
+- At most one small table **only if** it shows why timing is tied to volume ramp (not a general data dump).
+
+**Do not:**
+- Repeat the full Problem narrative (deadline, loan counts) if already stated above. One cross-reference is enough.
+- Describe how engineering will build the fix.
+- Name future clients or analyst personas unless directly tied to the deadline.
+
+*Example shape: "[Client] [Milestone] ([date]) requires [workflow] to work at [scale]; today's process does not. This is [P0/P1] because [pipeline / finding / incident], not because [workflow] is the largest area in the org."*
 
 ### What does success look like?
 
-*Fill the metrics table. One sentence of prose at most; the numbers carry the meaning.*
+*Outcomes and measurable bars only. One sentence of prose, then the metrics table.*
+
+**Opening sentence:** State when success is achieved (milestone/date) and the operational bar in outcome terms: capacity held, zero class of incident, timeliness, no duplicate payments, etc.
+
+**Do not** describe the solution (no "ops uploads," "system diffs," "exception queue"). Those belong in Proposal.
+
+**Metrics table:** Each row ties to a problem or risk above.
 
 
-| Metric                                   | Current Baseline | Target    | Measurement Method            |
-| ---------------------------------------- | ---------------- | --------- | ----------------------------- |
-| Customer support ticket volume (billing) | 1,200/month      | 600/month | Zendesk reporting dashboard   |
-| Self-service payment completion rate     | 34%              | 75%       | Product analytics (Amplitude) |
+| Metric | Current Baseline | Target | Measurement Method |
+| ------ | ---------------- | ------ | ------------------ |
+| [Name] | [Sourced today state] | [Outcome at milestone] | [How we will measure] |
 
+
+**Metric guidance:**
+- Baselines need a source (ops report, ticket, dashboard, named incident).
+- Prefer **absolute limits** over percentages when volume is scaling (e.g., "stay within STM capacity: &lt;N interventions per cycle" rather than "&lt;10% of certs" if 10% of a larger book still breaks ops).
+- Binary outcomes are fine where appropriate (zero duplicate remits, zero edit-loss incidents).
+- Readiness rows may reference test cycles and sign-off criteria before go-live.
 
 ### What are we not trying to solve?
 
-*List explicit areas of this problem we do not plan to address. Explain why they are out of scope.*
+*Draw the scope line for this milestone. Opening sentence: what delivery and by when. Then bullets.*
+
+This project is scoped to [outcome] before **[date]**. The following are explicitly out of scope (separate tracks or later milestones):
+
+- **[Topic]:** What is excluded and why (timeline, other team owns it, unverified workflow, follow-on after ops discovery). One to two sentences per bullet.
+- **[Dependency on another team]:** We depend on the answer but do not build their side.
+
+**Do:**
+- Keep to the bullets that matter for this milestone (typically 5–10).
+- Separate "we won't build post-pay recon" from "we won't automate HUD connectivity" from "we won't fix unrelated product areas."
+
+**Do not:**
+- State unverified workflows as fact (if unsure, move to Open Questions and omit from out-of-scope or soften).
+- Duplicate Proposal content or re-list requirements as exclusions.
 
 ## Proposal
 
+*Write Proposal only after Problem subsections are stable. This is where approach, flows, and requirements live.*
+
 ### How do we intend to solve this problem?
 
-*One to three sentences: the approach, and why it beats the alternative we considered. Save the detail for the requirements below.*
+*One to three sentences: the approach, and why it beats the alternative considered (e.g., why not SFTP-first). Save detail for requirements and flows below.*
 
 ### How will our solution work?
 
-*Link the mock or diagram (Figma, architecture sketch, whiteboard photo). Use bullets for the key flows or trade-offs, not prose.*
+*Link mocks or diagrams (Figma, architecture sketch). Use bullets for key flows or trade-offs, not long prose.*
 
 ### What are the key requirements?
 
 **Functional Requirements**
-*Each item is one testable, unambiguous statement. Keep acceptance criteria to a single sentence; no rationale paragraphs. If a requirement needs real explanation, it's probably two requirements.*
+*Each item is one testable statement. One sentence of acceptance criteria; no rationale paragraphs.*
 
-- [P0] **Self-service payment portal** — Borrower can view balance, make a one-time payment, and set up autopay without calling support
-- [P1] **Payment confirmation notifications** — Borrower receives email and in-app confirmation within 60 seconds of payment submission
+- [P0] **Requirement name** — Acceptance criterion
+- [P1] **Requirement name** — Acceptance criterion
 
 **Non-functional Requirements**
-*List performance, security, scalability, accessibility, and other non-functional requirements.*
 
-- [P0] **Page load time under 2 seconds** — Measured at P95 on 4G mobile connections
-- [P1] **WCAG 2.1 AA accessibility compliance** — All payment flows must be screen-reader accessible
+- [P0] **Requirement name** — Acceptance criterion
+- [P1] **Requirement name** — Acceptance criterion
 
 **Out of Scope**
-*List specific features we love but aren't building with the rationale to exclude them for now (or indefinitely).*
+*Features we are deferring within the engineering track (distinct from Problem "what we are not trying to solve").*
 
 ### What dependencies do we have on others?
 
-*Write out the items you're depending on other teams to deliver for your key features.*
 
-
-| Team                 | Dependency                                                      | POC                  |
-| -------------------- | --------------------------------------------------------------- | -------------------- |
-| Customer Support     | Agents must be trained 3 months prior to feature being released | First Name Last Name |
-| Platform Engineering | Payment processing API v2 must be deployed to production        | First Name Last Name |
+| Team | Dependency | POC |
+| ---- | ---------- | --- |
+|      |            |     |
 
 
 ## Plan
 
+*Timeline and risks may be filled as the project matures. Open Questions stay at the bottom of the doc.*
+
 ### Timeline
 
-*Outline the high-level milestones and target dates that are required from kickoff to launch.*
 
-
-| Milestone     | Description                                     | Target Date | Status      |
-| ------------- | ----------------------------------------------- | ----------- | ----------- |
-| Design review | Final mocks approved by product and engineering | 2026-02-01  | Complete    |
-| Beta launch   | Internal team testing with production data      | 2026-03-15  | In Progress |
+| Milestone | Description | Target Date | Status |
+| --------- | ----------- | ----------- | ------ |
+|           |             |             |        |
 
 
 ### Risks and Mitigations
 
-*Identify risks that could impact delivery or success. For each risk, describe the likelihood, impact, and mitigation strategy.*
 
-
-| Risk                                         | Likelihood | Impact | Mitigation                                                        |
-| -------------------------------------------- | ---------- | ------ | ----------------------------------------------------------------- |
-| Payment API v2 delivery slips past March     | Medium     | High   | Build against v1 with an adapter layer; swap to v2 when ready     |
-| Low borrower adoption of self-service portal | Medium     | Medium | Partner with CX team on email campaign and in-app onboarding flow |
+| Risk | Likelihood | Impact | Mitigation |
+| ---- | ---------- | ------ | ---------- |
+|      |            |        |            |
 
 
 ### Open Questions
 
-*List any unresolved questions that need answers before or during implementation.*
+*Unresolved questions that block scope, design, or go-live. Prefer owners who can answer from ops, client, or eng. When answered, move facts into Problem or Proposal and note resolution here.*
 
 
-| Question                              | Owner      | Due Date   | Resolution |
-| ------------------------------------- | ---------- | ---------- | ---------- |
-| Do we support partial payments in v1? | Jane Smith | 2026-01-20 |            |
+| Question | Owner | Due Date | Resolution |
+| -------- | ----- | -------- | ---------- |
+|          |       |          |            |
 
 
+---
+
+*Formatting: see `memory/doc-formatting.md`. Use `approx.` not `~` for estimates (Notion renders tildes as strikethrough). No em dashes as sentence connectors.*
