@@ -2,6 +2,8 @@
 
 Personal task tracker. Copy to `canonical/action-items.md` (gitignored) or let `/action-items add` create it on first use.
 
+Verticals match the Escrow team charter: escrow management, mortgage insurance, property insurance, property taxes, escrow core.
+
 ## Open
 
 <!-- Example (delete after first real item):
@@ -10,6 +12,8 @@ Personal task tracker. Copy to `canonical/action-items.md` (gitignored) or let `
 - **Created:** 2026-06-16
 - **Due:** 2026-06-20
 - **Source:** Escrow sync with Dean
+- **Project:** proj-2026-escrow-refunds
+- **Vertical:** escrow management
 - **Links:** https://notion.so/...
 - **Notes:** Cover refund timing and edge cases
 -->
@@ -23,6 +27,8 @@ Personal task tracker. Copy to `canonical/action-items.md` (gitignored) or let `
 - **Completed:** 2026-06-14
 - **Due:** 2026-06-15
 - **Source:** Weekly standup
+- **Project:** proj-2026-example
+- **Vertical:** escrow management, escrow core
 - **Links:**
 - **Notes:**
 -->

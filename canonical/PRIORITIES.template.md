@@ -4,26 +4,28 @@ Rolling weekly tracker. Most recent week at top.
 
 Post each week's list to **#servicing-pm** and link the Slack message below. Update the Slack post as you complete items; keep this file in sync (or ask an agent to sync from the permalink).
 
+Week blocks use **bold** for headings (Slack has no `#` headings). Item lines are plain text except when you need to emphasize something specific.
+
 ---
 
-## Week of YYYY-MM-DD
+**Week of YYYY-MM-DD**
 
 **Slack:** [#servicing-pm post](https://valon-technologies.slack.com/archives/C09BLTWGTGR/pXXXXXXXXXXXXXXX) _(last edited YYYY-MM-DD)_
 
-### Admin
-- [ ] **Example item** — description
+**Admin**
+- [ ] Example item — description
 
-### Escrow Management
-- [ ] **Example item** — description
+**Escrow Management**
+- [ ] Example item — description
 
-### Property Insurance
-- [ ] **Example item** — description
+**Property Insurance**
+- [ ] Example item — description
 
-### Property Taxes
-- [ ] **Example item** — description
+**Property Taxes**
+- [ ] Example item — description
 
-### Mortgage Insurance
-- [ ] **Example item** — description
+**Mortgage Insurance**
+- [ ] Example item — description
 
 ---
 
