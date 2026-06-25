@@ -2,6 +2,21 @@
 
 Every task gets its own folder. One folder per active project. Move completed projects to `_archive/`.
 
+## Active roadmap (Slack ↔ local)
+
+Slack channel names are canonical for roadmap tracking. Local folder names may differ slightly.
+
+| Slack channel | Local folder |
+| ------------- | ------------ |
+| `#proj-2026-cotality-check-printing-integration` | `proj-2026-cotality-check-printing-integration` |
+| `#proj-2026-01-27-ea-qc-check-revamp` | `proj-2026-01-27-ea-qc-check-revamp` |
+| `#proj-2026-create-edit-tax-installments` | `proj-2026-create-edit-tax-installments` |
+| `#proj-2026-fha-mip-payment-recon-and-scale` | `proj-2026-fha-mip-payment-recon-scale` |
+| `#proj-2026-m3-escrow-vds-migrations` | `proj-2026-m3-escrow-vds-migrations` |
+| `#proj-2026-new-pi-vendor-integrations` | `proj-2026-new-pi-vendor-integrations` |
+| `#proj-2026-property-valuation-fee-accounting` | `proj-2026-property-valuation-fee-accounting` |
+| `#proj-configurations` | `proj-2026-escrow-configurations` |
+
 ## How it works
 
 When you come back the next day, point Claude at the project folder:

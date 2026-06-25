@@ -2,13 +2,19 @@
 name: action-items
 description: Use when capturing, listing, or completing personal action items during or after meetings. Triggers on "action items", "add action item", "capture a task", "what do I owe", "what's outstanding", "mark done", "complete action item".
 disable-model-invocation: true
+compatibility: Requires GESTALT_API_KEY or gestalt CLI with Linear connected at https://valon.tools/apps
+allowed-tools: Bash Read
 ---
 
 # Action Items
 
 ## Overview
 
-Manual task tracker for commitments captured during live meetings. Stores items in `canonical/action-items.md` with stable IDs. Works in Claude Code, Cursor, and Codex after `./setup.sh <harness>`.
+Manual task tracker for commitments captured during live meetings. Creates and manages **Linear issues** on the Escrow team with the `product-management` label, assigned to Sebastian, in the **zz - Seb's Product Issues** Linear project. Works in Claude Code, Cursor, and Codex after `./setup.sh <harness>`.
+
+**Backend:** Linear via Gestalt CLI (`gestalt app invoke linear …`). Not MCP — see [Gestalt linear skill](https://valon.tools) for auth. Prerequisites: `GESTALT_URL=https://valon.tools`, `GESTALT_API_KEY` in the environment, Linear connected at https://valon.tools/apps.
+
+Does not write tasks to people files, project notes, or meeting imports.
 
 ## Invocation
 
@@ -23,42 +29,69 @@ Skill name is **`action-items`** (plural).
 
 **Cursor terminal notes:** Run `agent` from the repo root (`seb-pm-os`). After `./setup.sh cursor` or skill changes, exit and start a new `agent` session — the CLI does not hot-reload skills. The `/` autocomplete picker is unreliable for local PM OS skills (200+ toolshed skills dominate); type the full `/action-items` or use `agent "/action-items"` one-shot.
 
-Also works via natural language (e.g. "list my action items", "mark ai-003 done").
-
-Does not write tasks to people files, project notes, or meeting imports.
+Also works via natural language (e.g. "list my action items", "mark ESC-1234 done").
 
 ## When NOT to use
 
 - Importing meeting context (decisions, sentiment) — use `/import-meeting-notes`
 - Meeting prep beyond your task list — use `/meeting-prep`
 
-## Storage
+## Linear defaults
 
-**File:** `canonical/action-items.md` (gitignored — personal data)
+Every action item is a Linear issue with these fixed values:
 
-On first use, create the file from `canonical/action-items.template.md` if it does not exist.
+| Field | Value |
+|-------|-------|
+| **Team** | Escrow (`ESC`) |
+| **Label** | `product-management` (always) |
+| **Assignee** | Sebastian Chavez (`sebastian.chavez@valon.com`) |
+| **Linear project** | `zz - Seb's Product Issues` |
+| **Initial state** | Todo |
 
-**ID format:** `ai-001`, `ai-002`, … — assign the next sequential ID by scanning existing `### ai-NNN` headings in the file.
+**Resolved IDs** (use directly — re-resolve via `fetchData` only if creation fails with invalid ID):
 
-**Item format:**
+| Constant | ID |
+|----------|-----|
+| Team Escrow | `d00ed9ed-c1d1-410c-93ef-8bc8ff4323b1` |
+| Label `product-management` | `2d19d054-ae40-4106-989d-adf5e92d964c` |
+| Assignee Sebastian | `d49f19ba-a98f-4649-88bc-50f9723fbed2` |
+| Project `zz - Seb's Product Issues` | `db52cfd3-fc05-40f2-b9d5-87d7ed0f385b` |
+| State Todo | `c74e787a-bf90-48bd-bd4c-3cf92ddaa54a` |
+| State Done | `1b224144-7240-4678-b35f-d69b4248d0d7` |
+
+**Optional vertical labels** (add to `labelIds` when the vertical is set — in addition to `product-management`):
+
+| Vertical | Label name | ID |
+|----------|------------|-----|
+| `escrow management` | `escrow-management` | `0b4485f7-0b90-43c1-9d96-0933f1ac6cae` |
+| `escrow core` | `escrow-core` | `fd5241e8-202f-445c-829c-32f314cbd2bf` |
+| (EA/QC work) | `escrow-analysis` | `9d622b29-f7ee-4e4c-aad6-2d7cd98aabc6` |
+
+For `mortgage insurance`, `property insurance`, and `property taxes`, put the vertical in the issue description only (no team label yet).
+
+## Issue format
+
+**Title:** short imperative (e.g. "Write PRD for escrow refunds").
+
+**Description** (markdown body — metadata the old `ai-NNN` blocks used):
 
 ```markdown
-### ai-003 — Write PRD for escrow refunds
-- **Status:** open
-- **Created:** 2026-06-16
-- **Due:** 2026-06-20
-- **Source:** Live meeting with Dean
-- **Project:** proj-2026-escrow-refunds
-- **Vertical:** escrow management
-- **Links:** https://notion.so/...
-- **Notes:** Cover refund timing and edge cases
+**Source:** Live meeting with Dean
+**Project:** proj-2026-escrow-refunds
+**Vertical:** escrow management
+**Links:** https://notion.so/...
+**Notes:** Cover refund timing and edge cases
 ```
 
-Omit **Project** when no active project applies. Omit **Vertical** when no product vertical applies. Completed items move from `## Open` to `## Done`. Set `**Status:** done` and add `**Completed:** YYYY-MM-DD`. Keep all other fields.
+Omit lines for unset optional fields. Append link URLs to **Links** as comma-separated values.
+
+**Identifier:** Linear returns `ESC-####` (e.g. `ESC-4178`). Use this instead of the old `ai-NNN` IDs.
 
 ## Project linking
 
-When context points at a project, set **Project** to the folder slug under `canonical/projects/` (e.g. `proj-2026-fha-mip-payment-recon-scale`). Resolved path: `canonical/projects/<slug>/`.
+**Linear project vs description:** Every issue is always added to the Linear project **zz - Seb's Product Issues** (`projectId` on create). Separately, the description **Project** field is an optional canonical folder slug for PM OS context — see below.
+
+When context points at a project, set **Project** in the description to the folder slug under `canonical/projects/` (e.g. `proj-2026-fha-mip-payment-recon-scale`).
 
 **When to set it:**
 - User names a `proj-*` slug or project folder
@@ -86,30 +119,94 @@ Tag items with the Escrow team product vertical(s) they touch. Charter reference
 | `property taxes` | Tax installments, tax authority payments, tax data |
 | `escrow core` | Shared escrow platform, cross-vertical infrastructure, workflows, branding/cutover spanning surfaces |
 
-**Format:** `- **Vertical:** escrow management` for one; comma-separated for multiple: `- **Vertical:** escrow management, escrow core`
-
 **When to set it:**
 - User names one or more verticals
 - Context clearly maps to a vertical (e.g. Assurant/SWBC → `property insurance`; tax installments → `property taxes`; FHA MIP → `mortgage insurance`)
 - Cross-cutting platform or multi-surface work → `escrow core`, alone or combined with a vertical
 
-**When to omit:** Admin, hiring, or org-wide work with no product vertical. If unsure between two verticals, include both rather than guessing one.
+**When to omit:** Admin, hiring, or org-wide work with no product vertical. If unsure between two verticals, include both in the description rather than guessing one.
 
 ## Modes
 
 | Mode | Trigger examples | Behavior |
 |------|------------------|----------|
-| `add` | "add action item", "capture: write PRD", `/action-items add` | Prompt for fields, then append to `## Open` |
-| `list` (default) | "action items", "what's open", "what do I owe" | Show open items only |
-| `done` | "mark ai-003 done", "complete write PRD" | Move item to `## Done`, update status |
+| `add` | "add action item", "capture: write PRD", `/action-items add` | Prompt for fields, then create a Linear issue |
+| `list` (default) | "action items", "what's open", "what do I owe" | Show open Escrow PM issues assigned to Sebastian |
+| `done` | "mark ESC-1234 done", "complete write PRD" | Move issue to Done state |
 
 If the user gives partial info with `add`, capture what they provided and ask only for missing fields.
+
+## Gestalt commands
+
+All invocations use `GESTALT_URL=https://valon.tools gestalt app invoke linear … --format json`.
+
+### Add — create issue
+
+```bash
+GESTALT_URL=https://valon.tools gestalt app invoke linear issueCreate --format json \
+  -p 'input:={"teamId":"d00ed9ed-c1d1-410c-93ef-8bc8ff4323b1","title":"TITLE","labelIds":["2d19d054-ae40-4106-989d-adf5e92d964c"],"assigneeId":"d49f19ba-a98f-4649-88bc-50f9723fbed2","projectId":"db52cfd3-fc05-40f2-b9d5-87d7ed0f385b","stateId":"c74e787a-bf90-48bd-bd4c-3cf92ddaa54a","description":"DESCRIPTION"}'
+```
+
+Add `"dueDate":"YYYY-MM-DD"` to the input object when due date is set. Append optional vertical label IDs to `labelIds`.
+
+**Add flow:**
+
+1. Parse any fields already in the user's message
+2. Ask for missing required fields and any useful optional fields — keep it to one short round of questions, not an interrogation
+3. Build the description from Source / Project / Vertical / Links / Notes
+4. Call `issueCreate` with defaults above
+5. Confirm with the Linear identifier (`ESC-####`), URL, and a one-line summary
+
+### List — open issues
+
+Query via `fetchData`:
+
+```bash
+GESTALT_URL=https://valon.tools gestalt app invoke linear fetchData --format json \
+  -p 'query:="query { issues(filter: { team: { key: { eq: \"ESC\" } }, assignee: { email: { eq: \"sebastian.chavez@valon.com\" } }, labels: { some: { name: { eq: \"product-management\" } } } }, first: 50) { nodes { identifier title dueDate url state { name type } description } } } }"'
+```
+
+**Filter client-side:** drop issues where `state.type` is `completed`, `canceled`, or `duplicate`.
+
+**Output format:**
+
+```
+## Open Action Items
+
+### Overdue
+- **ESC-1234** — Write PRD for escrow refunds — due 2026-06-14 — [Linear](url)
+
+### Due this week
+- **ESC-1235** — Review escrow metrics — due 2026-06-18
+
+### No due date
+- **ESC-1236** — Follow up with legal on wording
+```
+
+Omit empty sections. Sort within each bucket by due date ascending. Parse **Project** / **Vertical** from description when present for display.
+
+### Done — complete issue
+
+1. Match by identifier (`ESC-1234`) or fuzzy-match on title if no ID given
+2. If ambiguous, ask which issue
+3. Resolve issue UUID if only identifier given (use `fetchData` with `issue(id: "ESC-1234")` or search)
+4. Update state to Done:
+
+```bash
+GESTALT_URL=https://valon.tools gestalt app invoke linear issueUpdate --format json \
+  -p 'id:="ISSUE_UUID"' \
+  -p 'input:={"stateId":"1b224144-7240-4678-b35f-d69b4248d0d7"}'
+```
+
+Use quoted JSON for `id` (`id:="uuid"`). Identifier-only updates: resolve UUID first via `fetchData`.
+
+5. Confirm completion with identifier and URL
 
 ## Add — fields to collect
 
 | Field | Required | Notes |
 |-------|----------|-------|
-| Action | Yes | Short imperative title (becomes the `### ai-NNN — [title]` heading) |
+| Action | Yes | Short imperative title (Linear issue title) |
 | Due | No | `YYYY-MM-DD` or relative date interpreted in user's timezone |
 | Source | No | Meeting, person, or context where it came up |
 | Project | No | Active project folder slug — see [Project linking](#project-linking) |
@@ -117,52 +214,23 @@ If the user gives partial info with `add`, capture what they provided and ask on
 | Links | No | Comma-separated URLs (Notion doc, ticket, etc.) |
 | Notes | No | Extra context |
 
-**Add flow:**
-
-1. Parse any fields already in the user's message
-2. Ask for missing required fields and any useful optional fields — keep it to one short round of questions, not an interrogation
-3. Assign the next `ai-NNN` ID
-4. Append the item under `## Open` in `canonical/action-items.md`
-5. Confirm with the assigned ID and a one-line summary
-
-## List — output format
-
-```
-## Open Action Items
-
-### Overdue
-- **ai-001** — Write PRD for escrow refunds — due 2026-06-14 — project: proj-2026-escrow-refunds — vertical: escrow management — source: Dean sync
-
-### Due this week
-- **ai-003** — Review escrow metrics — due 2026-06-18 — project: proj-2026-escrow-deployos — vertical: escrow management
-
-### No due date
-- **ai-005** — Follow up with legal on wording
-```
-
-Omit empty sections. Sort within each bucket by due date ascending.
-
-## Done flow
-
-1. Match by ID (`ai-003`) or fuzzy-match on action title if no ID given
-2. If ambiguous, ask which item
-3. Set status to `done`, add `**Completed:**` today's date
-4. Move the entire item block from `## Open` to `## Done`
-5. Confirm completion
-
 ## Rules
 
-- **Only write to `canonical/action-items.md`** — never store action items in people files, project notes, or Granola imports
-- Preserve completed items in `## Done` for history
-- Use today's date for `Created` and `Completed` unless the user specifies otherwise
+- **Only create/update Linear issues** via this skill — never store action items in people files, project notes, Granola imports, or `canonical/action-items.md`
+- Always apply team **Escrow**, label **`product-management`**, assignee **Sebastian**, and Linear project **zz - Seb's Product Issues**
+- Use today's date when interpreting relative due dates unless the user specifies otherwise
+- If Gestalt/Linear is unavailable, tell the user: "Linear isn't available — check GESTALT_API_KEY and connect Linear at https://valon.tools/apps"
 
 ## Common Mistakes
 
 | Mistake | Fix |
 |---------|-----|
-| Writing tasks to people or project notes | All tasks go to `canonical/action-items.md` only |
-| Deleting completed items | Move to `## Done` and update status |
-| Reusing or skipping IDs | Always scan the file and assign the next `ai-NNN` |
+| Writing tasks to people or project notes | All tasks go to Linear via this skill only |
+| Writing to `canonical/action-items.md` | Deprecated — use Linear |
+| Using old `ai-NNN` IDs | Use Linear identifiers (`ESC-####`) |
+| Forgetting `product-management` label | Always include `2d19d054-ae40-4106-989d-adf5e92d964c` in `labelIds` |
+| Missing assignee or Linear project | Always set `assigneeId` to Sebastian and `projectId` to `zz - Seb's Product Issues` |
+| Unquoted UUID in `issueUpdate -p id:=…` | Use `-p 'id:="uuid"'` (JSON string) |
 | Asking for every optional field when user is mid-meeting | Capture action first; ask for due date and links in one short follow-up |
 | Linking to archived or wrong projects | Only set **Project** for folders under `canonical/projects/proj-*`; never `_archive/` |
-| Invalid vertical values | Use only the five allowed verticals; comma-separate multiples |
+| Invalid vertical values | Use only the five allowed verticals in the description |
