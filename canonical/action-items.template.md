@@ -1,6 +1,6 @@
 # Action Items
 
-Personal task tracker. Copy to `canonical/action-items.md` (gitignored) or let `/action-items add` create it on first use.
+Personal task tracker. **Deprecated** — use `/action-items` (Linear: `zz - Seb's Product Issues`). Historical copy archived at `canonical/_archive/action-items.md`.
 
 Verticals match the Escrow team charter: escrow management, mortgage insurance, property insurance, property taxes, escrow core.
 

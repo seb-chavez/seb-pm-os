@@ -92,7 +92,7 @@ Do not add Gestalt to `.mcp.json`.
 
 ## Action Items
 
-Personal action items live in `canonical/action-items.md` (gitignored). Use the `action-items` skill to capture a task during a meeting, list open items, or mark one complete. Do not write action items to people profiles, project notes, or meeting imports.
+Personal action items live in **Linear** (Escrow team, `product-management` label) via the `action-items` skill and Gestalt CLI. Use it to capture a task during a meeting, list open items, or mark one complete. Do not write action items to people profiles, project notes, or meeting imports.
 
 ## Document Templates
 
@@ -153,7 +153,7 @@ Playbooks live in `skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per 
 
 | Skill | Purpose |
 |-------|---------|
-| `action-items` | Capture, list, or complete personal action items (`canonical/action-items.md`) |
+| `action-items` | Capture, list, or complete personal action items (Linear: Escrow / `product-management`) |
 | `meeting-prep` | Pull context on a person or topic before a meeting |
 | `import-meeting-notes` | Pull and synthesize meeting notes from Granola |
 | `weekly-digest` | Summarize activity across projects for the past week |

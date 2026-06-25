@@ -10,6 +10,7 @@ Strategy, positioning, and competitive landscape. This is the context that makes
 - `positioning.md` — How the product is positioned in market, target personas, value props
 - `competitors.md` — Competitive landscape, differentiators, where you win and lose
 - `org-structure.md` — Team structure, key stakeholders, reporting lines, decision-makers
+- `product-release.md` — ValonOS release model (Alpha/GA, weekly cadence, PM playbook, entitlements)
 
 ## Tips
 - Update `strategy.md` after all-hands, board meetings, or strategy shifts

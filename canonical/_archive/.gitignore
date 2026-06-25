@@ -1,0 +1,4 @@
+# Ignore all contents — archived canonical data is sensitive
+*
+!.gitignore
+!README.md
