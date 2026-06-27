@@ -46,7 +46,8 @@ Every action item is a Linear issue with these fixed values:
 | **Label** | `product-management` (always) |
 | **Assignee** | Sebastian Chavez (`sebastian.chavez@valon.com`) |
 | **Linear project** | `zz - Seb's Product Issues` |
-| **Initial state** | Todo |
+| **Initial state** | Backlog |
+| **Cycle** | None — never assign to a cycle |
 
 **Resolved IDs** (use directly — re-resolve via `fetchData` only if creation fails with invalid ID):
 
@@ -56,7 +57,7 @@ Every action item is a Linear issue with these fixed values:
 | Label `product-management` | `2d19d054-ae40-4106-989d-adf5e92d964c` |
 | Assignee Sebastian | `d49f19ba-a98f-4649-88bc-50f9723fbed2` |
 | Project `zz - Seb's Product Issues` | `db52cfd3-fc05-40f2-b9d5-87d7ed0f385b` |
-| State Todo | `c74e787a-bf90-48bd-bd4c-3cf92ddaa54a` |
+| State Backlog | `94d12112-536b-4fe8-80f0-4ce043097fb5` |
 | State Done | `1b224144-7240-4678-b35f-d69b4248d0d7` |
 
 **Optional vertical labels** (add to `labelIds` when the vertical is set — in addition to `product-management`):
@@ -144,18 +145,29 @@ All invocations use `GESTALT_URL=https://valon.tools gestalt app invoke linear �
 
 ```bash
 GESTALT_URL=https://valon.tools gestalt app invoke linear issueCreate --format json \
-  -p 'input:={"teamId":"d00ed9ed-c1d1-410c-93ef-8bc8ff4323b1","title":"TITLE","labelIds":["2d19d054-ae40-4106-989d-adf5e92d964c"],"assigneeId":"d49f19ba-a98f-4649-88bc-50f9723fbed2","projectId":"db52cfd3-fc05-40f2-b9d5-87d7ed0f385b","stateId":"c74e787a-bf90-48bd-bd4c-3cf92ddaa54a","description":"DESCRIPTION"}'
+  -p 'input:={"teamId":"d00ed9ed-c1d1-410c-93ef-8bc8ff4323b1","title":"TITLE","labelIds":["2d19d054-ae40-4106-989d-adf5e92d964c"],"assigneeId":"d49f19ba-a98f-4649-88bc-50f9723fbed2","projectId":"db52cfd3-fc05-40f2-b9d5-87d7ed0f385b","stateId":"94d12112-536b-4fe8-80f0-4ce043097fb5","description":"DESCRIPTION"}'
 ```
 
 Add `"dueDate":"YYYY-MM-DD"` to the input object when due date is set. Append optional vertical label IDs to `labelIds`.
+
+**Never set `cycleId` on create.** Escrow's cycle auto-add targets active (unstarted/started) issues; Backlog avoids that path. Still clear any cycle immediately after create:
+
+```bash
+GESTALT_URL=https://valon.tools gestalt app invoke linear issueUpdate --format json \
+  -p 'id:="ISSUE_UUID"' \
+  -p 'input:={"cycleId":null}'
+```
+
+Use the `id` from the `issueCreate` response (not the `ESC-####` identifier).
 
 **Add flow:**
 
 1. Parse any fields already in the user's message
 2. Ask for missing required fields and any useful optional fields — keep it to one short round of questions, not an interrogation
 3. Build the description from Source / Project / Vertical / Links / Notes
-4. Call `issueCreate` with defaults above
-5. Confirm with the Linear identifier (`ESC-####`), URL, and a one-line summary
+4. Call `issueCreate` with defaults above (Backlog state, no `cycleId`)
+5. Call `issueUpdate` with `cycleId: null` on the new issue — belt-and-suspenders against team cycle auto-add
+6. Confirm with the Linear identifier (`ESC-####`), URL, and a one-line summary
 
 ### List — open issues
 
@@ -217,7 +229,8 @@ Use quoted JSON for `id` (`id:="uuid"`). Identifier-only updates: resolve UUID f
 ## Rules
 
 - **Only create/update Linear issues** via this skill — never store action items in people files, project notes, Granola imports, or `canonical/action-items.md`
-- Always apply team **Escrow**, label **`product-management`**, assignee **Sebastian**, and Linear project **zz - Seb's Product Issues**
+- Always apply team **Escrow**, label **`product-management`**, assignee **Sebastian**, Linear project **zz - Seb's Product Issues**, and initial state **Backlog**
+- **Never assign action items to a cycle** — omit `cycleId` on create and always follow with `issueUpdate` setting `cycleId: null`
 - Use today's date when interpreting relative due dates unless the user specifies otherwise
 - If Gestalt/Linear is unavailable, tell the user: "Linear isn't available — check GESTALT_API_KEY and connect Linear at https://valon.tools/apps"
 
@@ -230,6 +243,8 @@ Use quoted JSON for `id` (`id:="uuid"`). Identifier-only updates: resolve UUID f
 | Using old `ai-NNN` IDs | Use Linear identifiers (`ESC-####`) |
 | Forgetting `product-management` label | Always include `2d19d054-ae40-4106-989d-adf5e92d964c` in `labelIds` |
 | Missing assignee or Linear project | Always set `assigneeId` to Sebastian and `projectId` to `zz - Seb's Product Issues` |
+| Using Todo or another active state | Always use Backlog state (`94d12112-536b-4fe8-80f0-4ce043097fb5`) — Todo can be auto-added to the current cycle |
+| Setting or leaving a cycle | Never pass `cycleId` on create; always call `issueUpdate` with `cycleId: null` after create |
 | Unquoted UUID in `issueUpdate -p id:=…` | Use `-p 'id:="uuid"'` (JSON string) |
 | Asking for every optional field when user is mid-meeting | Capture action first; ask for due date and links in one short follow-up |
 | Linking to archived or wrong projects | Only set **Project** for folders under `canonical/projects/proj-*`; never `_archive/` |
