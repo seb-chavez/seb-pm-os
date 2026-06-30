@@ -112,15 +112,9 @@ This project is scoped to [outcome] before **[date]**. The following are explici
 
 *Link mocks or diagrams (Figma, architecture sketch). Use bullets for key flows or trade-offs, not long prose.*
 
-### What are the key requirements?
+### Requirements
 
-**Functional Requirements**
-*Each item is one testable statement. One sentence of acceptance criteria; no rationale paragraphs.*
-
-- [P0] **Requirement name** — Acceptance criterion
-- [P1] **Requirement name** — Acceptance criterion
-
-**Non-functional Requirements**
+*Each item is one testable statement. One sentence of acceptance criteria; no rationale paragraphs. Functional requirements state what the system does; non-functional requirements state measurable quality bars (performance, capacity, reliability, durability). Use one list for both.*
 
 - [P0] **Requirement name** — Acceptance criterion
 - [P1] **Requirement name** — Acceptance criterion
