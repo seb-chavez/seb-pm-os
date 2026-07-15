@@ -21,6 +21,9 @@ Default to the brevity a real person would use. The failure mode to avoid is the
 line or two. It wastes the reader's time, buries the one sentence that matters,
 and kills dialogue by leaving no room to reply.
 
+- **No em dashes.** Never use em dashes (—) in documents or chat replies to Sebastian. Rewrite with periods, colons, commas, semicolons, or parentheses. See `memory/doc-formatting.md`.
+- **Prose style.** See `memory/writing-style.md`. Cut importance sentences, AI vocabulary, contrast structures, vague authority, and summary endings. Prefer specifics over general claims. Keep sentences short. No TED Talk tone.
+
 - **Match the medium.** Slack, chat, and email replies are short by nature —
   one to three sentences, then stop. Reserve length for things meant to be long
   (PRDs, briefs, specs).
@@ -98,7 +101,7 @@ Personal action items live in **Linear** (Escrow team, `product-management` labe
 
 When asked to create a document, use the matching template from this repo as the structural blueprint. Read the template file, then fill in every section with real content based on the user's input.
 
-Always apply the formatting defaults from `memory/doc-formatting.md` when generating any document.
+Always apply `memory/doc-formatting.md` (structure) and `memory/writing-style.md` (prose) when generating any document.
 
 For PRDs, read `templates/prds/prd.md` for structure and `memory/prd-writing.md` for Problem-section style (no solutioning in Problem, outcomes in Success, Open Questions under Plan). Complete all four Problem subsections before drafting Proposal.
 
@@ -144,6 +147,8 @@ Use the Notion MCP `notion-create-pages` tool with `parent.type = "data_source_i
 2. Before pushing, show the user a one-line summary: title, Document Type, Group Tag, Status, parent.
 3. After user confirms, call Notion MCP `notion-create-pages` and return the resulting Notion URL.
 4. If the user wants a different parent page (e.g., nested under a Project), ask before pushing.
+
+**Updating existing Notion pages:** Follow `memory/doc-formatting.md` (Notion page updates). Fetch with discussions first; prefer `update_content` over `replace_content`; preserve open comment threads unless the user asks to resolve them.
 
 Full schema and option values: see memory `reference-valon-notion-documents-db`.
 
@@ -203,7 +208,7 @@ This OS is a version-controlled toolkit cloned at each company. Key directories:
 | `AGENTS.md` (root) | Canonical, harness-neutral instructions (this file) |
 | `harness/<name>/` | Per-harness overlays + global payload installed by `setup.sh` |
 | `skills/` | Single source for all skills (symlinked into each harness) |
-| `memory/` | Shared formatting and reference docs (e.g. `doc-formatting.md`) |
+| `memory/` | Shared formatting and reference docs (e.g. `doc-formatting.md`, `writing-style.md`) |
 | `templates/` | Document blueprints (PRD, agenda, etc.) |
 | `canonical/people|research|company/` | Stakeholder, research, and strategy notes (gitignored) |
 | `canonical/projects/` | Active project folders with dated notes (gitignored) |

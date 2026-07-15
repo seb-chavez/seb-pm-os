@@ -10,6 +10,7 @@ HOME="$SCRATCH" "$REPO/setup.sh" all >/dev/null
 # 2. Symlinks resolve into the repo.
 [ "$(readlink "$SCRATCH/.claude/AGENTS.md")" = "$REPO/AGENTS.md" ] || fail "claude AGENTS.md link"
 [ "$(readlink "$SCRATCH/.claude/memory/doc-formatting.md")" = "$REPO/memory/doc-formatting.md" ] || fail "claude doc-formatting link"
+[ "$(readlink "$SCRATCH/.claude/memory/writing-style.md")" = "$REPO/memory/writing-style.md" ] || fail "claude writing-style link"
 [ "$(readlink "$SCRATCH/.claude/skills/meeting-prep")" = "$REPO/skills/meeting-prep" ] || fail "claude skill link"
 [ "$(readlink "$SCRATCH/.codex/skills/meeting-prep")" = "$REPO/skills/meeting-prep" ] || fail "codex skill link"
 [ "$(readlink "$SCRATCH/.cursor/skills/meeting-prep")" = "$REPO/skills/meeting-prep" ] || fail "cursor skill link"

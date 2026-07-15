@@ -24,9 +24,10 @@ These are the user's preferred formatting defaults for all generated documents. 
 
 ## Dashes
 
-- Never use em dashes, en dashes, or hyphens as sentence connectors or parenthetical separators.
+- **Never use em dashes (—).** This is a hard rule for all documents and chat replies to Sebastian.
+- Never use en dashes or hyphens as sentence connectors or parenthetical separators either.
 - Rewrite the sentence instead: use periods, semicolons, colons, commas, or parentheses.
-- Only use hyphens where a normal person would (e.g., compound words like "top-of-funnel", phone numbers, date ranges with "to").
+- Only use hyphens where a normal person would (e.g., compound words like "top-of-funnel", phone numbers, numeric ranges like "84-86%").
 
 ## Dividers
 
@@ -51,3 +52,12 @@ These are the user's preferred formatting defaults for all generated documents. 
 
 - Use inline Markdown links: `[label](url)`. Notion converts these to clickable links.
 - Avoid bare URLs in body text; wrap them in a link with a meaningful label.
+
+## Notion page updates
+
+When editing an existing Notion page (not creating a new one):
+
+- **Preserve comments.** Never resolve or delete discussions unless Sebastian explicitly asks. Inline comments are anchored to specific text; replacing whole-page content detaches or loses them.
+- **Before editing:** `notion-fetch` with `include_discussions: true`, then `notion-get-comments` if needed. Note which passages have open threads.
+- **Prefer surgical edits:** use `update_content` (search-and-replace) over `replace_content` whenever the change is localized. Match `old_str` closely to text that carries comments so threads stay on the right passage.
+- **When a full rewrite is required:** keep commented phrases verbatim where possible, or re-apply the same wording in the equivalent bullet/row so the comment remains relevant. After updating, re-fetch with `include_discussions: true` and flag any threads that may have drifted.

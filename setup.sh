@@ -129,6 +129,7 @@ setup_claude() {
   backup_and_link "$SCRIPT_DIR/harness/claude/settings.json" "$d/settings.json"
   backup_and_link "$SCRIPT_DIR/harness/claude/statusline-command.sh" "$d/statusline-command.sh"
   backup_and_link "$SCRIPT_DIR/memory/doc-formatting.md" "$d/memory/doc-formatting.md"
+  backup_and_link "$SCRIPT_DIR/memory/writing-style.md" "$d/memory/writing-style.md"
   link_portable_skills "$d/skills"
 }
 

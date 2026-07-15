@@ -1,6 +1,6 @@
 # PRD Writing Guide
 
-Use with `templates/prds/prd.md` (structure) and `memory/doc-formatting.md` (Notion formatting). The template holds section placeholders; this file holds the writing rules we apply when drafting Problem sections.
+Use with `templates/prds/prd.md` (structure), `memory/doc-formatting.md` (Notion formatting), and `memory/writing-style.md` (prose). The template holds section placeholders; this file holds the writing rules we apply when drafting Problem sections.
 
 ## Section order
 
@@ -68,6 +68,7 @@ If a sentence names a screen, API, file format, or workflow step the team will b
 
 ## Anti-patterns (from review)
 
+- Importance sentences, AI vocabulary, contrast structures, vague authority, summary endings (see `memory/writing-style.md`)
 - "Milestone thesis," "gating question," "trust in the platform"
 - Solutioning in Problem or Success ("ops uploads the bill," "system diffs against HUD")
 - Percentage targets that ignore scale (e.g., "<10% manual edits" when 10% of 40k certs exceeds STM capacity)
