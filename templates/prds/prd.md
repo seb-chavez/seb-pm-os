@@ -162,4 +162,4 @@ This project is scoped to [outcome] before **[date]**. The following are explici
 
 ---
 
-*Formatting: see `memory/doc-formatting.md`. Use `approx.` not `~` for estimates (Notion renders tildes as strikethrough). No em dashes as sentence connectors.*
+*Formatting: `memory/doc-formatting.md`. Prose: `memory/writing-style.md`. Use `approx.` not `~` for estimates (Notion renders tildes as strikethrough). No em dashes as sentence connectors.*

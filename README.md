@@ -92,7 +92,7 @@ Ask your agent to create any supported document type by name:
 - "Build a roadmap for [team/product]"
 - "Write an agenda for [meeting]"
 
-Templates live in `templates/`. Apply formatting defaults from `memory/doc-formatting.md`.
+Templates live in `templates/`. Apply `memory/doc-formatting.md` and `memory/writing-style.md`.
 
 ## MCP servers
 
