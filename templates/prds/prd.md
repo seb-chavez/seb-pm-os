@@ -65,25 +65,27 @@
 
 ### What does success look like?
 
-*Outcomes and measurable bars only. One sentence of prose, then the metrics table.*
+*Outcomes and measurable bars only. One sentence of prose, then one metrics table. Keep the table small: only what proves this build succeeded.*
 
 **Opening sentence:** State when success is achieved (milestone/date) and the operational bar in outcome terms: capacity held, zero class of incident, timeliness, no duplicate payments, etc.
 
-**Do not** describe the solution (no "ops uploads," "system diffs," "exception queue"). Those belong in Proposal.
+**Do not** describe the solution (no "ops uploads," "system diffs," "exception queue"). Those belong in Proposal. **Do not** list requirement behaviors as metrics (messaging copy, observability, eng-op ticket volume, internal processing SLAs). Those belong in Requirements.
 
-**Metrics table:** Each row ties to a problem or risk above. Columns: **Metric** (short name), **Description** (one sentence a tired reader needs), Baseline, Target, How we measure. **5am test:** Description must stand alone; spell out differences between similar metrics there, not in jargon labels.
+**Metrics table:** One table with a **Type** column (Primary, Secondary, Guardrail). Primary = main scorecard (usually one row). Secondary = supporting bet validation (0–2 rows). Guardrail = non-negotiable risk; ship blocked if breached.
+
+Columns: **Type** | **Metric** (short name) | **Description** (one sentence a tired reader needs) | Baseline | Target | How we measure. **5am test:** Description must stand alone.
 
 
-| Metric | Description | Current Baseline | Target | How we measure |
-| ------ | ----------- | ---------------- | ------ | -------------- |
-| [Short name] | [One sentence: what we are tracking and for whom] | [Sourced today state] | [Outcome at milestone] | [What to count or compare] |
+| Type | Metric | Description | Current Baseline | Target | How we measure |
+| ---- | ------ | ----------- | ---------------- | ------ | -------------- |
+| Primary | [Short name] | [What we are proving succeeded] | [Sourced today state] | [Outcome at milestone] | [What to count or compare] |
+| Guardrail | [Short name] | [Downside risk we will not accept] | [Sourced today state] | [Limit] | [What to count or compare] |
 
 
 **Metric guidance:**
 - Baselines need a source (ops report, ticket, dashboard, named incident).
 - Prefer **absolute limits** over percentages when volume is scaling (e.g., "stay within STM capacity: &lt;N interventions per cycle" rather than "&lt;10% of certs" if 10% of a larger book still breaks ops).
 - Binary outcomes are fine where appropriate (zero duplicate remits, zero edit-loss incidents).
-- Readiness rows may reference test cycles and sign-off criteria before go-live.
 - **Measurement method:** describe the outcome in operator or business terms. Engineering picks instrumentation during design. Do not name functions, enum states, log fields, or specific dashboards here (that is TDD territory).
 
 ### What are we not trying to solve?

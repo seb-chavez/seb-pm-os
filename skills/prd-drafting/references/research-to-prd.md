@@ -20,7 +20,7 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 | One-line description (top) | `briefing.md` Executive Summary; write **last** |
 | **Problem → What is the problem?** | `briefing.md` §1 World Today, §4 Gaps; `ops-current-state.md`, `bug-catalog.md` (patterns, not ticket dump) |
 | **Problem → Strategy** | `briefing.md` §1; `stakeholder-context.md`; `GOALS.md` if user points to it |
-| **Problem → Success** | `briefing.md` §4 + risks; ops/customer stakes; **outcomes only** |
+| **Problem → Success** | `briefing.md` §4 + risks; ops/customer stakes; **outcomes only**; one typed metrics table (Primary / Secondary / Guardrail) |
 | **Problem → Not trying to solve** | `decisions.md` scope forks; `briefing.md` §4; explicit milestone boundary |
 | **Proposal → How solve** | `decisions.md` **after PM resolves** chosen options; `briefing.md` §5 pointers only until decided |
 | **Proposal → How it works** | `codebase.md`, `existing-tools.md`; link mocks if stakeholder-context names them |
@@ -34,7 +34,7 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 
 - Do not paste `briefing.md` or research-notes into the PRD. Link in **References** under Problem.
 - **Notion PRDs:** References must be workspace URLs only. Local paths (`canonical/`, `briefing.md`, `decisions.md`) are for drafting; readers cannot open them.
-- **Success metrics:** Outcome language only in the measurement column. No function names, enum states, log fields, or named observability tools; engineering defines instrumentation in design docs.
+- **Success metrics:** One table with Type column (Primary, Secondary, Guardrail). Outcome language only in measurement column. No requirement behaviors as metrics. No function names, enum states, log fields, or named observability tools; engineering defines instrumentation in design docs.
 - Do not re-litigate research in Proposal. If research is wrong, fix research files or note in Open Questions.
 - PRDs from Notion found during research stay excluded unless the PM explicitly asks to incorporate them.
 
