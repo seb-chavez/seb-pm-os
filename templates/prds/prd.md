@@ -37,13 +37,14 @@
 
 **Do:**
 - Write for engineers and operators, not executives. Short sentences; one idea per sentence.
-- Attribute claims (person, date, doc, ticket).
+- Attribute claims with dates, docs, and tickets.
 - Name the **client** correctly (e.g., subservicer onboarding a portfolio vs. the portfolio seller).
 
 **Do not:**
 - Propose uploads, diffs, dashboards, or integrations here.
 - Use filler framing ("gating question," "trust in the platform," "highest-volume workflow in the vertical") unless you can defend it with data.
 - Dump tables or timelines that belong in Strategy unless they are essential to stating the problem.
+- Name individuals in body prose or turn internal debates into narrative ("X needs Y," "X blocked Z"). State constraints as facts; use team names only when necessary. See `memory/prd-writing.md` (**People and teams**). Reviewers table and Owner/POC columns are the exceptions.
 
 ### How does this connect to our strategy & priorities?
 
@@ -58,6 +59,7 @@
 - Repeat the full Problem narrative (deadline, loan counts) if already stated above. One cross-reference is enough.
 - Describe how engineering will build the fix.
 - Name future clients or analyst personas unless directly tied to the deadline.
+- Name individuals or their positions in prose. State organizational constraints as facts (see `memory/prd-writing.md`, **People and teams**).
 
 *Example shape: "[Client] [Milestone] ([date]) requires [workflow] to work at [scale]; today's process does not. This is [P0/P1] because [pipeline / finding / incident], not because [workflow] is the largest area in the org."*
 
