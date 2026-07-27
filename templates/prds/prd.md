@@ -71,12 +71,12 @@
 
 **Do not** describe the solution (no "ops uploads," "system diffs," "exception queue"). Those belong in Proposal.
 
-**Metrics table:** Each row ties to a problem or risk above. **5am test:** name each metric so a tired reader gets it without cross-referencing other rows (plain questions work: "When ops tries to cancel, does it work?"). If two metrics are related, spell the difference in the name (every attempt vs. only when cancel should succeed).
+**Metrics table:** Each row ties to a problem or risk above. Columns: **Metric** (short name), **Description** (one sentence a tired reader needs), Baseline, Target, How we measure. **5am test:** Description must stand alone; spell out differences between similar metrics there, not in jargon labels.
 
 
-| Metric | Current Baseline | Target | Measurement Method |
-| ------ | ---------------- | ------ | ------------------ |
-| [Name] | [Sourced today state] | [Outcome at milestone] | [How we will measure] |
+| Metric | Description | Current Baseline | Target | How we measure |
+| ------ | ----------- | ---------------- | ------ | -------------- |
+| [Short name] | [One sentence: what we are tracking and for whom] | [Sourced today state] | [Outcome at milestone] | [What to count or compare] |
 
 
 **Metric guidance:**

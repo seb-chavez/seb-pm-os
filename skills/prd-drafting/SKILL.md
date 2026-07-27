@@ -100,7 +100,7 @@ Self-check without re-researching:
 |-------|--------|
 | Solution language in Problem? | Move to Proposal |
 | Success metrics describe builds or code? | Rewrite as outcomes; no function names, states, or dashboards in measurement column |
-| Metric names need a glossary? | Rewrite as plain questions; spell out differences between similar rows |
+| Metric names need a glossary? | Short name in Metric column; plain sentence in Description column |
 | Local paths in Notion draft? | Replace with workspace links (Notion, Linear, Incident.io) |
 | Requirement untestable? | Add measurable acceptance line |
 | Claim contradicts `briefing.md`? | Fix draft or note Open Question |

@@ -71,9 +71,11 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 - Prefer **absolute limits** over percentages when volume scales (e.g., STM intervention count per cycle, not "% of certs" if % of a larger book still breaks ops).
 - Binary outcomes are fine (zero duplicate remits, zero edit-loss incidents).
 
-**5am test:** A tired reader should understand every metric row on its own. Name metrics as plain questions or statements ("When ops tries to cancel, does it work?"), not analyst labels ("eligible cancel completion rate"). If two metrics look similar, the names must spell out the difference (every attempt vs. only when cancel should succeed). No glossary required.
+**5am test:** A tired reader should understand every metric row on its own. Use a **short plain name** in the Metric column and a one-sentence **Description** (the question or outcome in everyday language). If two metrics are related, Description must spell out the difference (every attempt vs. only when cancel should succeed).
 
-**Measurement column (PRD, not TDD):** State the outcome you want to track in operator or business terms. Engineering chooses logs, tables, and dashboards during design.
+**Metrics table columns:** Metric | Description | Baseline | Target | How we measure
+
+**Measurement column (PRD, not TDD):** State what to count or compare in operator or business terms. Engineering chooses logs, tables, and dashboards during design.
 
 **Do:** "Of every cancel attempt in Servicing Console: how many end with the disbursement actually canceled?" "Time from operator starting cancel to escrow showing the stop."
 
