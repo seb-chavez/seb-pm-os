@@ -16,6 +16,7 @@ PORTABLE_SKILLS=(
   job-transition
   knowledge-health
   meeting-prep
+  prd-drafting
   review-budget
   review-champion-user
   review-engineer

@@ -163,6 +163,7 @@ Playbooks live in `skills/<name>/SKILL.md`. Run `./setup.sh <harness>` once per 
 | `import-meeting-notes` | Pull and synthesize meeting notes from Granola |
 | `weekly-digest` | Summarize activity across projects for the past week |
 | `weekly-priorities` | Draft the #servicing-pm weekly priorities post and update `canonical/PRIORITIES.md` |
+| `prd-drafting` | Draft a PRD from `/prd-research` output using `templates/prds/prd.md` and `memory/prd-writing.md` |
 | `status-report` | Draft a cross-project status update from recent notes and goals |
 | `knowledge-health` | Flag gaps and staleness in the knowledge base |
 | `review-panel` | Multi-persona panel review with synthesized feedback |
