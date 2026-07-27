@@ -63,7 +63,7 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 
 ## What does success look like?
 
-**Goal:** Outcomes and measurable bars. One sentence of prose, then the metrics table.
+**Goal:** Outcomes and measurable bars. One sentence of prose, then **one metrics table**. Keep the table small: only rows needed to know whether this build succeeded.
 
 - Opening sentence: when success is achieved and the operational bar in outcome terms.
 - Each metric row ties to a problem or risk above.
@@ -71,15 +71,27 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 - Prefer **absolute limits** over percentages when volume scales (e.g., STM intervention count per cycle, not "% of certs" if % of a larger book still breaks ops).
 - Binary outcomes are fine (zero duplicate remits, zero edit-loss incidents).
 
-**5am test:** A tired reader should understand every metric row on its own. Use a **short plain name** in the Metric column and a one-sentence **Description** (the question or outcome in everyday language). If two metrics are related, Description must spell out the difference (every attempt vs. only when cancel should succeed).
+**One table, three types** (Type column first):
 
-**Metrics table columns:** Metric | Description | Baseline | Target | How we measure
+| Type | Role |
+| ---- | ---- |
+| **Primary** | Main scorecard. Did we solve the problem this PRD exists to solve? Usually one row. |
+| **Secondary** | Supporting outcome that validates a key bet. Use sparingly (0–2 rows). |
+| **Guardrail** | Non-negotiable downside risk. Ship blocked if breached. Tied to Problem risks. |
+
+Do not split into separate "outcome" and "guardrail" tables.
+
+**Metrics are not requirements.** If the row describes a feature behavior (messaging copy, observability, internal processing SLA, eng-op ticket volume), it belongs in Proposal requirements, not Success. Metrics prove the build worked; requirements say what to build.
+
+**5am test:** A tired reader should understand every row on its own. **Short plain name** in Metric; **one-sentence Description** in everyday language. If two metrics are related, Description spells out the difference.
+
+**Metrics table columns:** Type | Metric | Description | Baseline | Target | How we measure
 
 **Measurement column (PRD, not TDD):** State what to count or compare in operator or business terms. Engineering chooses logs, tables, and dashboards during design.
 
-**Do:** "Of every cancel attempt in Servicing Console: how many end with the disbursement actually canceled?" "Time from operator starting cancel to escrow showing the stop."
+**Do:** Primary row: "Cancel success rate" / "Of every cancel attempt on a multi-loan wire batch, does the disbursement actually get canceled?"
 
-**Do not:** Function names, enum states, log field names, or specific observability tools in Success metrics (`reject_disbursements_in_group`, `REJECTED`, Datadog, BigQuery table names). Those belong in a TDD or eng design doc after instrumentation is agreed. Do not use paired jargon labels that only make sense together ("eligible" vs. "all attempts" without explaining eligible in the name).
+**Do not:** Function names, enum states, log field names, or specific observability tools in Success metrics. Requirement behaviors dressed up as metrics (cutoff messaging rate, escrow correction time, eng-op volume). Paired jargon labels without Description context.
 
 ## Notion audience
 
@@ -108,6 +120,8 @@ Notion is the default share surface. Readers cannot open your laptop paths.
 - Individual names in body prose (Reviewers and Owner/POC columns excepted; see **People and teams**)
 - Local file paths or gitignored research paths in Notion-bound PRDs (see **Notion audience**)
 - Code-level measurement specs in Success metrics (function names, state enums, log fields, named dashboards; see **What does success look like?**)
+- Requirement behaviors listed as metrics (messaging, observability, eng-op volume, internal SLAs; those belong in Proposal)
+- Separate outcome and guardrail metric tables (use one table with a Type column)
 - Analyst-style metric names that need a glossary ("eligible completion rate" without saying eligible for what)
 - Stakeholder monologues ("Person A wants X, Person B blocked Y") — state the constraint, not the conversation
 - `~` for approximations in Notion-bound docs (use `approx.`; tildes render as strikethrough)
