@@ -31,11 +31,11 @@ If a sentence names a screen, API, file format, or workflow step the team will b
 2. **Related failure modes** — Separate problems that share a project but are not the same bug (e.g., dual-system double payment during migration). Facts and risks only.
 3. **Who it hurts** — Bold labels per audience (Operators, Engineering, Client, Borrowers). One concrete example each.
 4. **Why it matters** — Forcing deadline with sourced numbers (today's scale vs. upcoming). Financial or compliance exposure with citations.
-5. **References** — Links to research, spreadsheets, tickets, meeting notes. Do not paste long sources inline.
+5. **References** — Links readers can open: Notion pages, Linear tickets, Incident.io, client docs. Do not paste long sources inline.
 
 **Do:** Short sentences; attribute claims with dates, docs, and tickets (not people's opinions in prose). Name the client correctly (subservicer vs. portfolio seller).
 
-**Do not:** Propose solutions; use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem; name individuals in body prose (see **People and teams** below).
+**Do not:** Propose solutions; use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem; name individuals in body prose (see **People and teams** below); link local-only paths (see **Notion audience** below).
 
 ## People and teams
 
@@ -71,6 +71,20 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 - Prefer **absolute limits** over percentages when volume scales (e.g., STM intervention count per cycle, not "% of certs" if % of a larger book still breaks ops).
 - Binary outcomes are fine (zero duplicate remits, zero edit-loss incidents).
 
+**Measurement column (PRD, not TDD):** State the outcome you want to track in operator or business terms. Engineering chooses logs, tables, and dashboards during design.
+
+**Do:** "Share of operator cancel attempts in Servicing Console that end with the disbursement fully canceled." "Elapsed time from cancel request to escrow reflecting the stop."
+
+**Do not:** Function names, enum states, log field names, or specific observability tools in Success metrics (`reject_disbursements_in_group`, `REJECTED`, Datadog, BigQuery table names). Those belong in a TDD or eng design doc after instrumentation is agreed.
+
+## Notion audience
+
+Notion is the default share surface. Readers cannot open your laptop paths.
+
+**Do:** Link Notion pages, Linear, Incident.io, Confluence, and other workspace URLs in References and cross-references.
+
+**Do not:** Reference `canonical/`, `briefing.md`, `decisions.md`, `research-notes/`, or other local-only repo paths in a Notion PRD. Research files inform the draft; the published doc stands alone or links to durable workspace artifacts.
+
 ## What are we not trying to solve?
 
 **Goal:** Scope line for this milestone.
@@ -88,6 +102,8 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 - Percentage targets that ignore scale (e.g., "<10% manual edits" when 10% of 40k certs exceeds STM capacity)
 - Unverified workflows stated as fact (move to Open Questions)
 - Individual names in body prose (Reviewers and Owner/POC columns excepted; see **People and teams**)
+- Local file paths or gitignored research paths in Notion-bound PRDs (see **Notion audience**)
+- Code-level measurement specs in Success metrics (function names, state enums, log fields, named dashboards; see **What does success look like?**)
 - Stakeholder monologues ("Person A wants X, Person B blocked Y") — state the constraint, not the conversation
 - `~` for approximations in Notion-bound docs (use `approx.`; tildes render as strikethrough)
 - Em dashes as sentence connectors (see `doc-formatting.md`)

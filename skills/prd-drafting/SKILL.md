@@ -68,7 +68,7 @@ For each section, write tight prose (not bullet dumps of research). Include empt
 ### Full PRD mode
 
 - **Requirements:** `[P0]` / `[P1]` prefix; one sentence acceptance criterion each; functional + non-functional in one list per template.
-- **References (under Problem):** link `briefing.md`, key tickets, and `sources.md` anchors; no paste of briefing sections.
+- **References (under Problem):** For local drafts, link `briefing.md`, key tickets, and `sources.md`. For **Notion**, link only workspace URLs (Notion, Linear, Incident.io); never `canonical/` or other local paths.
 - **Regulatory requirements:** cite primary sources named in `research-notes/regulatory.md`; do not invent thresholds not in research.
 - **Platform / infra:** if `research-notes/codebase.md` names Workflows, Tasks, Rules, VDS, map behaviors in Proposal narrative without prescribing implementation types in every requirement (behavior first).
 
@@ -99,7 +99,8 @@ Self-check without re-researching:
 | Check | Action |
 |-------|--------|
 | Solution language in Problem? | Move to Proposal |
-| Success metrics describe builds? | Rewrite as outcomes |
+| Success metrics describe builds or code? | Rewrite as outcomes; no function names, states, or dashboards in measurement column |
+| Local paths in Notion draft? | Replace with workspace links (Notion, Linear, Incident.io) |
 | Requirement untestable? | Add measurable acceptance line |
 | Claim contradicts `briefing.md`? | Fix draft or note Open Question |
 | Milestone dates / loan counts | Match research or latest user correction |
