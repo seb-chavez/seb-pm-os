@@ -33,9 +33,23 @@ If a sentence names a screen, API, file format, or workflow step the team will b
 4. **Why it matters** — Forcing deadline with sourced numbers (today's scale vs. upcoming). Financial or compliance exposure with citations.
 5. **References** — Links to research, spreadsheets, tickets, meeting notes. Do not paste long sources inline.
 
-**Do:** Short sentences; attribute claims (person, date, doc, ticket); name the client correctly (subservicer vs. portfolio seller).
+**Do:** Short sentences; attribute claims with dates, docs, and tickets (not people's opinions in prose). Name the client correctly (subservicer vs. portfolio seller).
 
-**Do not:** Propose solutions; use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem.
+**Do not:** Propose solutions; use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem; name individuals in body prose (see **People and teams** below).
+
+## People and teams
+
+PRD body prose is about the problem, constraints, and outcomes — not who said what in a meeting.
+
+**Do not** name individuals in Problem, Strategy, Success, Proposal narrative, or Risks. Wrong: "INC-230 made wire safety non-negotiable for John Colella. Ben Zhou needs ops self-serve back." Right: "INC-230 made wire safety a hard constraint. Operations needs self-serve cancel where it is safe."
+
+**Use team or function names only when the dependency is the point:** Escrow engineering, Treasury, ProdOps, tax operations. Skip even those when the sentence works without them.
+
+**Where names are OK:**
+- **Reviewers** table (sign-off list)
+- **Open Questions** and **Dependencies** Owner/POC columns (role or team preferred: "Escrow PM," "Escrow eng"; use a person's name only when one DRI is required and no role label fits)
+
+**Do not** turn stakeholder quotes, preferences, or internal debates into PRD narrative. If a person's position matters, state the constraint as a fact ("wire delay is unacceptable after INC-230") or link the ticket/meeting note in References.
 
 ## How does this connect to strategy?
 
@@ -45,7 +59,7 @@ If a sentence names a screen, API, file format, or workflow step the team will b
 
 **Optional:** One small table only if it shows volume ramp tied to timing (not a general data dump).
 
-**Do not:** Repeat the full Problem narrative; describe how engineering will build the fix; name future clients unless directly tied to the deadline.
+**Do not:** Repeat the full Problem narrative; describe how engineering will build the fix; name future clients unless directly tied to the deadline; name individuals or quote their positions in prose.
 
 ## What does success look like?
 
@@ -73,6 +87,8 @@ If a sentence names a screen, API, file format, or workflow step the team will b
 - Solutioning in Problem or Success ("ops uploads the bill," "system diffs against HUD")
 - Percentage targets that ignore scale (e.g., "<10% manual edits" when 10% of 40k certs exceeds STM capacity)
 - Unverified workflows stated as fact (move to Open Questions)
+- Individual names in body prose (Reviewers and Owner/POC columns excepted; see **People and teams**)
+- Stakeholder monologues ("Person A wants X, Person B blocked Y") — state the constraint, not the conversation
 - `~` for approximations in Notion-bound docs (use `approx.`; tildes render as strikethrough)
 - Em dashes as sentence connectors (see `doc-formatting.md`)
 

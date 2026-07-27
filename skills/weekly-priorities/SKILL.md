@@ -83,6 +83,7 @@ Rules:
 - **Carry forward** unchecked items from last week unless clearly done or no longer relevant (ask before dropping).
 - **Propose new items** from gathered context; do not invent work with no source.
 - **Keep titles scannable** — short noun phrase; em dash for one line of context. No bold on titles by default.
+- **Use official project names** — item title must match the Linear **project** name (or canonical `proj-*` slug when there is no Linear project). Do not paraphrase or rename (e.g. do not write "PVF accounting" for **Property Valuation Fee Accounting**). Context after the em dash can describe the week's work.
 - **Drop empty area sections** — do not include placeholder sections.
 - Cap at ~8–12 items total unless the user asks for more; flag overflow as "stretch" or defer to next week.
 
@@ -153,3 +154,4 @@ When the user marks items done in Slack or in conversation:
 | Duplicating a week block | Check for existing `**Week of` before prepending |
 | Using `#` headings in week blocks | Use `**Week of …**` and `**Area**` — Slack won't render markdown headings |
 | Bolding every item title | Plain item lines; bold only for deliberate emphasis |
+| Renaming Linear projects in item titles | Use exact project name; put weekly nuance after the em dash |

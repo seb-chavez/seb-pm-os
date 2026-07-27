@@ -48,7 +48,9 @@ Optional add-ons (include when flagged or user asks):
 
 ### 2. Dispatch reviewers
 
-**If the harness supports sub-agents:** dispatch one read-only sub-agent per panelist in a single parallel batch. Each prompt must be self-contained:
+**If the harness supports sub-agents:** dispatch one read-only sub-agent per panelist in a single parallel batch. Each prompt must be self-contained.
+
+Default prompt (all panelists except SME):
 
 ```
 Read and follow skills/review-[name]/SKILL.md exactly.
@@ -56,6 +58,18 @@ Read and follow skills/review-[name]/SKILL.md exactly.
 Document: [absolute or repo-relative path]
 
 Return only that skill's output format. Do not edit files. Do not review from other personas.
+```
+
+**SME panelist** — use this prompt instead (mortgage-domain grounding is required by `review-sme`):
+
+```
+Read and follow skills/review-sme/SKILL.md exactly, including the "Mortgage servicing grounding" section.
+
+Document: [absolute or repo-relative path]
+
+Before factual/regulatory findings: read toolshed mortgage-domain and route to relevant child skills per that skill. Cite skill paths for grounded findings; tag others unverified.
+
+Return only review-sme's output format. Do not edit files. Do not review from other personas.
 ```
 
 **If no sub-agent support:** run each skill sequentially in the current session (read each `SKILL.md`, apply that persona), keeping outputs under separate persona headers.
