@@ -101,6 +101,21 @@ Notion is the default share surface. Readers cannot open your laptop paths.
 
 **Do not:** Reference `canonical/`, `briefing.md`, `decisions.md`, `research-notes/`, or other local-only repo paths in a Notion PRD. Research files inform the draft; the published doc stands alone or links to durable workspace artifacts.
 
+## Requirements (Proposal)
+
+**Format (every requirement line):**
+
+`[<priority>] **<requirement name>**: <requirement details>.`
+
+Example: `[P0] **Per-loan cancel in multi-loan batch**: Operator can cancel one loan in an approved multi-loan group without eng-op when within the agreed buffer window.`
+
+- **Priority:** `[P0]`, `[P1]`, etc. in square brackets.
+- **Name:** bold, short label.
+- **Separator:** colon after the name. **No em dashes** in requirement lines.
+- **Details:** one testable sentence; end with a period.
+
+Functional and non-functional requirements share one list. No rationale paragraphs under each item.
+
 ## What are we not trying to solve?
 
 **Goal:** Scope line for this milestone.
@@ -125,7 +140,7 @@ Notion is the default share surface. Readers cannot open your laptop paths.
 - Analyst-style metric names that need a glossary ("eligible completion rate" without saying eligible for what)
 - Stakeholder monologues ("Person A wants X, Person B blocked Y") — state the constraint, not the conversation
 - `~` for approximations in Notion-bound docs (use `approx.`; tildes render as strikethrough)
-- Em dashes as sentence connectors (see `doc-formatting.md`)
+- Em dashes in requirement lines (use `[P0] **Name**: details.` per **Requirements (Proposal)**)
 
 ## After drafting
 
