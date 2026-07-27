@@ -71,7 +71,7 @@
 
 **Do not** describe the solution (no "ops uploads," "system diffs," "exception queue"). Those belong in Proposal.
 
-**Metrics table:** Each row ties to a problem or risk above.
+**Metrics table:** Each row ties to a problem or risk above. **5am test:** name each metric so a tired reader gets it without cross-referencing other rows (plain questions work: "When ops tries to cancel, does it work?"). If two metrics are related, spell the difference in the name (every attempt vs. only when cancel should succeed).
 
 
 | Metric | Current Baseline | Target | Measurement Method |
