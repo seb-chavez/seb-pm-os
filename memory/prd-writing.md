@@ -71,11 +71,13 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 - Prefer **absolute limits** over percentages when volume scales (e.g., STM intervention count per cycle, not "% of certs" if % of a larger book still breaks ops).
 - Binary outcomes are fine (zero duplicate remits, zero edit-loss incidents).
 
+**5am test:** A tired reader should understand every metric row on its own. Name metrics as plain questions or statements ("When ops tries to cancel, does it work?"), not analyst labels ("eligible cancel completion rate"). If two metrics look similar, the names must spell out the difference (every attempt vs. only when cancel should succeed). No glossary required.
+
 **Measurement column (PRD, not TDD):** State the outcome you want to track in operator or business terms. Engineering chooses logs, tables, and dashboards during design.
 
-**Do:** "Share of operator cancel attempts in Servicing Console that end with the disbursement fully canceled." "Elapsed time from cancel request to escrow reflecting the stop."
+**Do:** "Of every cancel attempt in Servicing Console: how many end with the disbursement actually canceled?" "Time from operator starting cancel to escrow showing the stop."
 
-**Do not:** Function names, enum states, log field names, or specific observability tools in Success metrics (`reject_disbursements_in_group`, `REJECTED`, Datadog, BigQuery table names). Those belong in a TDD or eng design doc after instrumentation is agreed.
+**Do not:** Function names, enum states, log field names, or specific observability tools in Success metrics (`reject_disbursements_in_group`, `REJECTED`, Datadog, BigQuery table names). Those belong in a TDD or eng design doc after instrumentation is agreed. Do not use paired jargon labels that only make sense together ("eligible" vs. "all attempts" without explaining eligible in the name).
 
 ## Notion audience
 
@@ -104,6 +106,7 @@ Notion is the default share surface. Readers cannot open your laptop paths.
 - Individual names in body prose (Reviewers and Owner/POC columns excepted; see **People and teams**)
 - Local file paths or gitignored research paths in Notion-bound PRDs (see **Notion audience**)
 - Code-level measurement specs in Success metrics (function names, state enums, log fields, named dashboards; see **What does success look like?**)
+- Analyst-style metric names that need a glossary ("eligible completion rate" without saying eligible for what)
 - Stakeholder monologues ("Person A wants X, Person B blocked Y") — state the constraint, not the conversation
 - `~` for approximations in Notion-bound docs (use `approx.`; tildes render as strikethrough)
 - Em dashes as sentence connectors (see `doc-formatting.md`)
