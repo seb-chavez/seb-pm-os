@@ -67,7 +67,7 @@ For each section, write tight prose (not bullet dumps of research). Include empt
 
 ### Full PRD mode
 
-- **Requirements:** `[P0]` / `[P1]` prefix; one sentence acceptance criterion each; functional + non-functional in one list per template.
+- **Requirements:** `[P0]` / `[P1]` prefix; format `[P0] **Name**: one-sentence criterion.` Colon after name, period at end; no em dashes.
 - **References (under Problem):** For local drafts, link `briefing.md`, key tickets, and `sources.md`. For **Notion**, link only workspace URLs (Notion, Linear, Incident.io); never `canonical/` or other local paths.
 - **Regulatory requirements:** cite primary sources named in `research-notes/regulatory.md`; do not invent thresholds not in research.
 - **Platform / infra:** if `research-notes/codebase.md` names Workflows, Tasks, Rules, VDS, map behaviors in Proposal narrative without prescribing implementation types in every requirement (behavior first).

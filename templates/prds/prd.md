@@ -119,10 +119,15 @@ This project is scoped to [outcome] before **[date]**. The following are explici
 
 ### Requirements
 
-*Each item is one testable statement. One sentence of acceptance criteria; no rationale paragraphs. Functional requirements state what the system does; non-functional requirements state measurable quality bars (performance, capacity, reliability, durability). Use one list for both.*
+*Each item is one testable statement. Functional and non-functional requirements share one list.*
 
-- [P0] **Requirement name** — Acceptance criterion
-- [P1] **Requirement name** — Acceptance criterion
+**Format:** `[<priority>] **<requirement name>**: <requirement details>.`
+
+- Use a **colon** after the bold name, not an em dash. End each line with a period.
+- One sentence of acceptance criteria per item; no rationale paragraphs.
+
+- [P0] **Requirement name**: Acceptance criterion in one sentence.
+- [P1] **Requirement name**: Acceptance criterion in one sentence.
 
 **Out of Scope**
 *Features we are deferring within the engineering track (distinct from Problem "what we are not trying to solve").*
