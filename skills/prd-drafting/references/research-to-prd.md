@@ -33,6 +33,8 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 ## What not to paste
 
 - Do not paste `briefing.md` or research-notes into the PRD. Link in **References** under Problem.
+- **Notion PRDs:** References must be workspace URLs only. Local paths (`canonical/`, `briefing.md`, `decisions.md`) are for drafting; readers cannot open them.
+- **Success metrics:** Outcome language only in the measurement column. No function names, enum states, log fields, or named observability tools; engineering defines instrumentation in design docs.
 - Do not re-litigate research in Proposal. If research is wrong, fix research files or note in Open Questions.
 - PRDs from Notion found during research stay excluded unless the PM explicitly asks to incorporate them.
 

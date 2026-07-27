@@ -33,7 +33,7 @@
 
 4. **Why it matters:** The forcing deadline (client milestone, conversion, contract date). Today's scale vs. upcoming scale with sourced numbers. Financial or compliance exposure with citations (ticket, incident $, client quote). Distinguish near-term deadline from longer-term bar when both exist.
 
-5. **References:** Link out to research, spreadsheets, incident tickets, and meeting notes. Do not summarize long sources inline.
+5. **References:** Link out to workspace artifacts readers can open (Notion, Linear, Incident.io, client docs). Do not summarize long sources inline. Local research files (`briefing.md`, `decisions.md`) inform the draft only; do not put laptop paths in a Notion PRD.
 
 **Do:**
 - Write for engineers and operators, not executives. Short sentences; one idea per sentence.
@@ -84,6 +84,7 @@
 - Prefer **absolute limits** over percentages when volume is scaling (e.g., "stay within STM capacity: &lt;N interventions per cycle" rather than "&lt;10% of certs" if 10% of a larger book still breaks ops).
 - Binary outcomes are fine where appropriate (zero duplicate remits, zero edit-loss incidents).
 - Readiness rows may reference test cycles and sign-off criteria before go-live.
+- **Measurement method:** describe the outcome in operator or business terms. Engineering picks instrumentation during design. Do not name functions, enum states, log fields, or specific dashboards here (that is TDD territory).
 
 ### What are we not trying to solve?
 
