@@ -21,13 +21,14 @@ The PRD is a product document for mixed audiences (PM, ops, eng leads, client st
 
 **Ops reader test:** Could Escrow ProdOps read a Problem paragraph or requirement line and know what breaks or what "done" looks like, without knowing our codebase? If not, simplify.
 
-**Translation rule:** When research or tickets name an integration pattern, contract, adapter, or cron, ask *what breaks for a person if we do not ship this?* Write that answer. Link the ticket in References; keep body prose human.
+**Translation rule:** When research or tickets name an integration pattern, contract, adapter, or cron, ask *what breaks for a person if we do not ship this?* Write that answer. Link the source in **References** at the bottom of the doc; keep body prose human.
 
 ## Section order
 
-1. **Problem** (four subsections) — complete before Proposal
+1. **Problem** (opening paragraphs + strategy, success, scope subsections) — complete before Proposal
 2. **Proposal** — approach, flows, requirements
 3. **Plan** — timeline, risks, **Open Questions last**
+4. **References** — workspace URLs only; single list at the very bottom
 
 Open Questions never live inside Problem. When a question is answered, move the fact into Problem or Proposal and note resolution in the table.
 
@@ -44,28 +45,25 @@ If a sentence names a screen, API, file format, or workflow step the team will b
 
 Deadlines and milestone dates are **planning context** (Plan → Timeline, or one Strategy sentence with business consequence). They are not the problem and must not stand in for "why it matters."
 
-## What is the problem?
+## Problem (opening paragraphs)
 
-**Goal:** A reader who never opens Linear can repeat the problem and its stakes after this subsection alone.
+**Goal:** A reader who never opens Linear can repeat the problem and its stakes after reading this section alone.
 
-**Structure (use what fits):**
+**Length:** One paragraph, two at most. If it is longer, cut until it is not.
 
-1. **Core workflow gap** — What happens today vs. what must be true, in everyday terms. Name the authoritative source when it clarifies the gap (regulator bill, client file, carrier feed, ledger).
-2. **Related failure modes** — Separate problems that share a project but are not the same bug (e.g., dual-system double payment during migration). Facts and risks only.
-3. **Who it hurts** — Bold labels per audience (Operators, Client, Borrowers). One concrete example each: what they do today that should not be necessary, or what goes wrong for them.
-4. **Why it matters** — Customer, ops, or compliance pain at **today's scale** and what gets worse if we wait. Sourced numbers (loan counts, manual hours, dollars at risk, regulatory exposure). **Not** a list of Linear milestones or roadmap labels.
-5. **References** — Links readers can open: Notion pages, Linear tickets, Incident.io, client docs. Do not paste long sources inline.
+**Content:** Weave together what is broken, who bears the cost, and why it matters now — in normal prose. Do not use subheaders, numbered blocks, bold audience labels (**Operators**, **Borrowers**), or bullet lists to spell out "who hurts." Say it the way you would in a Slack message to a cross-functional lead.
 
 **Why it matters: wrong vs. right**
 
 | Wrong | Right |
 | ----- | ----- |
-| "PRD Ready 2026-09-25, tech scoping 2026-10-30, launch 2027-04-01. Carrington go-live Q1 2027. SWBC is Q4 2026 must-have." | "Without carrier insurance data on these loans, escrow analysts manually chase certificates and miss force-placed coverage windows. Carrington onboarding adds ~40k loans where this gap becomes daily ops load." |
-| "Engineering target 2026-12-18 per Linear." | "If we miss December, Carrington cutover slips and ops runs dual systems through tax season." (one sentence, tied to consequence) |
+| "PRD Ready 2026-09-25, tech scoping 2026-10-30, launch 2027-04-01. Carrington go-live Q1 2027. SWBC is Q4 2026 must-have." | "Without carrier insurance data on these loans, escrow analysts manually chase certificates and miss force-placed coverage windows. Carrington onboarding adds approx. 40k loans where this gap becomes daily ops load." |
+| "**Operators:** manual cert chase. **Borrowers:** force-placed risk. **Client:** onboarding blocked." | "Analysts spend hours chasing SWBC certificates by email, borrowers sit exposed to unnecessary force-placed coverage, and Carrington onboarding cannot scale on manual work." |
+| Four paragraphs covering every failure mode and edge case | One tight paragraph on the core gap; a second only if a distinct risk (e.g., dual-system double pay during migration) must be named |
 
-**Do:** Short sentences; attribute claims with dates, docs, and tickets (not people's opinions in prose). Name the client correctly (subservicer vs. portfolio seller). Open with the broken workflow before zooming into edge cases.
+**Do:** Short sentences; sourced numbers when they clarify stakes (loan counts, manual hours, dollars at risk). Name the client correctly (subservicer vs. portfolio seller).
 
-**Do not:** Propose solutions; recite project management metadata as the "why"; paste research structure verbatim; use contract names, adapter types, cron jobs, enum states, or ticket IDs in body prose (References only); use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem; name individuals in body prose (see **People and teams** below); link local-only paths (see **Notion audience** below).
+**Do not:** Propose solutions; recite project management metadata as the "why"; paste research structure verbatim; use contract names, adapter types, cron jobs, enum states, or ticket IDs in body prose; use bold labels or bullets to enumerate audiences; write an essay.
 
 ## People and teams
 
@@ -79,7 +77,22 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 - **Reviewers** table (sign-off list)
 - **Open Questions** and **Dependencies** Owner/POC columns (role or team preferred: "Escrow PM," "Escrow eng"; use a person's name only when one DRI is required and no role label fits)
 
-**Do not** turn stakeholder quotes, preferences, or internal debates into PRD narrative. If a person's position matters, state the constraint as a fact ("wire delay is unacceptable after INC-230") or link the ticket/meeting note in References.
+**Do not** turn stakeholder quotes, preferences, or internal debates into PRD narrative. If a person's position matters, state the constraint as a fact ("wire delay is unacceptable after INC-230") and link the ticket or meeting in **References**.
+
+## References
+
+**Placement:** One section at the **very bottom** of the PRD, after Plan and Open Questions. Like a paper's citations — not nested under Problem, Strategy, or any other section.
+
+**Allowed links:** Workspace URLs any teammate can open: Notion, Linear, Gong, Incident.io, Confluence, Figma, client-facing docs hosted on the web.
+
+**Never link:**
+- Local files (`briefing.md`, `decisions.md`, `sources.md`, `prd.md`)
+- Repo paths (`canonical/`, `memory/`, `research-notes/`)
+- Meta instructions (`memory/doc-formatting.md`, `memory/writing-style.md`, `memory/prd-writing.md`)
+
+Research files inform the draft. The published PRD stands alone with durable workspace links pulled from `sources.md`. Ticket IDs belong as linked Linear URLs in References, not as raw IDs in body prose.
+
+**Do not** append formatting guides, skill paths, or repo housekeeping to the PRD footer.
 
 ## How does this connect to strategy?
 
@@ -122,14 +135,6 @@ Do not split into separate "outcome" and "guardrail" tables.
 **Do:** Primary row: "Cancel success rate" / "Of every cancel attempt on a multi-loan wire batch, does the disbursement actually get canceled?"
 
 **Do not:** Function names, enum states, log field names, or specific observability tools in Success metrics. Requirement behaviors dressed up as metrics (cutoff messaging rate, escrow correction time, eng-op volume). Paired jargon labels without Description context.
-
-## Notion audience
-
-Notion is the default share surface. Readers cannot open your laptop paths.
-
-**Do:** Link Notion pages, Linear, Incident.io, Confluence, and other workspace URLs in References and cross-references.
-
-**Do not:** Reference `canonical/`, `briefing.md`, `decisions.md`, `research-notes/`, or other local-only repo paths in a Notion PRD. Research files inform the draft; the published doc stands alone or links to durable workspace artifacts.
 
 ## Requirements (Proposal)
 
@@ -174,8 +179,13 @@ Functional and non-functional requirements share one list. No rationale paragrap
 
 ## Anti-patterns (from review)
 
+- **Essay Problem** — More than two paragraphs, or covering every edge case instead of the core gap
+- **Robot Problem structure** — Subheaders, numbered blocks, or bold audience labels (**Operators**, **Borrowers**) inside the Problem opening
+- **References in the wrong place** — Citation lists under Problem or mid-doc instead of a single section at the bottom
+- **Local or repo links in References** — `briefing.md`, `decisions.md`, `canonical/`, `memory/`, or any path only the author can open
+- **Meta content in the PRD** — Footer or inline mentions of `memory/doc-formatting.md`, `memory/writing-style.md`, or other repo instruction files
 - **Schedule as "why"** — Linear milestones, roadmap labels, or PRD-ready dates standing in for customer/ops/compliance pain
-- **Research dump voice** — Label-heavy prose that mirrors briefing structure without distilling ("Core workflow gap. Related failure modes.") with no human meaning behind each label
+- **Research dump voice** — Label-heavy prose that mirrors briefing structure without distilling
 - **Implementation in requirements** — Contract names, adapter types, cron families, class names, table names, or ticket IDs in requirement lines or Problem body (link tickets in References)
 - Importance sentences, AI vocabulary, contrast structures, vague authority, summary endings (see `memory/writing-style.md`)
 - "Milestone thesis," "gating question," "trust in the platform"
@@ -183,7 +193,7 @@ Functional and non-functional requirements share one list. No rationale paragrap
 - Percentage targets that ignore scale (e.g., "<10% manual edits" when 10% of 40k certs exceeds STM capacity)
 - Unverified workflows stated as fact (move to Open Questions)
 - Individual names in body prose (Reviewers and Owner/POC columns excepted; see **People and teams**)
-- Local file paths or gitignored research paths in Notion-bound PRDs (see **Notion audience**)
+- Local file paths or gitignored research paths anywhere in the published PRD (see **References**)
 - Code-level measurement specs in Success metrics (function names, state enums, log fields, named dashboards; see **What does success look like?**)
 - Requirement behaviors listed as metrics (messaging, observability, eng-op volume, internal SLAs; those belong in Proposal)
 - Separate outcome and guardrail metric tables (use one table with a Type column)

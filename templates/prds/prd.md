@@ -2,7 +2,7 @@
 
 *One-line description of the project.*
 
-*Fill this in last. It is the executive summary of the whole PRD. A reader should grasp the problem and the plan in under two minutes, then find requirements fast. Cut thin sections rather than padding them; link to research instead of pasting it.*
+*Fill this in last. One plain sentence on the user/business outcome. Delete all italic author instructions before sharing the doc.*
 
 ## Reviewers
 
@@ -17,34 +17,9 @@
 
 ## Problem
 
-*Complete all four subsections below before writing Proposal. Problem states what is broken and why it matters now; it does not describe the solution. Open Questions belong at the bottom of this doc under Plan, not here.*
+*Author instruction (delete before share): One or two short paragraphs. Weave what is broken, who bears the cost, and why it matters — in normal prose. No subheaders, bold audience labels, or bullet lists. No solution.*
 
-### What is the problem?
-
-*Describe the broken workflow today in plain language. A reader should be able to repeat the problem and its stakes after reading this subsection alone.*
-
-**Structure (use what fits; skip blocks that do not apply):**
-
-1. **Core workflow gap** (2–4 sentences): What the system does today vs. what must be true. Name the authoritative source of truth (regulator, client, carrier, ledger) when relevant. Contrast with a mature analog elsewhere in the product if it clarifies the gap.
-
-2. **Related failure modes** (0–2 short paragraphs): Separate problems that share a project but are not the same bug (e.g., dual-system double payment during a migration). State facts and risks; do not prescribe fixes.
-
-3. **Who it hurts:** Bullet or bold labels per audience (**Operators**, **Engineering**, **Client**, **Borrowers**). One concrete example each (person, ticket, incident, review finding) beats generic pain.
-
-4. **Why it matters:** The forcing deadline (client milestone, conversion, contract date). Today's scale vs. upcoming scale with sourced numbers. Financial or compliance exposure with citations (ticket, incident $, client quote). Distinguish near-term deadline from longer-term bar when both exist.
-
-5. **References:** Link out to workspace artifacts readers can open (Notion, Linear, Incident.io, client docs). Do not summarize long sources inline. Local research files (`briefing.md`, `decisions.md`) inform the draft only; do not put laptop paths in a Notion PRD.
-
-**Do:**
-- Write for engineers and operators, not executives. Short sentences; one idea per sentence.
-- Attribute claims with dates, docs, and tickets.
-- Name the **client** correctly (e.g., subservicer onboarding a portfolio vs. the portfolio seller).
-
-**Do not:**
-- Propose uploads, diffs, dashboards, or integrations here.
-- Use filler framing ("gating question," "trust in the platform," "highest-volume workflow in the vertical") unless you can defend it with data.
-- Dump tables or timelines that belong in Strategy unless they are essential to stating the problem.
-- Name individuals in body prose or turn internal debates into narrative ("X needs Y," "X blocked Z"). State constraints as facts; use team names only when necessary. See `memory/prd-writing.md` (**People and teams**). Reviewers table and Owner/POC columns are the exceptions.
+*Author instruction (delete before share): Complete the subsections below before writing Proposal.*
 
 ### How does this connect to our strategy & priorities?
 
@@ -59,7 +34,7 @@
 - Repeat the full Problem narrative (deadline, loan counts) if already stated above. One cross-reference is enough.
 - Describe how engineering will build the fix.
 - Name future clients or analyst personas unless directly tied to the deadline.
-- Name individuals or their positions in prose. State organizational constraints as facts (see `memory/prd-writing.md`, **People and teams**).
+- Name individuals or their positions in prose. State organizational constraints as facts.
 
 *Example shape: "[Client] [Milestone] ([date]) requires [workflow] to work at [scale]; today's process does not. This is [P0/P1] because [pipeline / finding / incident], not because [workflow] is the largest area in the org."*
 
@@ -170,6 +145,8 @@ This project is scoped to [outcome] before **[date]**. The following are explici
 |          |       |          |            |
 
 
----
+## References
 
-*Formatting: `memory/doc-formatting.md`. Prose: `memory/writing-style.md`. Use `approx.` not `~` for estimates (Notion renders tildes as strikethrough). No em dashes as sentence connectors.*
+*Author instruction (delete before share): Workspace URLs only at the bottom of the doc. Notion, Linear, Gong, Incident.io, Confluence, Figma. Never local files or repo paths.*
+
+- [Source title](https://...)
