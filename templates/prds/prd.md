@@ -17,7 +17,7 @@
 
 ## Problem
 
-*Author instruction (delete before share): One or two short paragraphs. Weave what is broken, who bears the cost, and why it matters — in normal prose. No subheaders, bold audience labels, or bullet lists. No solution.*
+*Author instruction (delete before share): One or two short paragraphs, 3 to 5 sentences total. State the gap and consequence once. Use a second paragraph only for scale, urgency, or a distinct risk. Remove any sentence that repeats an adjacent fact. No subheaders, bold audience labels, bullet lists, or solution.*
 
 *Author instruction (delete before share): Complete the subsections below before writing Proposal.*
 
