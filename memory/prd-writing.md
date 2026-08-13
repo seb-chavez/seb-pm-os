@@ -2,6 +2,27 @@
 
 Use with `templates/prds/prd.md` (structure), `memory/doc-formatting.md` (Notion formatting), and `memory/writing-style.md` (prose). The template holds section placeholders; this file holds the writing rules we apply when drafting Problem sections.
 
+The `/prd-drafting` skill extends this guide with worked examples; both share the same voice rules below.
+
+## Voice and audience
+
+Write like a seasoned senior PM explaining a messy domain to a smart non-engineer. Plain sentences. Concrete examples. **Distill complexity; do not reproduce it.**
+
+The PRD is a product document for mixed audiences (PM, ops, eng leads, client stakeholders). It is not a technical design doc, architecture note, or project tracker export. Engineering writes the TDD with implementation vocabulary; the PRD gives constraints and acceptance outcomes.
+
+| Section | Language |
+| ------- | -------- |
+| Problem (all subsections) | Business and operator terms only |
+| Success metrics | Outcomes in operator or business terms |
+| Strategy | Why this priority now, tied to business consequence |
+| Proposal narrative | Sparing technical context only where scope needs it |
+| Requirements | Testable user/business outcomes |
+| Plan / Timeline | Milestone dates live here |
+
+**Ops reader test:** Could Escrow ProdOps read a Problem paragraph or requirement line and know what breaks or what "done" looks like, without knowing our codebase? If not, simplify.
+
+**Translation rule:** When research or tickets name an integration pattern, contract, adapter, or cron, ask *what breaks for a person if we do not ship this?* Write that answer. Link the ticket in References; keep body prose human.
+
 ## Section order
 
 1. **Problem** (four subsections) — complete before Proposal
@@ -14,28 +35,37 @@ Open Questions never live inside Problem. When a question is answered, move the 
 
 | Problem | Proposal |
 | ------- | -------- |
-| What is broken, who hurts, stakes, deadline | How we will fix it |
-| Outcomes and measurable bars | Uploads, diffs, queues, integrations |
+| What is broken, who hurts, business stakes | What we will deliver and how users/systems behave after |
+| Outcomes and measurable bars | Behavioral requirements and scope boundaries |
 | Risks as facts (e.g., duplicate remit possible) | Mitigations and requirements |
 | What we are not trying to solve (milestone scope) | Engineering out-of-scope within the build |
 
 If a sentence names a screen, API, file format, or workflow step the team will build, it belongs in Proposal.
 
+Deadlines and milestone dates are **planning context** (Plan → Timeline, or one Strategy sentence with business consequence). They are not the problem and must not stand in for "why it matters."
+
 ## What is the problem?
 
-**Goal:** A reader can repeat the problem and its stakes after this subsection alone.
+**Goal:** A reader who never opens Linear can repeat the problem and its stakes after this subsection alone.
 
 **Structure (use what fits):**
 
-1. **Core workflow gap** — What the system does today vs. what must be true. Name the authoritative source (regulator bill, client file, carrier feed, ledger).
+1. **Core workflow gap** — What happens today vs. what must be true, in everyday terms. Name the authoritative source when it clarifies the gap (regulator bill, client file, carrier feed, ledger).
 2. **Related failure modes** — Separate problems that share a project but are not the same bug (e.g., dual-system double payment during migration). Facts and risks only.
-3. **Who it hurts** — Bold labels per audience (Operators, Engineering, Client, Borrowers). One concrete example each.
-4. **Why it matters** — Forcing deadline with sourced numbers (today's scale vs. upcoming). Financial or compliance exposure with citations.
+3. **Who it hurts** — Bold labels per audience (Operators, Client, Borrowers). One concrete example each: what they do today that should not be necessary, or what goes wrong for them.
+4. **Why it matters** — Customer, ops, or compliance pain at **today's scale** and what gets worse if we wait. Sourced numbers (loan counts, manual hours, dollars at risk, regulatory exposure). **Not** a list of Linear milestones or roadmap labels.
 5. **References** — Links readers can open: Notion pages, Linear tickets, Incident.io, client docs. Do not paste long sources inline.
 
-**Do:** Short sentences; attribute claims with dates, docs, and tickets (not people's opinions in prose). Name the client correctly (subservicer vs. portfolio seller).
+**Why it matters: wrong vs. right**
 
-**Do not:** Propose solutions; use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem; name individuals in body prose (see **People and teams** below); link local-only paths (see **Notion audience** below).
+| Wrong | Right |
+| ----- | ----- |
+| "PRD Ready 2026-09-25, tech scoping 2026-10-30, launch 2027-04-01. Carrington go-live Q1 2027. SWBC is Q4 2026 must-have." | "Without carrier insurance data on these loans, escrow analysts manually chase certificates and miss force-placed coverage windows. Carrington onboarding adds ~40k loans where this gap becomes daily ops load." |
+| "Engineering target 2026-12-18 per Linear." | "If we miss December, Carrington cutover slips and ops runs dual systems through tax season." (one sentence, tied to consequence) |
+
+**Do:** Short sentences; attribute claims with dates, docs, and tickets (not people's opinions in prose). Name the client correctly (subservicer vs. portfolio seller). Open with the broken workflow before zooming into edge cases.
+
+**Do not:** Propose solutions; recite project management metadata as the "why"; paste research structure verbatim; use contract names, adapter types, cron jobs, enum states, or ticket IDs in body prose (References only); use unverified superlatives ("highest volume in MI," "trust in the platform"); dump tables that belong in Strategy unless essential to stating the problem; name individuals in body prose (see **People and teams** below); link local-only paths (see **Notion audience** below).
 
 ## People and teams
 
@@ -53,13 +83,13 @@ PRD body prose is about the problem, constraints, and outcomes — not who said 
 
 ## How does this connect to strategy?
 
-**Goal:** Which priority this serves and why timing matches a milestone.
+**Goal:** Which company or client priority this serves and **why now** in business terms.
 
-**Include:** Milestone or conversion (date, volume, client); honest reason for elevation (pipeline, incident, regulatory finding).
+**Include:** The honest reason this rose on the roadmap (client onboarding, incident, regulatory finding, ops load at scale). One milestone or conversion (date, volume, client) **only if** you tie it to a business consequence of hitting or missing it.
 
-**Optional:** One small table only if it shows volume ramp tied to timing (not a general data dump).
+**Optional:** One small table only if it shows volume ramp tied to a real operational or client constraint (not a general data dump).
 
-**Do not:** Repeat the full Problem narrative; describe how engineering will build the fix; name future clients unless directly tied to the deadline; name individuals or quote their positions in prose.
+**Do not:** Repeat the full Problem narrative; list Linear milestone names as the strategy rationale; describe how engineering will build the fix; name future clients unless directly tied to a stated business constraint; name individuals or quote their positions in prose.
 
 ## What does success look like?
 
@@ -103,6 +133,8 @@ Notion is the default share surface. Readers cannot open your laptop paths.
 
 ## Requirements (Proposal)
 
+Requirements are **outcome-focused constraints** for engineering to design against. Not implementation recipes.
+
 **Format (every requirement line):**
 
 `[<priority>] **<requirement name>**: <requirement details>.`
@@ -112,21 +144,39 @@ Example: `[P0] **Per-loan cancel in multi-loan batch**: Operator can cancel one 
 - **Priority:** `[P0]`, `[P1]`, etc. in square brackets.
 - **Name:** bold, short label.
 - **Separator:** colon after the name. **No em dashes** in requirement lines.
-- **Details:** one testable sentence; end with a period.
+- **Details:** one testable outcome sentence; end with a period. Pass the **ops reader test**.
 
-Functional and non-functional requirements share one list. No rationale paragraphs under each item.
+**Wrong vs. right**
+
+| Wrong | Right |
+| ----- | ----- |
+| `[P0] **SWBC adapter**: Implement SwbcIntegration on PropertyInsuranceIntegration per ESC-4961.` | `[P0] **Daily SWBC certificate feed**: Escrow receives updated hazard insurance certificates for SWBC-serviced loans without manual file upload.` |
+| `[P0] **Diff job**: Nightly cron diffs incoming feed against loan_escrow_insurance.` | `[P0] **Stale cert detection**: When carrier data changes, ops sees which loans need review before disbursement.` |
+
+Functional and non-functional requirements share one list. No rationale paragraphs under each item. Pull technical facts from research to inform requirements; do not copy codebase vocabulary into requirement lines.
 
 ## What are we not trying to solve?
 
 **Goal:** Scope line for this milestone.
 
-- Opening: what delivery and by when.
+- Opening: what delivery and by when (product terms, not ticket IDs).
 - Bullets: **Topic:** what is excluded and why (timeline, other team, unverified workflow, follow-on).
 - Dependencies on other teams: we depend on the answer but do not build their side.
 - Typically 5–10 bullets. If unsure whether something is true, use Open Questions instead of stating it as out-of-scope fact.
 
+## Plan and timeline
+
+**Goal:** When we ship and what we depend on. This is where milestone dates belong.
+
+- List dates with **business consequence** when helpful ("If X slips past Y, Carrington cutover runs dual systems through tax season").
+- Do not repeat the same date list in Problem "Why it matters" or Strategy without adding new meaning.
+- Risks and Open Questions stay in plain language; technical mitigation details belong in Proposal or the eng TDD.
+
 ## Anti-patterns (from review)
 
+- **Schedule as "why"** — Linear milestones, roadmap labels, or PRD-ready dates standing in for customer/ops/compliance pain
+- **Research dump voice** — Label-heavy prose that mirrors briefing structure without distilling ("Core workflow gap. Related failure modes.") with no human meaning behind each label
+- **Implementation in requirements** — Contract names, adapter types, cron families, class names, table names, or ticket IDs in requirement lines or Problem body (link tickets in References)
 - Importance sentences, AI vocabulary, contrast structures, vague authority, summary endings (see `memory/writing-style.md`)
 - "Milestone thesis," "gating question," "trust in the platform"
 - Solutioning in Problem or Success ("ops uploads the bill," "system diffs against HUD")
