@@ -8,9 +8,9 @@ Use after `/prd-research`. The research bundle is the **only** primary source fo
 
 | File | Role in drafting |
 |------|------------------|
-| `briefing.md` | Facts for Problem; translate §1/§4 into pain and stakes, not a research recap |
+| `briefing.md` | Facts for Problem; translate into 1–2 plain paragraphs, not a research recap |
 | `decisions.md` | Unresolved questions must be resolved (or parked in Open Questions) before Proposal |
-| `sources.md` | Citations and confidence; link from Problem References |
+| `sources.md` | Workspace URLs for **References** at bottom of PRD; never link this file itself |
 | `research-notes/*.md` | Detail on demand; **translate** before writing (especially `codebase.md`, `ops-current-state.md`) |
 
 If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` first.
@@ -20,7 +20,7 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 | PRD section (`templates/prds/prd.md`) | Primary research sources | Writing note |
 |---------------------------------------|---------------------------|--------------|
 | One-line description (top) | `briefing.md` Executive Summary; write **last** | User/business outcome in plain language |
-| **Problem → What is the problem?** | `briefing.md` §1 World Today, §4 Gaps; `ops-current-state.md`, `bug-catalog.md` | Workflow gap + who hurts. No ticket dumps. No adapter/cron language. |
+| **Problem** (opening) | `briefing.md` §1 World Today, §4 Gaps; `ops-current-state.md`, `bug-catalog.md` | **1–2 paragraphs.** Woven prose. No subheaders, bold labels, or bullets. |
 | **Problem → Strategy** | `briefing.md` §1; `stakeholder-context.md`; `GOALS.md` if user points to it | Why now = business consequence of waiting, not a Linear milestone list |
 | **Problem → Success** | `briefing.md` §4 + risks; ops/customer stakes | Outcomes only; one typed metrics table (Primary / Secondary / Guardrail) |
 | **Problem → Not trying to solve** | `decisions.md` scope forks; `briefing.md` §4; explicit milestone boundary | Milestone scope in product terms |
@@ -31,13 +31,15 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 | **Plan → Timeline** | `stakeholder-context.md`; Linear dates from research | **Home for milestone dates**; tie to consequence when helpful |
 | **Plan → Risks** | `bug-catalog.md` patterns, `briefing.md` §4 | Plain-language risk statements |
 | **Plan → Open Questions** | Leftovers from `decisions.md` + new gaps found while drafting | |
+| **References** (bottom) | `sources.md` workspace URLs only | Notion, Linear, Gong, Incident.io, Confluence, Figma. **Never** local files or repo paths. |
 
 ## What not to paste
 
-- Do not paste `briefing.md` or research-notes into the PRD. Link in **References** under Problem.
-- Do not paste Linear milestone names/dates into Problem "Why it matters."
+- Do not paste `briefing.md` or research-notes into the PRD.
+- Do not link local files in References (`briefing.md`, `decisions.md`, `canonical/`, `memory/`).
+- Do not append meta footers (`Formatting: memory/doc-formatting.md`, etc.).
+- Do not paste Linear milestone names/dates into Problem as the "why."
 - Do not paste contract names, adapter types, cron families, class names, or enum states into Problem or requirements.
-- **Notion PRDs:** References must be workspace URLs only. Local paths (`canonical/`, `briefing.md`, `decisions.md`) are for drafting; readers cannot open them.
 - **Success metrics:** One table with Type column (Primary, Secondary, Guardrail). Outcome language only in measurement column. No requirement behaviors as metrics. No function names, enum states, log fields, or named observability tools; engineering defines instrumentation in design docs.
 - Do not re-litigate research in Proposal. If research is wrong, fix research files or note in Open Questions.
 - PRDs from Notion found during research stay excluded unless the PM explicitly asks to incorporate them.
