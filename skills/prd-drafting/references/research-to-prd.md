@@ -20,7 +20,7 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 | PRD section (`templates/prds/prd.md`) | Primary research sources | Writing note |
 |---------------------------------------|---------------------------|--------------|
 | One-line description (top) | `briefing.md` Executive Summary; write **last** | User/business outcome in plain language |
-| **Problem** (opening) | `briefing.md` §1 World Today, §4 Gaps; `ops-current-state.md`, `bug-catalog.md` | **1–2 paragraphs.** Woven prose. No subheaders, bold labels, or bullets. |
+| **Problem** (opening) | `briefing.md` §1 World Today, §4 Gaps; targeted current-state notes for this exact workflow | **One paragraph by default, 2–4 sentences.** Include only the gap and direct consequence. No analog metrics, open decisions, status updates, subheaders, bold labels, or bullets. |
 | **Problem → Strategy** | `briefing.md` §1; `stakeholder-context.md`; `GOALS.md` if user points to it | Why now = business consequence of waiting, not a Linear milestone list |
 | **Problem → Success** | `briefing.md` §4 + risks; ops/customer stakes | Outcomes only; one typed metrics table (Primary / Secondary / Guardrail) |
 | **Problem → Not trying to solve** | `decisions.md` scope forks; `briefing.md` §4; explicit milestone boundary | Milestone scope in product terms |
@@ -36,6 +36,9 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 ## What not to paste
 
 - Do not paste `briefing.md` or research-notes into the PRD.
+- Do not include a fact in Problem merely because the section mapping names its source. Every fact must pass the skill's three-part relevance gate.
+- Do not use metrics from another vendor or integration to inflate the Problem. Route them to Success or Risks only when the same causal mechanism is proven and the comparison changes a product constraint.
+- Do not put file mappings, operating ownership, vendor response status, or milestone timing in Problem.
 - Do not link local files in References (`briefing.md`, `decisions.md`, `canonical/`, `memory/`).
 - Do not append meta footers (`Formatting: memory/doc-formatting.md`, etc.).
 - Do not paste Linear milestone names/dates into Problem as the "why."

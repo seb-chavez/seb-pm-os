@@ -49,9 +49,9 @@ Deadlines and milestone dates are **planning context** (Plan → Timeline, or on
 
 **Goal:** A reader who never opens Linear can repeat the problem and its stakes after reading this section alone.
 
-**Length:** One paragraph, two at most; 3 to 5 sentences total. If it is longer, cut until it is not.
+**Length:** One paragraph by default; 2 to 4 sentences. A second paragraph requires a separate, directly related current harm that cannot fit clearly in the first.
 
-**Content:** Weave together what is broken, who bears the cost, and why it matters now in normal prose. Give each paragraph one job. The first states the gap and consequence. Use a second only for scale, urgency, or a distinct unresolved risk. Do not use subheaders, numbered blocks, bold audience labels (**Operators**, **Borrowers**), or bullet lists to spell out "who hurts." Say it the way you would in a Slack message to a cross-functional lead.
+**Content:** Weave together what is broken, who bears the cost, and why it matters now in normal prose. Stop once the core gap and direct consequence are clear. Do not use subheaders, numbered blocks, bold audience labels (**Operators**, **Borrowers**), or bullet lists to spell out "who hurts." Say it the way you would in a Slack message to a cross-functional lead.
 
 **Why it matters: wrong vs. right**
 
@@ -60,13 +60,20 @@ Deadlines and milestone dates are **planning context** (Plan → Timeline, or on
 | "PRD Ready 2026-09-25, tech scoping 2026-10-30, launch 2027-04-01. Carrington go-live Q1 2027. SWBC is Q4 2026 must-have." | "Without carrier insurance data on these loans, escrow analysts manually chase certificates and miss force-placed coverage windows. Carrington onboarding adds approx. 40k loans where this gap becomes daily ops load." |
 | "**Operators:** manual cert chase. **Borrowers:** force-placed risk. **Client:** onboarding blocked." | "Analysts spend hours chasing SWBC certificates by email, borrowers sit exposed to unnecessary force-placed coverage, and Carrington onboarding cannot scale on manual work." |
 | "Sagent sends the data. Valon does not. The exchange will stop. SWBC will lose the data it needs." | "When Carrington moves from Sagent to Valon OS, SWBC will stop receiving the data it needs to monitor coverage and request payments." |
-| Four paragraphs covering every failure mode and edge case | One tight paragraph on the core gap; a second only if a distinct risk (e.g., dual-system double pay during migration) must be named |
+| Core gap followed by mappings, review ownership, another integration's exception rate, and pilot timing | Stop after the core gap. Route those facts to Proposal, Open Questions, Success, Risks, or Plan. |
 
 **Do:** Short sentences; sourced numbers when they clarify stakes (loan counts, manual hours, dollars at risk). Name the client correctly (subservicer vs. portfolio seller). State each cause, transition, and consequence once.
 
 **Do not:** Propose solutions; recite project management metadata as the "why"; paste research structure verbatim; use contract names, adapter types, cron jobs, enum states, or ticket IDs in body prose; use bold labels or bullets to enumerate audiences; write an essay; retain a fact only because it appeared in research.
 
 **Compression pass:** For each sentence, identify the new fact. Delete or combine any sentence that repeats an adjacent fact. Remove background that does not change the problem, stakes, or scope. If the paragraph builds toward its point, move the point to the first sentence.
+
+**Relevance gate:** Include a fact in Problem only when it (1) describes the current gap or direct consequence, (2) concerns this exact workflow and integration, and (3) is necessary to understand why the work is needed. All three must be true.
+
+- File formats, mapping drafts, payment ownership, and funding models belong in Proposal or Open Questions.
+- Vendor response status belongs in Plan or Dependencies.
+- Pilot dates and launch windows belong in Strategy or Plan.
+- Metrics from another integration are omitted unless the same causal mechanism is proven and the comparison changes a requirement or measurable outcome.
 
 ## People and teams
 
@@ -182,7 +189,7 @@ Functional and non-functional requirements share one list. No rationale paragrap
 
 ## Anti-patterns (from review)
 
-- **Essay Problem** — More than two paragraphs, or covering every edge case instead of the core gap
+- **Essay Problem** — Adding a second paragraph without a separate direct harm, or covering every edge case instead of the core gap
 - **Robot Problem structure** — Subheaders, numbered blocks, or bold audience labels (**Operators**, **Borrowers**) inside the Problem opening
 - **References in the wrong place** — Citation lists under Problem or mid-doc instead of a single section at the bottom
 - **Local or repo links in References** — `briefing.md`, `decisions.md`, `canonical/`, `memory/`, or any path only the author can open
