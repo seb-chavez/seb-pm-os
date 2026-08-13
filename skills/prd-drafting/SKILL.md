@@ -33,15 +33,15 @@ Deadlines, Linear milestones, and roadmap labels are **planning context**. They 
 
 Put milestone dates in **Plan → Timeline** or a single Strategy sentence that names the **business consequence** of missing the date. Never list milestone names or dates as the Problem "why."
 
-### Problem: one or two paragraphs, not an essay
+### Problem: one paragraph by default
 
-The opening **Problem** section is one paragraph, two at most. It answers what is broken, who bears the cost, and why it matters in normal prose. Aim for 3 to 5 sentences total.
+The opening **Problem** section is **one paragraph by default**. It answers what is broken, who bears the cost, and why it matters in normal prose. Aim for 2 to 4 sentences. A second paragraph is exceptional and requires a separate, directly related current harm that cannot fit clearly in the first.
 
 **Do:**
 - Write the way you would explain this in Slack to a cross-functional lead.
 - Keep it short enough to read on a phone in 30 seconds.
-- Give each paragraph one job: first explain the gap and consequence; use a second only for scale, urgency, or a distinct unresolved risk.
 - Keep only facts that change the reader's understanding of the problem, stakes, or scope.
+- Stop after the core problem is clear. Do not keep writing because more research is available.
 
 **Do not:**
 - Use subheaders, numbered blocks, or bold audience labels (**Operators**, **Borrowers**, **Client**) inside Problem.
@@ -49,13 +49,42 @@ The opening **Problem** section is one paragraph, two at most. It answers what i
 - Write four paragraphs covering every failure mode and edge case.
 - Paste research structure (World Today → Gaps → Stakeholder Context).
 - Preserve every fact from the research bundle. A PRD is a synthesis, not an inventory.
+- Add a second paragraph for project status, open solution decisions, implementation readiness, milestones, or analogous workflows.
 
 | Wrong | Right |
 | ----- | ----- |
 | "**Operators:** manual cert chase. **Borrowers:** force-placed risk." | "Analysts spend hours chasing SWBC certificates by email, and borrowers sit exposed to unnecessary force-placed coverage." |
-| 600-word essay with labeled subsections | Two tight paragraphs on the core gap (second only for a distinct risk like dual-system double pay) |
+| Core gap followed by a paragraph on mappings, owners, review rates, and pilot timing | Stop after the core gap. Route those details to Proposal, Open Questions, Success, or Plan. |
 
-Strategy, Success, and scope stay in their template subsections below the opening Problem paragraphs. Only the opening Problem block follows the 1–2 paragraph rule.
+Strategy, Success, and scope stay in their template subsections below the opening Problem paragraph.
+
+### Relevance gate: no unwanted research bleed
+
+Before adding any fact to Problem, ask:
+
+1. Does this fact describe the current gap or a direct consequence of that gap?
+2. Is it about this exact workflow, customer, and integration?
+3. Would removing it make the reader misunderstand why this work is needed?
+
+Include the fact only if all three answers are yes.
+
+**Route instead of including:**
+
+| Fact | Destination |
+| ---- | ----------- |
+| File formats, mapping drafts, review ownership, funding model | Proposal or Open Questions |
+| Vendor response status, unanswered emails, readiness work | Plan or Dependencies |
+| Pilot dates, launch windows, milestone pressure | Strategy or Plan |
+| Exception or review rates from another integration | Usually omit. Use in Success or Risks only when the workflows are demonstrably comparable and the number sets a required product constraint. |
+| Engineering patterns or architecture choices | TDD; Proposal only when needed to define product scope |
+
+**Analog evidence rule:** Do not use another product, vendor, or integration as evidence of this problem merely because it is nearby in the research. An analog belongs only when the research proves the same causal mechanism and the comparison changes a requirement or measurable outcome. Otherwise omit it.
+
+For the SWBC example, this is the complete Problem:
+
+> When Carrington moves from Sagent to Valon OS, SWBC will stop receiving the loan and policy data it needs to monitor coverage and request premium payments. Without a replacement exchange, operators would bridge the gap manually while borrowers face missed payments, duplicate payments, or unnecessary lender-placed coverage.
+
+Stop there. File-set decisions, payment ownership, NatGen review rates, mapping status, and pilot timing do not explain the core problem.
 
 ### Compress the causal chain
 
@@ -155,7 +184,7 @@ Before moving to the next section, read the draft aloud. Cut or rewrite if any l
 3. Describes *how engineering should build* instead of *what must be true when done*.
 4. Lists facts without saying why a human cares.
 5. Sounds like a research summary rather than a PM making a case.
-6. Problem opening is more than two paragraphs or uses bold audience labels.
+6. Problem opening adds a second paragraph without a separate direct harm, or uses bold audience labels.
 7. References appear mid-doc, include local files, or cite `memory/` paths.
 8. The doc footer or body mentions repo instruction files.
 9. Two adjacent sentences explain the same cause, transition, or consequence.
@@ -171,7 +200,7 @@ Before moving to the next section, read the draft aloud. Cut or rewrite if any l
 
 1. **Research directory.** Ask once if not provided: path to the folder that contains `briefing.md` (e.g. `canonical/projects/disbursements-rejection-cutoff/`).
 2. **Deliverable.** Infer from the user message:
-   - **Outline** — Problem opening (1–2 paragraphs) + other Problem subsections + Proposal headings + stub tables; no full requirements list.
+   - **Outline** — Problem opening (one paragraph by default) + other Problem subsections + Proposal headings + stub tables; no full requirements list.
    - **Full PRD** — all template sections with substantive content.
    - **Update** — path to existing `prd*.md` or Notion URL; merge new decisions, do not rewrite from scratch unless asked.
 3. **Doc count.** If `decisions.md` or the user describes P0/P1 (or multiple milestones), confirm one PRD per doc before drafting Proposal.
@@ -209,7 +238,7 @@ Follow `memory/prd-writing.md` section order strictly:
 3. **Plan** (Open Questions last)
 4. **References** (workspace URLs only; very bottom)
 
-Within the Problem **opening**, write one or two paragraphs only — no subheaders, bold audience tags, or bullet lists. Other Problem subsections (Strategy, Success, scope) follow the template. Apply **Writing paradigm** first, then `memory/prd-writing.md` anti-patterns (no solutioning in Problem or Success metrics, no em dashes, `approx.` not `~` for Notion, no individual names in body prose).
+Within the Problem **opening**, write one paragraph by default with 2 to 4 sentences. Add a second only for a separate, directly related current harm. No subheaders, bold audience tags, or bullet lists. Other Problem subsections (Strategy, Success, scope) follow the template. Apply **Writing paradigm** first, then `memory/prd-writing.md` anti-patterns (no solutioning in Problem or Success metrics, no em dashes, `approx.` not `~` for Notion, no individual names in body prose).
 
 **One-line description** at the top of the file: fill in **last**, after Problem and Proposal are stable. It should state the user/business outcome in one plain sentence, not a milestone or integration name.
 
@@ -252,8 +281,8 @@ Self-check without re-researching. **Writing paradigm checks first:**
 
 | Check | Action |
 |-------|--------|
-| Problem opening > 2 paragraphs? | Cut to core gap; move edge cases to Risks or drop |
-| Problem opening > 5 sentences? | Compress repeated setup, transition, and consequence |
+| Problem opening uses a second paragraph? | Keep only if it states a separate direct harm; otherwise route or cut |
+| Problem opening > 4 sentences? | Compress repeated setup, transition, and consequence |
 | Adjacent sentences add no distinct fact? | Delete or combine them |
 | Research detail does not change stakes or scope? | Cut it |
 | Bold audience labels or bullet "who hurts" in Problem? | Rewrite as woven prose |
@@ -261,7 +290,9 @@ Self-check without re-researching. **Writing paradigm checks first:**
 | Local files, repo paths, or `memory/` in References or footer? | Remove; use workspace URLs from `sources.md` |
 | "Formatting: memory/..." or similar in doc? | Delete entirely |
 | "Why it matters" is mostly dates/milestones? | Rewrite around customer/ops/compliance pain; move dates to Plan |
-| Problem reads like research or Linear export? | Distill to plain workflow + stakes in 1–2 paragraphs |
+| Problem reads like research or Linear export? | Distill to the core gap and stakes in one paragraph |
+| Fact comes from another integration or vendor? | Omit unless the same causal mechanism is proven and it changes a requirement or outcome |
+| Fact is an open decision, status update, or milestone? | Route to Proposal, Open Questions, Dependencies, Strategy, or Plan |
 | Codebase/ticket jargon in Problem or requirements? | Translate to outcomes; link tickets in References only |
 | Requirement describes implementation? | Rewrite as testable user/business outcome |
 | ProdOps would ask "what does that mean?" | Simplify or cut |

@@ -17,7 +17,7 @@
 
 ## Problem
 
-*Author instruction (delete before share): One or two short paragraphs, 3 to 5 sentences total. State the gap and consequence once. Use a second paragraph only for scale, urgency, or a distinct risk. Remove any sentence that repeats an adjacent fact. No subheaders, bold audience labels, bullet lists, or solution.*
+*Author instruction (delete before share): One paragraph by default, 2 to 4 sentences. State the gap and direct consequence once, then stop. A second paragraph requires a separate current harm from this exact workflow. Route mappings, ownership decisions, analog metrics, status updates, and milestone timing elsewhere. No subheaders, bold audience labels, bullet lists, or solution.*
 
 *Author instruction (delete before share): Complete the subsections below before writing Proposal.*
 
