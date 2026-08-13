@@ -35,17 +35,20 @@ Put milestone dates in **Plan → Timeline** or a single Strategy sentence that 
 
 ### Problem: one or two paragraphs, not an essay
 
-The opening **Problem** section is one paragraph, two at most. It answers what is broken, who bears the cost, and why it matters — woven into normal prose.
+The opening **Problem** section is one paragraph, two at most. It answers what is broken, who bears the cost, and why it matters in normal prose. Aim for 3 to 5 sentences total.
 
 **Do:**
 - Write the way you would explain this in Slack to a cross-functional lead.
 - Keep it short enough to read on a phone in 30 seconds.
+- Give each paragraph one job: first explain the gap and consequence; use a second only for scale, urgency, or a distinct unresolved risk.
+- Keep only facts that change the reader's understanding of the problem, stakes, or scope.
 
 **Do not:**
 - Use subheaders, numbered blocks, or bold audience labels (**Operators**, **Borrowers**, **Client**) inside Problem.
 - Use bullet lists to enumerate who hurts.
 - Write four paragraphs covering every failure mode and edge case.
 - Paste research structure (World Today → Gaps → Stakeholder Context).
+- Preserve every fact from the research bundle. A PRD is a synthesis, not an inventory.
 
 | Wrong | Right |
 | ----- | ----- |
@@ -53,6 +56,30 @@ The opening **Problem** section is one paragraph, two at most. It answers what i
 | 600-word essay with labeled subsections | Two tight paragraphs on the core gap (second only for a distinct risk like dual-system double pay) |
 
 Strategy, Success, and scope stay in their template subsections below the opening Problem paragraphs. Only the opening Problem block follows the 1–2 paragraph rule.
+
+### Compress the causal chain
+
+State each fact once. A common failure is spreading one causal chain across several sentences:
+
+1. The current vendor sends data.
+2. Valon does not send it.
+3. The exchange will stop at cutover.
+4. The recipient will lose the data.
+5. Operations will compensate manually.
+
+That is one idea, not five. Collapse setup, change, and consequence:
+
+| Wordy | Compressed |
+| ----- | ---------- |
+| "Carrington relies on SWBC to track hazard and flood insurance. Sagent sends SWBC current loan and policy data today; Valon does not. When Carrington loans move to Valon OS, that exchange will stop unless Valon replaces it. SWBC would lose the information needed to track coverage and request premium payments." | "When Carrington moves from Sagent to Valon OS, SWBC will stop receiving the loan and policy data it needs to monitor coverage and request premium payments." |
+
+After drafting, run a **compression pass**:
+
+1. Underline the new fact in each sentence.
+2. Delete any sentence whose fact already appears in the sentence before or after it.
+3. Combine cause and consequence when both remain clear.
+4. Remove background facts that do not change the decision, stakes, or scope.
+5. Read the paragraph aloud. If it sounds like it is building toward a point, lead with the point.
 
 ### References: bottom of doc, workspace only
 
@@ -131,6 +158,8 @@ Before moving to the next section, read the draft aloud. Cut or rewrite if any l
 6. Problem opening is more than two paragraphs or uses bold audience labels.
 7. References appear mid-doc, include local files, or cite `memory/` paths.
 8. The doc footer or body mentions repo instruction files.
+9. Two adjacent sentences explain the same cause, transition, or consequence.
+10. A detail is present only because it appeared in the research bundle.
 
 ## When NOT to use
 
@@ -224,6 +253,9 @@ Self-check without re-researching. **Writing paradigm checks first:**
 | Check | Action |
 |-------|--------|
 | Problem opening > 2 paragraphs? | Cut to core gap; move edge cases to Risks or drop |
+| Problem opening > 5 sentences? | Compress repeated setup, transition, and consequence |
+| Adjacent sentences add no distinct fact? | Delete or combine them |
+| Research detail does not change stakes or scope? | Cut it |
 | Bold audience labels or bullet "who hurts" in Problem? | Rewrite as woven prose |
 | References under Problem or mid-doc? | Move to single section at bottom |
 | Local files, repo paths, or `memory/` in References or footer? | Remove; use workspace URLs from `sources.md` |

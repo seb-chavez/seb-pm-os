@@ -49,9 +49,9 @@ Deadlines and milestone dates are **planning context** (Plan → Timeline, or on
 
 **Goal:** A reader who never opens Linear can repeat the problem and its stakes after reading this section alone.
 
-**Length:** One paragraph, two at most. If it is longer, cut until it is not.
+**Length:** One paragraph, two at most; 3 to 5 sentences total. If it is longer, cut until it is not.
 
-**Content:** Weave together what is broken, who bears the cost, and why it matters now — in normal prose. Do not use subheaders, numbered blocks, bold audience labels (**Operators**, **Borrowers**), or bullet lists to spell out "who hurts." Say it the way you would in a Slack message to a cross-functional lead.
+**Content:** Weave together what is broken, who bears the cost, and why it matters now in normal prose. Give each paragraph one job. The first states the gap and consequence. Use a second only for scale, urgency, or a distinct unresolved risk. Do not use subheaders, numbered blocks, bold audience labels (**Operators**, **Borrowers**), or bullet lists to spell out "who hurts." Say it the way you would in a Slack message to a cross-functional lead.
 
 **Why it matters: wrong vs. right**
 
@@ -59,11 +59,14 @@ Deadlines and milestone dates are **planning context** (Plan → Timeline, or on
 | ----- | ----- |
 | "PRD Ready 2026-09-25, tech scoping 2026-10-30, launch 2027-04-01. Carrington go-live Q1 2027. SWBC is Q4 2026 must-have." | "Without carrier insurance data on these loans, escrow analysts manually chase certificates and miss force-placed coverage windows. Carrington onboarding adds approx. 40k loans where this gap becomes daily ops load." |
 | "**Operators:** manual cert chase. **Borrowers:** force-placed risk. **Client:** onboarding blocked." | "Analysts spend hours chasing SWBC certificates by email, borrowers sit exposed to unnecessary force-placed coverage, and Carrington onboarding cannot scale on manual work." |
+| "Sagent sends the data. Valon does not. The exchange will stop. SWBC will lose the data it needs." | "When Carrington moves from Sagent to Valon OS, SWBC will stop receiving the data it needs to monitor coverage and request payments." |
 | Four paragraphs covering every failure mode and edge case | One tight paragraph on the core gap; a second only if a distinct risk (e.g., dual-system double pay during migration) must be named |
 
-**Do:** Short sentences; sourced numbers when they clarify stakes (loan counts, manual hours, dollars at risk). Name the client correctly (subservicer vs. portfolio seller).
+**Do:** Short sentences; sourced numbers when they clarify stakes (loan counts, manual hours, dollars at risk). Name the client correctly (subservicer vs. portfolio seller). State each cause, transition, and consequence once.
 
-**Do not:** Propose solutions; recite project management metadata as the "why"; paste research structure verbatim; use contract names, adapter types, cron jobs, enum states, or ticket IDs in body prose; use bold labels or bullets to enumerate audiences; write an essay.
+**Do not:** Propose solutions; recite project management metadata as the "why"; paste research structure verbatim; use contract names, adapter types, cron jobs, enum states, or ticket IDs in body prose; use bold labels or bullets to enumerate audiences; write an essay; retain a fact only because it appeared in research.
+
+**Compression pass:** For each sentence, identify the new fact. Delete or combine any sentence that repeats an adjacent fact. Remove background that does not change the problem, stakes, or scope. If the paragraph builds toward its point, move the point to the first sentence.
 
 ## People and teams
 
