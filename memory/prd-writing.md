@@ -150,25 +150,25 @@ Do not split into separate "outcome" and "guardrail" tables.
 
 Requirements are **outcome-focused constraints** for engineering to design against. Not implementation recipes.
 
-**Format (every requirement line):**
+**Format (every requirement capability):**
 
-`[<priority>] **<requirement name>**: <requirement details>.`
+`### (<priority>) <capability name>`
 
-Example: `[P0] **Per-loan cancel in multi-loan batch**: Operator can cancel one loan in an approved multi-loan group without eng-op when within the agreed buffer window.`
+Prefer 3 to 8 complete capabilities over many one-line requirements. Each capability starts with one or two short paragraphs that define the outcome and workflow boundary. Add only the detail needed to make the product contract testable:
 
-- **Priority:** `[P0]`, `[P1]`, etc. in square brackets.
-- **Name:** bold, short label.
-- **Separator:** colon after the name. **No em dashes** in requirement lines.
-- **Details:** one testable outcome sentence; end with a period. Pass the **ops reader test**.
+- A table for required business fields, records, or entities.
+- Bullets for user actions, system exchanges, or information shown.
+- A numbered list for ordered statuses, decisions, or lifecycle stages.
+- A closing paragraph for validation, exceptions, duplicate prevention, audit history, or reconciliation.
 
 **Wrong vs. right**
 
 | Wrong | Right |
 | ----- | ----- |
-| `[P0] **SWBC adapter**: Implement SwbcIntegration on PropertyInsuranceIntegration per ESC-4961.` | `[P0] **Daily SWBC certificate feed**: Escrow receives updated hazard insurance certificates for SWBC-serviced loans without manual file upload.` |
-| `[P0] **Diff job**: Nightly cron diffs incoming feed against loan_escrow_insurance.` | `[P0] **Stale cert detection**: When carrier data changes, ops sees which loans need review before disbursement.` |
+| A capability named after an adapter, class, job, or ticket | A capability named after the product behavior, followed by required business data, workflow, and acceptance behavior |
+| Twenty lines that split one payment flow into isolated statements | One payment capability covering request, review, decision, disbursement, status, duplicate prevention, and exceptions |
 
-Functional and non-functional requirements share one list. No rationale paragraphs under each item. Pull technical facts from research to inform requirements; do not copy codebase vocabulary into requirement lines.
+Functional and non-functional constraints may share a capability when they govern the same workflow. Pull technical facts from research to inform requirements; do not copy codebase vocabulary or prescribe architecture.
 
 ## What are we not trying to solve?
 
@@ -210,7 +210,7 @@ Functional and non-functional requirements share one list. No rationale paragrap
 - Analyst-style metric names that need a glossary ("eligible completion rate" without saying eligible for what)
 - Stakeholder monologues ("Person A wants X, Person B blocked Y") — state the constraint, not the conversation
 - `~` for approximations in Notion-bound docs (use `approx.`; tildes render as strikethrough)
-- Em dashes in requirement lines (use `[P0] **Name**: details.` per **Requirements (Proposal)**)
+- Em dashes in requirement headings or prose
 
 ## After drafting
 

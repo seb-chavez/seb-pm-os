@@ -26,7 +26,7 @@ If `briefing.md` or `research-notes/` is missing, stop and run `/prd-research` f
 | **Problem → Not trying to solve** | `decisions.md` scope forks; `briefing.md` §4; explicit milestone boundary | Milestone scope in product terms |
 | **Proposal → How solve** | `decisions.md` **after PM resolves** chosen options; `briefing.md` §5 pointers only until decided | Brief approach narrative; sparing vendor/system names |
 | **Proposal → How it works** | `codebase.md`, `existing-tools.md`; link mocks if stakeholder-context names them | User/operator flows first; technical detail only where scope needs it |
-| **Requirements** | `codebase.md` (what exists), `regulatory.md` (must-haves), `decisions.md` | One outcome line each; **ops reader test**; no implementation recipes |
+| **Requirements** | `codebase.md` (what exists), `regulatory.md` (must-haves), `decisions.md` | A small set of rich capability sections with workflow, business data, lifecycle, and acceptance detail; **ops reader test**; no implementation recipes |
 | **Dependencies** | `stakeholder-context.md` | Teams, vendors, external systems OK here |
 | **Plan → Timeline** | `stakeholder-context.md`; Linear dates from research | **Home for milestone dates**; tie to consequence when helpful |
 | **Plan → Risks** | `bug-catalog.md` patterns, `briefing.md` §4 | Plain-language risk statements |

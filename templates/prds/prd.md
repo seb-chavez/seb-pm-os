@@ -94,15 +94,29 @@ This project is scoped to [outcome] before **[date]**. The following are explici
 
 ### Requirements
 
-*Each item is one testable statement. Functional and non-functional requirements share one list.*
+*Organize requirements into a small set of complete product capabilities. Each subsection should give engineering enough product detail to design the solution without prescribing code or architecture.*
 
-**Format:** `[<priority>] **<requirement name>**: <requirement details>.`
+### (P0) [Capability name]
 
-- Use a **colon** after the bold name, not an em dash. End each line with a period.
-- One sentence of acceptance criteria per item; no rationale paragraphs.
+*[One or two short paragraphs describing what the capability must do, where the workflow begins and ends, and what outcome proves it works.]*
 
-- [P0] **Requirement name**: Acceptance criterion in one sentence.
-- [P1] **Requirement name**: Acceptance criterion in one sentence.
+*Add only the structure the capability needs:*
+- *A table when the required business fields, records, or entities need explicit definitions.*
+- *Bullets when users or systems must take a defined set of actions or receive specific information.*
+- *A numbered list when statuses, decisions, or lifecycle stages must be distinct and ordered.*
+- *A final paragraph for validation, exceptions, audit history, or other acceptance behavior.*
+
+### (P1) [Capability name]
+
+*[Use the same structure. Prefer a few rich capability requirements over many one-line requirements.]*
+
+**Requirement guidance:**
+- State observable product behavior, required business data, workflow boundaries, and acceptance outcomes.
+- Include externally imposed formats, values, timing, or controls when they are confirmed product constraints.
+- Separate persistent records from request-specific or transaction-specific data.
+- Name the system of record when ownership is a product decision.
+- Do not specify internal classes, tables, jobs, APIs, or code structure.
+- Do not add detail only because it appeared in research. Every field, state, and action must affect scope or acceptance.
 
 **Out of Scope**
 *Features we are deferring within the engineering track (distinct from Problem "what we are not trying to solve").*

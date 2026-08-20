@@ -20,7 +20,7 @@ Write like a seasoned senior PM who can explain a messy domain to a smart non-en
 
 - **Problem:** human pain and business stakes. A reader who never opens Linear should understand what is broken and why we care.
 - **Proposal:** what we will deliver and how users/systems behave after. Light technical context only when it clarifies scope boundaries.
-- **Requirements:** outcomes and constraints engineering can design against. Not implementation recipes.
+- **Requirements:** a small set of complete product capabilities with enough workflow, data, lifecycle, and exception detail for engineering to design against. Not implementation recipes.
 
 ### Ground the "why" in pain, not schedules
 
@@ -162,18 +162,41 @@ Research bundles are technical. The Problem opening **translates** them into pro
 
 Engineering writes the TDD with implementation vocabulary. The PRD gives them constraints and acceptance outcomes.
 
-### Requirements are outcomes, not design
+### Requirements are complete capabilities, not fragments
 
-Format stays `[P0] **Name**: one testable outcome sentence.`
+Organize the section into a small set of cohesive capabilities. Prefer 3 to 8 rich requirements over dozens of one-line statements.
 
-Each requirement should pass the **ops reader test:** Could Escrow ProdOps read this line and know whether the shipped product meets the bar, without knowing our codebase?
+Use this heading format:
+
+`### (P0) <capability name>`
+
+Each capability may contain:
+
+1. **Outcome and boundary:** One or two short paragraphs explaining what the capability must do, where the workflow begins and ends, and what proves it works.
+2. **Required business data:** A compact table when fields, records, entities, or ownership must be explicit. Include the business meaning and whether each item exists, is new, or remains open when that distinction matters.
+3. **Actions and information:** Bullets for the information a user must review, actions they can take, or data a system must exchange.
+4. **Lifecycle:** A numbered list when statuses, decisions, or stages must be distinct and ordered.
+5. **Acceptance and exceptions:** A closing paragraph describing validation, duplicate prevention, failure behavior, follow-up, audit history, or reconciliation.
+
+Use only the structures the capability needs. Do not force every requirement to contain a table, bullets, and a lifecycle.
+
+Requirements should make these product decisions explicit when research supports them:
+
+- The system of record and ownership boundary.
+- Persistent records versus request-specific or transaction-specific data.
+- Required business fields and their meaning.
+- User-visible actions, decisions, and status transitions.
+- External formats, values, timing, or controls imposed by a vendor or regulator.
+- Failure, correction, monitoring, and audit behavior.
+
+Each capability must pass the **ops reader test:** Could Escrow ProdOps understand the workflow and determine whether the shipped product meets the bar without knowing our codebase?
 
 | Wrong | Right |
 | ----- | ----- |
-| `[P0] **SWBC adapter**: Implement SwbcIntegration on PropertyInsuranceIntegration per ESC-4961.` | `[P0] **Daily SWBC certificate feed**: Escrow receives updated hazard insurance certificates for SWBC-serviced loans without manual file upload.` |
-| `[P0] **Diff job**: Nightly cron diffs incoming feed against loan_escrow_insurance.` | `[P0] **Stale cert detection**: When carrier data changes, ops sees which loans need review before disbursement.` |
+| `### (P0) SWBC adapter` followed by class names, cron details, and ticket IDs | `### (P0) Exchange insurance updates` followed by the required business records, matching rules, accepted outcomes, and rejected-record behavior |
+| Twenty one-line requirements that split one payment flow into isolated fragments | One payment capability that keeps request, review, decision, disbursement, status, duplicate prevention, and exception handling together |
 
-Pull technical facts from research to **inform** requirements; do not **copy** them into requirement lines.
+Pull technical facts from research to **inform** requirements. Do not copy codebase vocabulary or prescribe internal architecture.
 
 ### Anti-slop checklist (apply while drafting, not only at end)
 
@@ -249,7 +272,7 @@ For each section, write tight prose a senior PM would actually ship (not bullet 
 ### Full PRD mode
 
 - **Strip author instructions:** Delete italic template guidance (including "Author instruction (delete before share)" blocks) from the published doc. Never ship `memory/` paths or repo references.
-- **Requirements:** `[P0]` / `[P1]` prefix; format `[P0] **Name**: one-sentence outcome.` Colon after name, period at end; no em dashes. **Ops reader test** on every line.
+- **Requirements:** Use `### (P0) Capability name` or `### (P1) Capability name`. Prefer 3 to 8 rich capability sections. Add paragraphs, tables, bullets, numbered lifecycle stages, and acceptance behavior only where they clarify the product contract. Apply the **ops reader test** to every capability.
 - **References:** Single section at the **bottom** of the doc. Workspace URLs only (Notion, Linear, Gong, Incident.io, Confluence, Figma). Never local files, repo paths, or `memory/` paths — including for local drafts.
 - **Regulatory requirements:** cite primary sources named in `research-notes/regulatory.md` in plain compliance language; do not invent thresholds not in research.
 - **Platform / infra:** absorb `research-notes/codebase.md` into behavioral requirements and brief Proposal narrative. Do not name contracts, adapters, crons, or tables unless reduced to user-visible behavior.
@@ -294,7 +317,9 @@ Self-check without re-researching. **Writing paradigm checks first:**
 | Fact comes from another integration or vendor? | Omit unless the same causal mechanism is proven and it changes a requirement or outcome |
 | Fact is an open decision, status update, or milestone? | Route to Proposal, Open Questions, Dependencies, Strategy, or Plan |
 | Codebase/ticket jargon in Problem or requirements? | Translate to outcomes; link tickets in References only |
-| Requirement describes implementation? | Rewrite as testable user/business outcome |
+| Requirement describes implementation? | Rewrite around observable workflow, business data, lifecycle, and acceptance behavior |
+| Requirements are numerous one-line fragments? | Merge related lines into a cohesive capability with one clear boundary |
+| Rich requirement lacks acceptance behavior? | Add the failure, exception, reconciliation, or completion condition needed to test it |
 | ProdOps would ask "what does that mean?" | Simplify or cut |
 | Solution language in Problem? | Move to Proposal |
 | Success metrics describe builds or code? | Rewrite as outcomes; no function names, states, or dashboards in measurement column |
