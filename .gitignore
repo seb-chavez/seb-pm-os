@@ -1,6 +1,9 @@
 .DS_Store
 *.backup.*
 
+# Root-level scratch files and directories created during one-off work
+/.tmp_*
+
 # Local MCP config (may contain API keys) — copy from .mcp.json.example
 .mcp.json
 
@@ -15,9 +18,9 @@
 /canonical/action-items.md
 
 # Sensitive data files (CSVs, notebooks may contain proprietary data)
-canonical/data/*.csv
-canonical/data/*.xlsx
-canonical/data/*.ipynb
-canonical/data/*.json
+/canonical/data/**/*.csv
+/canonical/data/**/*.xlsx
+/canonical/data/**/*.ipynb
+/canonical/data/**/*.json
 !canonical/data/README.md
 

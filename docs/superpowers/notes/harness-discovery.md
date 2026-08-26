@@ -3,6 +3,7 @@
 **Date:** 2026-06-05
 **Branch:** feat/harness-agnostic-pm-os
 **Purpose:** Empirically confirm (or record documented defaults for) the paths each harness uses for global instructions, skills, and MCP config — so `setup.sh` targets correct paths.
+**Status:** Historical implementation record. Use `setup.sh` and `scripts/verify-setup.sh` as the source of truth for current paths.
 
 ---
 
@@ -11,8 +12,8 @@
 | Harness | Instructions path | Skills path | MCP path | Verified? |
 |---------|-------------------|-------------|----------|-----------|
 | **Claude Code** | `~/.claude/CLAUDE.md` (symlink active) + `~/.claude/AGENTS.md` (will be added by new `setup.sh`) | `~/.claude/skills/<name>/` | `.mcp.json` at repo root (auto-discovered by Claude Code when inside the repo) | **Empirically verified** |
-| **Codex CLI** | `~/.codex/AGENTS.md` | `~/.codex/agents/skills/<name>/` | `~/.codex/config.toml` (`[mcp_servers.<name>]` tables) | Default — confirm on first use (Codex not installed) |
-| **Cursor** | Project rules: `.cursor/rules/<name>.mdc`; User/global rules: Cursor Settings UI (not file-symlinkable) | `~/.cursor/skills/<name>/` (user) + `.cursor/skills/<name>/` (project); IDE Agent chat: `/name`; auto-invoke from `description` | `~/.cursor/mcp.json` (same JSON schema as repo `.mcp.json`) | **Empirically verified** — `cursor-agent` CLI installed; MCP + skills symlinked by `setup.sh cursor` |
+| **Codex CLI** | `~/.codex/AGENTS.md` | `~/.codex/skills/<name>/` | `~/.codex/config.toml` (`[mcp_servers.<name>]` tables) | **Implemented and covered by `scripts/verify-setup.sh`** |
+| **Cursor** | `AGENTS.md` from the open repository; user rules in Cursor Settings | `~/.cursor/skills/<name>/` (user), `.cursor/skills/` (project), and the local plugin at `~/.cursor/plugins/local/seb-pm-os` | `~/.cursor/mcp.json` (same JSON schema as repo `.mcp.json`) | **Implemented and covered by `scripts/verify-setup.sh`** |
 
 ---
 
@@ -46,6 +47,8 @@ Note: After `setup.sh claude` runs (Task 9), these will be re-pointed to `harnes
 
 ### Step 2: Codex paths
 
+This section records the initial June 2026 investigation. The current installer uses `~/.codex/skills/<name>/`; `~/.codex/agents/skills/` is ignored.
+
 ```
 $ ls -la ~/.codex
 codex not installed — using documented defaults
@@ -57,9 +60,11 @@ Codex CLI is **not installed** on this machine. Recording documented defaults:
 - **Skills dir:** `~/.codex/agents/skills/<name>/`
 - **MCP + runtime config:** `~/.codex/config.toml` (`[mcp_servers.<name>]` tables, HTTP MCP via `url = "..."`)
 
-These defaults are sourced from the Codex CLI documentation and the reference monorepo pattern described in the design spec. Confirm empirically on first Codex install.
+These were the initial documented defaults. The implemented and verified paths are recorded in the summary table above.
 
 ### Step 3: Cursor paths
+
+The current installer also links `harness/cursor/plugin/` into `~/.cursor/plugins/local/seb-pm-os`. The plugin package is the source for Cursor CLI skill discovery.
 
 ```
 $ ls -la ~/.cursor
@@ -86,6 +91,6 @@ Confirmed paths for `setup.sh cursor`:
 
 1. **Claude (`setup.sh claude`):** Link `AGENTS.md` → `~/.claude/AGENTS.md` AND `harness/claude/CLAUDE.md` → `~/.claude/CLAUDE.md`. Both must be co-located so `@AGENTS.md` resolves. No changes needed from plan.
 
-2. **Codex (`setup.sh codex`):** Use documented defaults. Link `AGENTS.md` → `~/.codex/AGENTS.md`, `harness/codex/config.toml` → `~/.codex/config.toml`, skills → `~/.codex/agents/skills/<name>`. Confirm MCP format (HTTP `url =`) on first real Codex run — if Codex requires stdio `command =` instead of `url =`, update `harness/codex/config.toml`.
+2. **Codex (`setup.sh codex`):** Link `AGENTS.md` to `~/.codex/AGENTS.md`, `harness/codex/config.toml` to `~/.codex/config.toml`, and skills to `~/.codex/skills/<name>`.
 
-3. **Cursor (`setup.sh cursor`):** Link `.mcp.json` → `~/.cursor/mcp.json`. No global-rules symlink (use Settings UI). Project rule in `harness/cursor/rules/pm-os.mdc` applies when repo is open in Cursor. No changes needed from plan.
+3. **Cursor (`setup.sh cursor`):** Link `.mcp.json` to `~/.cursor/mcp.json`, portable skills to `~/.cursor/skills/`, project skills through `.cursor/skills`, and the local plugin package to `~/.cursor/plugins/local/seb-pm-os`. Repository instructions come from `AGENTS.md`; user rules remain in Cursor Settings.

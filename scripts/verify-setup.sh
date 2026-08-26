@@ -26,12 +26,15 @@ if find "$SCRATCH" -name "*.backup.*" | grep -q .; then
   fail "unexpected backup on re-run"
 fi
 
-# 4. Drift proof: editing through the codex skill path changes the repo file.
-probe="$SCRATCH/.codex/skills/meeting-prep/SKILL.md"
-marker="verify-marker-$$"
-printf '\n<!-- %s -->\n' "$marker" >> "$probe"
-grep -q "$marker" "$REPO/skills/meeting-prep/SKILL.md" || fail "drift: edit did not write through"
-# cleanup the probe line from the real file
-git -C "$REPO" checkout -- skills/meeting-prep/SKILL.md
+# 4. Drift proof: creating a file through the codex skill path writes into the repo.
+# Use a unique throwaway file so verification never overwrites an existing local edit.
+marker=".verify-marker-$$"
+probe="$SCRATCH/.codex/skills/meeting-prep/$marker"
+repo_marker="$REPO/skills/meeting-prep/$marker"
+trap 'rm -f "$repo_marker"' EXIT
+printf 'verify\n' > "$probe"
+[ -f "$repo_marker" ] || fail "drift: file did not write through"
+rm -f "$repo_marker"
+trap - EXIT
 
 echo "PASS: all verification checks"
